@@ -3,7 +3,7 @@ const env_port = process.env.PORT || '3000';
 
 var config = {
   development: {
-      url: 'http://my.site.com', //url to be used in link generation
+      url: 'localhost:3000', //url to be used in link generation
       db: {
           host:   '127.0.0.1',
           port:   '27017',
