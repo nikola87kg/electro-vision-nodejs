@@ -9,7 +9,6 @@ var config = {
           port:   '27017',
           name:     'electrovision_development',
           options: {
-            useMongoClient: true,
             poolSize: 5
           }
       },
@@ -25,7 +24,6 @@ var config = {
           port: '27017',
           name:   'electrovision',
           options: {
-            useMongoClient: true,
             poolSize: 5
           }
       },

@@ -1,6 +1,6 @@
 /* CONFIG */
 const env = process.env.NODE_ENV || 'development';
-const config = require('./config/server-config')[env];
+const config = require('./backend/config/server-config')[env];
 
 /* EXPRESS */
 const express = require('express');
@@ -24,7 +24,7 @@ mongoose.connect(url, urlOptions);
 
 /* FRONTEND DIST */
 const path = require('path');
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist', 'electro-vision')));
 
 /* MIDDLEWARE */
 const bodyParser = require('body-parser');
@@ -61,5 +61,5 @@ const apiDefault = require('./backend/routes/apiDefault');
 app.use('/api', apiDefault);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+  res.sendFile(path.join(__dirname, 'dist/electro-vision/index.html'));
 });

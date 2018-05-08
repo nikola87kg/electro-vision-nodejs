@@ -6,24 +6,28 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 /* 3rd party modules */
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 /* App modules */
 import { AppRoutingModule } from './app-routing.module';
 
 /* App components */
 import { AppComponent } from './app.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 /* App Services */
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    CarouselModule,
     AppRoutingModule
   ],
   providers: [],

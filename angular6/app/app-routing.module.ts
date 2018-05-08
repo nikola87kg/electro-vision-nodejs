@@ -1,7 +1,15 @@
+/* Core modules */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+/* App components */
+import { HomepageComponent } from './homepage/homepage.component';
+
+const routes: Routes = [
+  { path: 'pocetna',  component: HomepageComponent },
+  { path: '', redirectTo: '/pocetna', pathMatch: 'full' },
+  { path: '**', component: HomepageComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

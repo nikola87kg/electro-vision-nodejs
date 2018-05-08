@@ -6,6 +6,9 @@
 # dependencies
 /node_modules
 
+# mongo
+/mongo-db
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

@@ -2,11 +2,9 @@
   "name": "electro-vision",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint"
+    "angular": "ng build --watch",
+    "node": "nodemon --inspect server.js",
+    "mongo": "md mongo-db & \"C:/Program Files/MongoDb/Server/3.6/bin/mongod.exe\" --dbpath mongo-db"
   },
   "private": true,
   "dependencies": {
@@ -21,11 +19,16 @@
     "@angular/router": "^6.0.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "errorhandler": "^1.5.0",
     "express": "^4.16.3",
+    "font-awesome": "^4.7.0",
     "mongoose": "^5.0.17",
     "morgan": "^1.9.0",
+    "multer": "^1.3.0",
+    "ngx-bootstrap": "^2.0.5",
+    "nodemon": "^1.17.4",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
