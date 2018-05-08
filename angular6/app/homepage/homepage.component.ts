@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 /* Pixelarium */
+import { BrandsService } from '../_services/brands.service';
 
 
 @Component({
@@ -12,27 +13,28 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class HomepageComponent implements OnInit {
 
-  brandList = [];
+  brandList: any = [];
 
   constructor(
+    private brandService: BrandsService,
     private router: Router
   ) { }
 
 
   ngOnInit() {
-    // this.getBrands();
+    this.getBrands();
   }
 
-  // /* Get brand */
-  // getBrands() {
-  //   this.brandService.get()
-  //     .subscribe(
-  //     response => this.brandList = response.object
-  //     );
-  // }
+  /* Get brand */
+  getBrands() {
+    this.brandService.get()
+      .subscribe(
+      response => this.brandList = response
+      );
+  }
 
-  // /* Navigate to Brand */
-  // goToBrand(slug) {
-  //   this.router.navigate(['/brendovi/' + slug]);
-  // }
+  /* Navigate to Brand */
+  goToBrand(slug) {
+    this.router.navigate(['/brendovi/' + slug]);
+  }
 }
