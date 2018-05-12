@@ -1,13 +1,56 @@
-h1 {
-    text-align: center;
-    margin: 20px;
-}
+@import "angular6/app/partials/_variables.scss";
 
 nav {
-    margin: 40px 10px;
-    text-align: center;
-    a {
-        margin-left: 0;
-        border-radius:0;
+    position: fixed;
+    background: $primary-color;
+    height: 100vh;
+    left:0;
+    top:0;
+    z-index: 100;
+    margin: 0;
+    padding: 10px 0;
+    border: 2px solid $primary-color;
+    .admin-menu {
+      color: white;
+      margin: 10px 0;
+      padding: 0 10px;
+      transition: width 0.1s ease-in-out;
+      i {
+        cursor: pointer;
+        display: inline-block;
+        text-align: right;
+        width: 30px;
+        padding-right: 10px;
+        &:hover {
+          color: darkgray;
+        }
+      }
     }
+    a {
+        display: block;
+        margin: 0;
+        padding: 10px;
+        border-radius:0;
+        text-decoration: none;
+        outline: none;
+        &:focus {
+          outline: none;
+        }
+        &.active {
+          outline: none;
+          background: white;
+          color: $primary-color;
+        }
+        &:hover {
+          font-weight: bold;
+        }
+        i {
+          display: inline-block;
+          width: 30px;
+        }
+    }
+}
+
+.route-wrapper {
+  transition: margin 0.1s ease-in-out;
 }

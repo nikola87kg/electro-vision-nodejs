@@ -59,28 +59,16 @@ select {
   margin-left: 5px
 }
 
-.body-content {
+.shorten-body-content {
   min-height: calc(100vh - 91px);
 }
 
-/* ADMIN  */
 
-nav#admin-navigator {
-  margin: 5px auto;
-  a {
-    background: $primary-color;
-    color: white;
-    border-radius: 5px;
-    margin: 10px 1%;
-    width: 200px;
-    max-width: 22%;
-    padding: 10px 0;
-    &:hover, &:focus {
-        background: lighten($primary-color, 10);
-        box-shadow:0 0 0 2px  $primary-color;
-    }
-  }
+.full-body-content {
+  min-height: 100vh;
 }
+
+/* ADMIN  */
 
 h2.page-title {
   text-align: center;

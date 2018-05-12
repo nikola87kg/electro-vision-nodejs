@@ -9,6 +9,12 @@ export class AdminComponent implements OnInit {
 
   constructor() { }
 
+  wideMenu = true;
+
+  togleMenu() {
+    this.wideMenu = !this.wideMenu;
+  }
+
   ngOnInit() {
   }
 

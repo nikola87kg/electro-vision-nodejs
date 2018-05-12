@@ -1,9 +1,39 @@
-<nav id="admin-navigator">
-  <a class="btn" routerLink="/admin/proizvodi"> Proizvodi </a>
-  <a class="btn" routerLink="/admin/grupe"> Grupe </a>
-  <a class="btn" routerLink="/admin/kategorije"> Kategorije </a>
-  <a class="btn" routerLink="/admin/brendovi"> Brendovi </a>
+<nav id="admin-navigator" [ngStyle]="{
+  'text-align': wideMenu ? 'left' : 'center'
+}">
+  <div class="admin-menu"
+      [ngStyle]="{
+        'width': wideMenu ? '200px' : '30px',
+        'text-align': wideMenu ? 'left' : 'center'
+      }">
+    <span *ngIf="wideMenu" >Meni</span>
+    <i *ngIf="wideMenu" (click)="togleMenu()"
+        class="fa fa-angle-double-left float-right" aria-hidden="true"></i>
+    <i *ngIf="!wideMenu" (click)="togleMenu()"
+        class="fa fa-angle-double-right" aria-hidden="true"></i>
+  </div>
+  <a routerLink="/admin/proizvodi" routerLinkActive="active">
+    <i class="fa fa-product-hunt" aria-hidden="true"></i>
+    <span *ngIf="wideMenu" >Proizvodi</span>
+  </a>
+  <a routerLink="/admin/grupe" routerLinkActive="active">
+    <i class="fa fa-users" aria-hidden="true"></i>
+    <span *ngIf="wideMenu" >Grupe</span>
+
+  </a>
+  <a routerLink="/admin/kategorije" routerLinkActive="active">
+    <i class="fa fa-folder" aria-hidden="true"></i>
+    <span *ngIf="wideMenu" >Kategorije</span>
+
+  </a>
+  <a routerLink="/admin/brendovi" routerLinkActive="active">
+    <i class="fa fa-telegram" aria-hidden="true"></i>
+    <span *ngIf="wideMenu" >Brendovi</span>
+
+    </a>
 </nav>
 
 <!-- Admin routes placeholder -->
-<router-outlet></router-outlet>
+<div class="route-wrapper" [ngStyle]="{'margin-left': wideMenu ? '200px' : '30px'}">
+    <router-outlet></router-outlet>
+</div>
