@@ -59,12 +59,16 @@ select {
   margin-left: 5px
 }
 
-/* ADMIN - navigation  */
+.body-content {
+  min-height: calc(100vh - 91px);
+}
+
+/* ADMIN  */
 
 nav#admin-navigator {
   margin: 5px auto;
   a {
-    background: rgb(128, 21, 21);
+    background: $primary-color;
     color: white;
     border-radius: 5px;
     margin: 10px 1%;
@@ -72,13 +76,11 @@ nav#admin-navigator {
     max-width: 22%;
     padding: 10px 0;
     &:hover, &:focus {
-        background: rgb(199, 37, 37) ;
-        box-shadow:0 0 0 2px  rgb(128, 21, 21);
+        background: lighten($primary-color, 10);
+        box-shadow:0 0 0 2px  $primary-color;
     }
   }
 }
-
-/* ADMIN - title  */
 
 h2.page-title {
   text-align: center;
@@ -89,8 +91,6 @@ h2.page-title {
   padding: 15px;
   font-weight: bold;
 }
-
-/* ADMIN - filters  */
 
 .filter-wrapper {
   width: calc(100% - 60px);
@@ -104,8 +104,6 @@ h2.page-title {
     margin-right: 10px;
   }
 }
-
-/* ADMIN - table  */
 
 .table-wrapper {
   width: calc(100vw - 60px);
@@ -171,7 +169,7 @@ table.table {
   }
 }
 
-/* Dialog background */
+/* Dialog */
 div.dialog-wrapper.fixed {
   position: fixed;
   top: 0;
@@ -181,7 +179,6 @@ div.dialog-wrapper.fixed {
   background: rgba(0, 0, 0, 0.651);
 }
 
-/* Dialog form */
 form.form-dialog {
   text-align: center;
   width: 500px;
@@ -265,56 +262,3 @@ form.form-dialog {
     }
   }
 }
-
-
-/* HOME CONTENT */
-
-h3.home-headline {
-  padding: 10px 20px;
-  color: $primary-color;
-  margin-top: 30px;
-  margin-bottom: 10px;
-  border-bottom: 2px solid $primary-color;
-}
-
-.home-section {
-  height: 270px;
-  padding: 0 20px;
-  margin: 20px;
-}
-
-.home-product-wrapper {
-  padding: 10px 20px;
-  div.home-product {
-    background: rgb(255, 255, 255);
-    border: 1px solid rgb(219, 219, 219);
-    height: 170px;
-    position: relative;
-    div.product-image {
-      height: calc(100%);
-      width: calc(100%);
-      margin: 0;
-    }
-    div.product-name {
-      display: none;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 40px;
-      color: white;
-      background: rgba(92, 143, 128, 0.856);
-      padding: 5px 20px;
-      font-size: 18px;
-      text-align: center;
-    }
-    &:hover {
-      box-shadow: 1px 1px 20px 1px gray;
-      cursor: pointer;
-      div.product-name {
-        display: block;
-      }
-    }
-  }
-}
-

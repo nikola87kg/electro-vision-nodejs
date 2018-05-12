@@ -20,12 +20,6 @@ import { FooterComponent } from './partials/footer/footer.component';
 /* App Services */
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomepageComponent,
-    HeaderComponent,
-    FooterComponent
-  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,7 +28,12 @@ import { FooterComponent } from './partials/footer/footer.component';
     CarouselModule,
     AppRoutingModule
   ],
-  providers: [],
+  declarations: [
+    AppComponent,
+    HomepageComponent,
+    HeaderComponent,
+    FooterComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

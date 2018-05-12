@@ -6,9 +6,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 
 const routes: Routes = [
-  { path: 'pocetna',  component: HomepageComponent },
-  { path: '', redirectTo: '/pocetna', pathMatch: 'full' },
-  { path: '**', component: HomepageComponent }
+  { path: 'pocetna', component: HomepageComponent },
+  { path: 'admin',   loadChildren: './admin/admin.module#AdminModule' },
+  { path: '',        redirectTo: '/pocetna', pathMatch: 'full' },
+  { path: '**',      component: HomepageComponent }
 ];
 
 @NgModule({

@@ -1,0 +1,161 @@
+<!-- DIALOG -->
+<div class="fixed dialog-wrapper" *ngIf="dialogIsOpen">
+  <form class="form-dialog" #products="ngForm">
+    <!-- header -->
+    <div class="dialog-header">
+      <span class="dialog-header-title"> {{dialogTitle}} </span>
+      <button type="button" class="cancel-x btn btn-link" (click)="closeDialog()">
+        <i class="fa fa-times "></i>
+      </button>
+    </div>
+    <br>
+    <!-- inputs -->
+    <label for="">Proizvod
+      <input [(ngModel)]="product.name" autofocus
+              placeholder="Super kamera" name="name"
+              type="text" autocomplete="off" required>
+    </label>
+    <label for="">Link
+      <input [(ngModel)]="product.slug" placeholder="kamere-i-alarmi"
+      name="slug" type="text" autocomplete="off" required>
+    </label>
+    <label for="">Opis
+      <input [(ngModel)]="product.description" placeholder="Opis proizvoda"
+            autocomplete="off"  name="description" type="text">
+    </label>
+    <label for="">Kategorija
+      <select [(ngModel)]="product.category._id" name="category" type="text" required>
+        <option disabled value="">Izaberi kategoriju</option>
+        <option *ngFor="let category of categoryList" value="{{category._id}}">{{category.name}}</option>
+      </select>
+    </label>
+    <label for="">Grupa
+      <select [(ngModel)]="product.group._id" name="group" type="text" required>
+        <option disabled value="">Izaberi grupu</option>
+        <option *ngFor="let group of groupList" value="{{group._id}}">{{group.name}}</option>
+      </select>
+    </label>
+    <label for="">Brend
+      <select [(ngModel)]="product.brand._id" name="brand" type="text" required>
+        <option disabled value="">Izaberi brend</option>
+        <option *ngFor="let brand of brandList" value="{{brand._id}}">{{brand.name}}</option>
+      </select>
+    </label>
+    <label for="image-loader" style="min-height:50px">Slika
+      <div class="input" class="image-wrapper">
+          <span *ngIf="imageholder.files[0]">{{imageholder.files[0].name}}</span>
+          <span *ngIf="!imageholder.files[0]">Izaberi sliku</span>
+          <input id="image-loader" #imageholder  ngFileSelect
+                 (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                 type="file" name="image" style="display:none">
+      </div>
+    </label>
+    <br>
+    <br>
+    <!-- dialog footer -->
+    <div class="dialog-footer">
+      <button type="button" (click)="deleteProduct(product._id, currentIndex)" class="btn btn-danger" *ngIf="dialogIsEditing">
+        <i class="fa fa-trash"></i>
+        Briši
+      </button>
+      <button type="button" (click)="closeDialog()" class="btn  btn-info">
+        <i class="fa fa-ban"></i>
+        Odustani
+      </button>
+      <button type="submit" [disabled]="!products.form.valid" class="btn btn-success"
+      (click)="startUpload(product.slug); postProduct(product)" *ngIf="!dialogIsEditing">
+        <i class="fa fa-check"></i>
+        Snimi
+      </button>
+      <button type="submit" [disabled]="!products.form.valid" class="btn btn-success" (click)="putProduct(product)" *ngIf="dialogIsEditing">
+        <i class="fa fa-check"></i>
+        Ažuriraj
+      </button>
+    </div>
+  </form>
+</div>
+
+
+<!-- TITLE  -->
+<h2 class="page-title"> LISTA PROIZVODA
+    <button class="btn btn-warning" style="float: right;" (click)=" brandFilter.value = '';
+                        groupFilter.value = '';
+                        categoryFilter.value = '';
+                        getProducts();">
+      <i class="fa fa-refresh"></i>
+    </button>
+</h2>
+
+
+<!-- TABLE -->
+<div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Br.</th>
+        <th>
+          <button (click)="openDialog(false)" class="btn btn-success btn-plus" title="Dodaj novi proizvod">
+            <i class="fa fa-plus"></i>
+          </button>
+        </th>
+        <th>Proizvod
+        </th>
+        <th>Opis
+        </th>
+        <th>
+          <select #categoryFilter class="form-control inline-element"
+          (change)="groupFilter.value = ''; getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)"
+          >
+            <option selected value="">Sve kategorije</option>
+            <option *ngFor="let category of categoryList" value="{{category._id}}">{{category.name}}</option>
+          </select>
+        </th>
+        <th>
+          <select #groupFilter
+          (change)="categoryFilter.value = ''; getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)" class="form-control inline-element" >
+            <option selected value="">Sve grupe</option>
+            <option *ngFor="let group of groupList" value="{{group._id}}">{{group.name}}</option>
+          </select>
+        </th>
+        <th>
+          <select #brandFilter
+          (change)="getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)" class="form-control inline-element">
+            <option selected value="">Svi brendovi</option>
+            <option *ngFor="let brand of brandList" value="{{brand._id}}">{{brand.name}}</option>
+          </select>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Product Loop -->
+      <tr *ngFor="let singleProduct of productList; let i = index">
+        <td class="counter-field"> {{i + 1}}.</td>
+        <td class="button-field">
+          <button class="btn btn-primary btn-plus" (click)="openDialog(true, singleProduct, i)" title="Izmeni proizvod">
+            <i class="fa fa-edit"></i>
+          </button>
+        </td>
+        <td class="main-field">
+          <img src="{{singleProduct.image}}" alt="{{singleProduct.image}}"
+                width="50" height="50">
+          <strong title="Link: {{singleProduct.slug}}"> {{singleProduct.name}} </strong>
+        </td>
+        <td> {{singleProduct.description}}</td>
+        <td> {{singleProduct.category.name}}</td>
+        <td> {{singleProduct.group.name}}</td>
+        <td> {{singleProduct.brand.name}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="100%">
+          Ukupno rezultata:
+          <span *ngIf="productList">
+            {{productList.length || 0}}
+          </span>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+

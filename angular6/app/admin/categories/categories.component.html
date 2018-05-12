@@ -1,0 +1,92 @@
+<!-- DIALOG -->
+<div class="fixed dialog-wrapper" *ngIf="dialogIsOpen">
+  <form class="form-dialog" #categories="ngForm">
+    <!-- header -->
+    <div class="dialog-header">
+      <span class="dialog-header-title"> {{dialogTitle}}  </span>
+      <button type="button"  class="cancel-x btn btn-link" (click)="closeDialog()">
+        <i class="fa fa-times "></i>
+      </button>
+    </div>
+    <br>
+    <!-- inputs -->
+    <label for="">Kategorija
+      <input [(ngModel)]="category.name" autofocus placeholder="Naziv kategorije" name="name" type="text" required>
+    </label>
+    <label for="">Link
+      <input [(ngModel)]="category.slug" placeholder="naziv-kategorije" name="slug" type="text" required>
+    </label>
+    <label for="">Opis
+      <input [(ngModel)]="category.description" placeholder="Opis kategorije" name="description" type="text">
+    </label>
+    <br>
+    <br>
+    <!-- footer -->
+    <div class="dialog-footer">
+      <button type="button" (click)="deleteCategory(category._id, currentIndex)" class="btn btn-danger" *ngIf="dialogIsEditing">
+        <i class="fa fa-trash"></i>
+        Briši
+      </button>
+      <button type="button" (click)="closeDialog()" class="btn btn-info">
+        <i class="fa fa-ban"></i>
+        Odustani
+      </button>
+      <button type="submit" [disabled]="!categories.valid" class="btn btn-success" (click)="postCategory(category)" *ngIf="!dialogIsEditing">
+        <i class="fa fa-check"></i>
+        Snimi
+      </button>
+      <button type="submit" [disabled]="!categories.valid" class="btn btn-success" (click)="putCategory(category)" *ngIf="dialogIsEditing">
+        <i class="fa fa-check"></i>
+        Ažuriraj
+      </button>
+    </div>
+  </form>
+</div>
+
+
+<!-- Title  -->
+<h2 class="page-title"> LISTA KATEGORIJA </h2>
+
+
+<!-- Table -->
+<div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Br.</th>
+        <th>
+          <button (click)="openDialog(false)" class="btn btn-success btn-plus" title="Dodaj novu kategoriju">
+            <i class="fa fa-plus"></i>
+          </button>
+        </th>
+        <th>Kategorija</th>
+        <th>Link</th>
+        <th>Opis</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Category Loop -->
+      <tr *ngFor="let singleCategory of categoryList; let i = index">
+        <td class="counter-field">{{i + 1}}. </td>
+        <td class="button-field">
+          <button class="btn btn-primary btn-plus" (click)="openDialog(true, singleCategory, i)" title="Izmeni kategoriju">
+            <i class="fa fa-edit"></i>
+          </button>
+        </td>
+        <td class="main-field">
+          <strong title="Opis: {{singleCategory.description}}
+            Link: {{singleCategory.slug}}"> {{singleCategory.name}} </strong>
+        </td>
+        <td> {{singleCategory.slug}} </td>
+        <td> {{singleCategory.description}} </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="100%">
+          Ukupno rezultata: {{categoryList.length || 0}}
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
