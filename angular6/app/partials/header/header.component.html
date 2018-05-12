@@ -1,0 +1,50 @@
+<!-- Space for fixed header -->
+<div class="header-space"></div>
+
+<!-- HEADER -->
+<header class="header">
+
+    <!-- 1. Logo -->
+    <a class="logo" routerLink="/">
+        <span>Electro</span>
+        <span>Vision</span>
+    </a>
+
+    <!-- 2. Search bar -->
+    <div class="searchbox">
+        <i class="fa fa-search" (click)="showResults()"></i>
+        <i class="fa fa-times" (click)="clearSearch(); hideResults()"></i>
+        <input class="search-field" [(ngModel)]="searchInput" placeholder="Pretraga..." #search (keyup.enter)="goToProducts(search.value)"
+            (keyup.escape)="hideResults()" (keyup.backspace)="showResults()" (keypress)="showResults()" (focus)="showResults()">
+        <div class="search-results" *ngIf="this.showResult">
+            <p *ngFor="let result of resultsSorted" (click)="navigator(result.slug); hideResults()">
+                <span *ngIf="i < 10">
+                    {{result.name}}
+                </span>
+            </p>
+            <p class="all-products" (click)="goToProducts(search.value)">
+                <span>
+                    Vidi sve proizvode...
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <!-- 3. Social icons -->
+    <div class="header-icons">
+        <a class="facebook">
+            <img src="assets\icons\facebook.png" title="ElectroVision na Facebooku">
+        </a>
+        <a class="instagram">
+            <img src="assets\icons\instagram.png" title="ElectroVision na Instragramu">
+        </a>
+        <a class="youtube">
+            <img src="assets\icons\youtube.png" title="ElectroVision na Youtube">
+        </a>
+        <a class="kp">
+            <img src="assets\icons\kp.png" title="ElectroVision na KupujemProdajem">
+        </a>
+    </div>
+
+
+</header>

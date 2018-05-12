@@ -1,0 +1,133 @@
+$primary-color: rgb(163, 10, 10);
+$secondary-color: rgb(69, 85, 102);
+$header-height: 50px;
+
+.header-space {
+  height: $header-height;
+}
+
+header {
+  padding: 5px 40px;
+  font-size: 20px;
+  background: white;
+  border-bottom: 2px solid $primary-color;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: 10;
+  height: $header-height;
+}
+
+#main-logo {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.logo {
+  float: left;
+  font-weight: bold;
+  font-size: 25px;
+  text-decoration: none;
+  span:first-of-type {
+    color: $secondary-color;
+  }
+  span:last-of-type {
+    color: $primary-color;
+  }
+}
+
+.header-icons {
+  float: right;
+  margin-top: 5px;
+  margin-right: 10px;
+  line-height: 16px;
+  color: rgb(117, 117, 117);
+  cursor: pointer;
+  a {
+    margin: 0 5px;
+    padding: 5px;
+    background: transparent;
+    display: inline-block;
+    img {
+      width: auto;
+      height:20px;
+      &:hover {
+        filter: grayscale(1);
+      }
+    }
+  }
+}
+
+a {
+  font-size: 14px;
+  margin-left: 20px;
+  color: $primary-color;
+}
+
+.search-field {
+  width: 100%;
+  margin: 0;
+  padding: 12px 30px;
+  font-size: 13px;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 1px 1px #c7c7c7;
+  border: 1px solid #c7c7c7;
+  &:focus {
+    box-shadow: 0 1px 1px #c7c7c7;
+    outline: 0;
+  }
+}
+
+.search-results {
+  position: absolute;
+  display: block;
+  border: 1px solid #c7c7c7;
+  left: 0;
+  right: 0;
+  top: 30px;
+  padding: 0;
+  p {
+    background: white;
+    font-size: 14px;
+    margin: 0;
+    cursor: pointer;
+    padding-left: 30px;
+    color: black;
+    span {
+      display: block;
+      padding: 5px 0;
+    }
+    &:hover,
+    &:focus {
+      background: rgb(226, 226, 226);
+      font-weight: bold;
+    }
+    &.all-products {
+      background: $secondary-color;
+      color: white;
+      font-weight: normal;
+    }
+  }
+}
+
+.searchbox {
+  width: 300px;
+  float: right;
+  position: relative;
+  .fa-search {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    font-size: 13px;
+    color: $primary-color;
+  }
+  .fa-times {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 13px;
+    color: $primary-color;
+  }
+}

@@ -1,0 +1,16 @@
+@import "angular6/app/partials/_variables.scss";
+
+footer {
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  background: $third-color;
+  color: white;
+  animation: footerBackground 4s linear infinite;
+}
+
+@keyframes footerBackground {
+  50% {
+    background: darken($third-color, 10);
+  }
+}

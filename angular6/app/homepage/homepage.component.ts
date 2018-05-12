@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 /* Pixelarium */
-import { BrandsService } from '../_services/brands.service';
+import { BrandsService } from 'angular6/app/_services/brands.service';
 
 
 @Component({

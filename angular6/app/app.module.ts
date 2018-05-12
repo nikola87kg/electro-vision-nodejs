@@ -14,13 +14,17 @@ import { AppRoutingModule } from './app-routing.module';
 /* App components */
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { HeaderComponent } from './partials/header/header.component';
+import { FooterComponent } from './partials/footer/footer.component';
 
 /* App Services */
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomepageComponent
+    HomepageComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

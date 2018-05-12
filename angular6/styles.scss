@@ -49,6 +49,15 @@ select {
   width: 200px;
 }
 
+/* Common classes */
+
+.mr5 {
+  margin-right: 5px
+}
+
+.ml5 {
+  margin-left: 5px
+}
 
 /* ADMIN - navigation  */
 
@@ -309,13 +318,3 @@ h3.home-headline {
   }
 }
 
-
-/* FOOTER */
-
-footer {
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-  background: $primary-color;
-  color: white;
-}
