@@ -1,39 +1,42 @@
 <nav id="admin-navigator" [ngStyle]="{
   'text-align': wideMenu ? 'left' : 'center'
 }">
-  <div class="admin-menu"
-      [ngStyle]="{
+  <div class="admin-menu" [ngStyle]="{
         'width': wideMenu ? '200px' : '30px',
         'text-align': wideMenu ? 'left' : 'center'
       }">
-    <span *ngIf="wideMenu" >Meni</span>
-    <i *ngIf="wideMenu" (click)="togleMenu()"
-        class="fa fa-angle-double-left float-right" aria-hidden="true"></i>
-    <i *ngIf="!wideMenu" (click)="togleMenu()"
-        class="fa fa-angle-double-right" aria-hidden="true"></i>
+    <span *ngIf="wideMenu">Admin panel</span>
+    <i *ngIf="wideMenu" (click)="togleMenu()" class="fa fa-angle-double-left float-right" aria-hidden="true"></i>
+    <i *ngIf="!wideMenu" (click)="togleMenu()" class="fa fa-angle-double-right" aria-hidden="true"></i>
   </div>
+  <a routerLink="/admin/pregled" routerLinkActive="active">
+    <i class="fa fa-th-large" aria-hidden="true"></i>
+    <span *ngIf="wideMenu">Pregled</span>
+  </a>
   <a routerLink="/admin/proizvodi" routerLinkActive="active">
     <i class="fa fa-product-hunt" aria-hidden="true"></i>
-    <span *ngIf="wideMenu" >Proizvodi</span>
+    <span *ngIf="wideMenu">Proizvodi</span>
   </a>
   <a routerLink="/admin/grupe" routerLinkActive="active">
     <i class="fa fa-users" aria-hidden="true"></i>
-    <span *ngIf="wideMenu" >Grupe</span>
-
+    <span *ngIf="wideMenu">Grupe</span>
   </a>
   <a routerLink="/admin/kategorije" routerLinkActive="active">
     <i class="fa fa-folder" aria-hidden="true"></i>
-    <span *ngIf="wideMenu" >Kategorije</span>
+    <span *ngIf="wideMenu">Kategorije</span>
 
   </a>
   <a routerLink="/admin/brendovi" routerLinkActive="active">
     <i class="fa fa-telegram" aria-hidden="true"></i>
-    <span *ngIf="wideMenu" >Brendovi</span>
-
-    </a>
+    <span *ngIf="wideMenu">Brendovi</span>
+  </a>
+  <a routerLink="/" style="position: fixed; bottom:0;">
+    <i class="fa fa-home" aria-hidden="true"></i>
+    <span *ngIf="wideMenu">Početna</span>
+  </a>
 </nav>
 
 <!-- Admin routes placeholder -->
-<div class="route-wrapper" [ngStyle]="{'margin-left': wideMenu ? '200px' : '30px'}">
-    <router-outlet></router-outlet>
+<div class="route-wrapper" [ngStyle]="{'margin-left': wideMenu ? '210px' : '50px'}">
+  <router-outlet></router-outlet>
 </div>

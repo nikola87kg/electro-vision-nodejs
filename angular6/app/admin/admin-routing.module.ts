@@ -8,13 +8,16 @@ import { ProductsComponent } from './products/products.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { BrandsComponent } from './brands/brands.component';
 import { GroupsComponent } from './groups/groups.component';
+import { PreviewComponent } from './preview/preview.component';
 
 const routes: Routes = [
   { path: '',  component: AdminComponent, children: [
+    { path: 'pregled',  component: PreviewComponent },
     { path: 'proizvodi',  component: ProductsComponent },
     { path: 'kategorije',  component: CategoriesComponent },
     { path: 'brendovi',  component: BrandsComponent },
     { path: 'grupe',  component: GroupsComponent },
+    { path: '',  redirectTo: 'pregled', pathMatch: 'full' }
   ]}
 ];
 

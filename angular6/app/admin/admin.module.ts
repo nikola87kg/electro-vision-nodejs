@@ -16,6 +16,7 @@ import { ProductsComponent } from './products/products.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { BrandsComponent } from './brands/brands.component';
 import { GroupsComponent } from './groups/groups.component';
+import { PreviewComponent } from './preview/preview.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { GroupsComponent } from './groups/groups.component';
     ProductsComponent,
     CategoriesComponent,
     BrandsComponent,
-    GroupsComponent
+    GroupsComponent,
+    PreviewComponent
   ]
 })
 export class AdminModule { }

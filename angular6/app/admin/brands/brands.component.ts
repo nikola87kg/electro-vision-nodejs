@@ -44,7 +44,13 @@ export class BrandsComponent implements OnInit {
 
 
   /* Declarations */
-  brand = {};
+  brand = {
+    name: '',
+    slug: '',
+    description: '',
+    image: '',
+  };
+
   brandList = [];
   currentIndex: number;
 
@@ -138,9 +144,9 @@ export class BrandsComponent implements OnInit {
 
   /* Add new brand */
   postBrand(brand) {
-    const image = this.files[0].name || 'no-image';
+    // const image = this.files[0].name || 'no-image';
     const newBrand = brand;
-    newBrand.image = image;
+    // newBrand.image = image;
     this.brandService.post(brand)
       .subscribe(
       data => {
@@ -174,7 +180,14 @@ export class BrandsComponent implements OnInit {
   /* Get brand */
   getBrands() {
     this.brandService.get()
-      .subscribe(
+      .subscribe((result) => {
+        let brandsResponse: any = {
+          message: '',
+          object: {}
+        };
+        brandsResponse = result;
+        this.brandList = brandsResponse.object;
+      }
       );
   }
 
