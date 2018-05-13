@@ -1,56 +1,56 @@
 @import "angular6/app/partials/_variables.scss";
 
 nav {
-    position: fixed;
-    background: $primary-color;
-    height: 100vh;
-    left:0;
-    top:0;
-    z-index: 100;
-    margin: 0;
-    padding: 10px 0;
-    border: 2px solid $primary-color;
-    .admin-menu {
-      color: white;
-      margin: 10px 0;
-      padding: 0 10px;
-      transition: width 0.1s ease-in-out;
-      i {
-        cursor: pointer;
-        display: inline-block;
-        text-align: right;
-        width: 30px;
-        padding-right: 10px;
-        &:hover {
-          color: darkgray;
-        }
+  position: fixed;
+  background: $primary-color;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  margin: 0;
+  padding: 10px 0;
+  border: 2px solid $primary-color;
+  .admin-menu {
+    color: white;
+    margin: 10px 0;
+    padding: 0 10px;
+    transition: width 0.1s ease-in-out;
+    i {
+      cursor: pointer;
+      display: inline-block;
+      text-align: right;
+      width: 30px;
+      padding-right: 10px;
+      &:hover {
+        color: darkgray;
       }
     }
-    a {
-        display: block;
-        margin: 0;
-        padding: 10px;
-        border-radius:0;
-        text-decoration: none;
-        outline: none;
-        &:focus {
-          outline: none;
-        }
-        &.active {
-          outline: none;
-          background: white;
-          color: $primary-color;
-          font-weight: bold;
-        }
-        &:hover {
-          font-weight: bold;
-          text-decoration: none;
-        }
-        i {
-          display: inline-block;
-          width: 30px;
-        }
+  }
+  a {
+    display: block;
+    margin: 0;
+    padding: 10px;
+    border-radius: 0;
+    text-decoration: none;
+    outline: none;
+    &:focus {
+      outline: none;
     }
+    &.active {
+      outline: none;
+      background: white;
+      color: $primary-color;
+      font-weight: bold;
+    }
+    &:hover {
+      font-weight: bold;
+      text-decoration: none;
+    }
+    i {
+      display: inline-block;
+      width: 30px;
+    }
+  }
 }
 
 .route-wrapper {
@@ -62,8 +62,6 @@ nav {
 h2.page-title {
   text-align: center;
   color: rgb(41, 63, 126);
-  border-top: 1px dotted gray;
-  border-bottom: 1px dotted gray;
   margin: 15px 30px;
   padding: 15px;
   font-weight: bold;
@@ -74,7 +72,7 @@ h2.page-title {
   margin: 5px 30px;
   text-align: left;
   select {
-    background: #1f7144;
+    background: $third-color;
     color: white;
   }
   i {
@@ -83,66 +81,66 @@ h2.page-title {
 }
 
 .table-wrapper {
-  width: calc(100% - 60px);
-  overflow-x: auto;
-  margin: 5px 30px;
-}
-
-table.table {
-  width: 100%;
-  margin: 0;
-  thead th {
-    text-align: left;
-    padding: 5px 20px;
-    background: rgb(43, 84, 138);
-    color: white;
-    vertical-align: middle;
-    border: 1px solid white;
-    height: 50px;
-    font-weight: bold;
-  }
-  tbody tr {
-    &:nth-child(odd) {
-      background: rgb(231, 232, 233);
-    }
-    &:nth-child(even) {
-      background: rgb(233, 238, 241);
-    }
-    td {
-      text-align: left;
-      padding: 5px 20px;
-      vertical-align: middle;
-      border: 1px solid white;
-      &.counter-field {
-        width: 60px;
-        text-align: left;
-      }
-      &.button-field {
-        width: 100px;
-        text-align: center;
-      }
-      strong {
-        line-height: 42px;
-      }
-    }
-  }
-  .btn-plus {
-      display: block;
-      padding: 5px 15px;
-      font-size: 13px;
-      margin: 0 auto;
-      width: 50px;
-      padding: 5px 10px;
-  }
-  tfoot tr td {
+  margin: 10px 0;
+  .headline {
+    margin: 10px;
+    height: 40px;
     text-align: right;
-    padding: 5px 20px;
-    vertical-align: middle;
-    border: 1px solid white;
-    background: rgb(101, 130, 167);
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
+    padding-right: 20px;
+    span {
+      color: $primary-color;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    button {
+      background: $third-color;
+      float: left;
+      color: white;
+      &:hover {
+        background: darken($third-color, 10);
+      }
+    }
+  }
+  .list {
+    margin: 10px;
+    .list-item {
+      display: grid;
+      grid-template-areas:
+        "image name"
+        "image slug"
+        "image desc";
+      grid-template-columns: 120px auto;
+      grid-template-rows: 35px 25px auto;
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+      color: black;
+      h4 {
+        grid-area: name;
+        margin: 10px 0;
+        .edit {
+          background: $third-color;
+          color: white;
+          font-size: 0.8rem;
+          padding: 5px 10px;
+          &:hover {
+            background: $primary-color;
+          }
+        }
+      }
+      .slug-line {
+        grid-area: slug;
+        color: $third-color;
+        font-size: 1.2rem;
+      }
+      p {
+        grid-area: desc;
+        margin: 0;
+      }
+      img {
+        grid-area: image;
+        margin: 10px;
+      }
+    }
   }
 }
 
@@ -171,8 +169,10 @@ form.form-dialog {
     width: 100%;
     padding-right: 20px;
     margin-bottom: 0;
-    input, select, .input {
-        width: 300px;
+    input,
+    select,
+    .input {
+      width: 300px;
     }
     div.image-wrapper {
       display: inline-block;
@@ -196,8 +196,8 @@ form.form-dialog {
         background: darkslategray;
         border-radius: 3px;
         &:hover {
-          border: 1px solid  rgb(56, 94, 94);
-          background:  rgb(56, 94, 94);
+          border: 1px solid rgb(56, 94, 94);
+          background: rgb(56, 94, 94);
         }
       }
     }
@@ -214,7 +214,7 @@ form.form-dialog {
     margin: 0 10px;
     width: 120px;
     i {
-        margin-right: 5px;
+      margin-right: 5px;
     }
   }
 }
@@ -239,4 +239,3 @@ form.form-dialog {
     }
   }
 }
-

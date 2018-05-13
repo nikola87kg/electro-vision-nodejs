@@ -1,3 +1,27 @@
+<!-- Page title -->
+<h2 class="page-title"> ElectroVision - Brendovi </h2>
+
+<!-- Brand List -->
+<div class="table-wrapper">
+  <div class="headline">
+      Ukupno rezultata: <span>{{brandList.length || 0}}</span>
+    <button (click)="openDialog(false)" class="btn btn-plus" title="Dodaj novi brend">
+      <i class="fa fa-plus"></i> Dodaj novi brend
+    </button>
+  </div>
+  <div class="list">
+    <div class="list-item" *ngFor="let singleBrand of brandList; let i = index" >
+        <img *ngIf="!singleBrand.image" src="{{singleBrand.image}}" width="100" height="100">
+        <img *ngIf="singleBrand.image" src="./assets/default_images/default-product.jpg" width="100" height="100">
+      <h4>{{singleBrand.name}}
+          <button class="btn edit" (click)="openDialog(true, singleBrand, i)"> izmeni </button>
+      </h4>
+      <span class="slug-line"> electrovision.rs/brendovi/{{singleBrand.slug}} </span>
+      <p>"{{singleBrand.description}}"</p>
+    </div>
+  </div>
+</div>
+
 <!-- DIALOG -->
 <div class="fixed dialog-wrapper" *ngIf="dialogIsOpen">
   <form class="form-dialog" #brands="ngForm">
@@ -11,44 +35,23 @@
     <br>
     <!-- Brand Name -->
     <label for=""> Brend
-      <input  [(ngModel)]="brand.name"
-              name="name"
-              type="text"
-              placeholder="Super kamera"
-              autocomplete="off"
-              autofocus
-              required>
+      <input [(ngModel)]="brand.name" name="name" type="text" placeholder="Super kamera" autocomplete="off" autofocus required>
     </label>
     <!-- Brand Link -->
     <label for=""> Link
-      <input  [(ngModel)]="brand.slug"
-              name="slug"
-              type="text"
-              placeholder="kamere-i-alarmi"
-              autocomplete="off"
-              required>
+      <input [(ngModel)]="brand.slug" name="slug" type="text" placeholder="kamere-i-alarmi" autocomplete="off" required>
     </label>
     <!-- Brand Description -->
     <label for=""> Opis
-      <input  [(ngModel)]="brand.description"
-              name="description"
-              type="text"
-              placeholder="Opis brenda"
-              autocomplete="off"  >
+      <input [(ngModel)]="brand.description" name="description" type="text" placeholder="Opis brenda" autocomplete="off">
     </label>
     <!-- Brand Image -->
     <label for="image-loader" style="min-height:50px"> Slika
       <div class="input" class="image-wrapper">
         <span *ngIf="imageholder.files[0]">{{imageholder.files[0].name}}</span>
         <span *ngIf="!imageholder.files[0]">Izaberi sliku</span>
-        <input id="image-loader"
-               name="image"
-               #imageholder
-               type="file"
-               ngFileSelect
-               (uploadOutput)="onUploadOutput($event)"
-               [uploadInput]="uploadInput"
-               style="display:none">
+        <input id="image-loader" name="image" #imageholder type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+          style="display:none">
       </div>
     </label>
     <br>
@@ -74,48 +77,4 @@
       </button>
     </div>
   </form>
-</div>
-
-<!-- Title -->
-<h2 class="page-title"> ElectroVision - Brendovi </h2>
-
-<!-- Table -->
-<div class="table-wrapper">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>
-          <button (click)="openDialog(false)"
-                  class="btn btn-success btn-plus"
-                  title="Dodaj novi brend">
-            <i class="fa fa-plus"></i>
-          </button>
-        </th>
-        <th>Brend</th>
-        <th>Link</th>
-        <th>Opis</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Brand Loop -->
-      <tr *ngFor="let singleBrand of brandList; let i = index">
-        <td class="counter-field" (click)="openDialog(true, singleBrand, i)" title="Uredi brend">{{i + 1}}. </td>
-        <td class="main-field">
-          <img src="{{singleBrand.image}}" alt="{{singleBrand.image}}" width="50" height="50">
-          <strong title="Opis: {{singleBrand.image}}. Link: {{singleBrand.slug}}">
-            {{singleBrand.name}}
-          </strong>
-        </td>
-        <td> {{singleBrand.slug}} </td>
-        <td> {{singleBrand.description}} </td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="100%">
-          Ukupno rezultata: {{brandList.length || 0}}
-        </td>
-      </tr>
-    </tfoot>
-  </table>
 </div>
