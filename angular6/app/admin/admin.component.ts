@@ -21,7 +21,6 @@ export class AdminComponent implements OnInit {
         localStorage.setItem('sidebarOpen', 'open');
         this.wideMenu = 'open';
     }
-    console.log(sidebar);
   }
 
   ngOnInit() {

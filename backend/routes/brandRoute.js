@@ -2,9 +2,11 @@
 var express = require("express");
 var router = express.Router();
 var mongoose = require("mongoose");
-var fs = require("fs"); // file system
+var fs = require("fs-extra"); // file system
 var ncp = require("ncp").ncp; // copy files
 const multer = require("multer"); // image uplaoder
+var colors = require('colors'); // colored console log
+
 
 // Model
 var Brand = require("../models/brandModel");
@@ -14,7 +16,9 @@ var storeFile = multer.diskStorage({
     destination: function(req, file, callback) {
         let folderDest =
             "./dist/electro-vision/assets/uploads/brands/" + req.params.id + "/";
-            fs.mkdir(folderDest, (error) => { console.log(error) }); // create folder
+            if (!fs.existsSync(folderDest)) {
+                fs.mkdir(folderDest, (error) => { console.log(error) }); // create folder
+            }
             callback(null, folderDest);
     },
     filename: function(req, file, callback) {
@@ -27,8 +31,8 @@ var uploadFile = multer({
 }).single("file");
 
 ncp.limit = 16;
-var originalFolder = './dist/electro-vision/assets/uploads'
-var backupFolder = './backup/uploads'
+var originalFolder = './dist/electro-vision/assets/uploads';
+var backupFolder = './backup';
 
 // -->  api/brands/images/:id
 router.post("/images/:id", function(req, res) {
@@ -36,7 +40,11 @@ router.post("/images/:id", function(req, res) {
         if (err) {
             return res.status(501).json({ error: err });
         }
-
+        ncp(originalFolder, backupFolder, function(err) {
+            if (err) {
+                return console.error(err);
+            }
+        });
         res.status(200).json({
             title: "Bravo! Slika je uspešno snimljena u bazu",
             success: 1,
@@ -65,12 +73,6 @@ router.post("/", function(req, res, next) {
             });
         }
         if (!error) {
-            ncp(originalFolder, backupFolder, function(err) {
-                if (err) {
-                    return console.error(err);
-                }
-                console.log("Copied!");
-            });
             /* Send JSON */
             return res.status(201).json({
                 title: "Bravo! Brend je uspešno snimljen u bazu",
@@ -82,6 +84,13 @@ router.post("/", function(req, res, next) {
 
 // 2. UPDATE
 router.put("/:id", function(req, res, next) {
+    const imageName = req.body.image;
+    let fullImage = '';
+    if (imageName.split( '/' ).length > 1) {
+        fullImage = imageName;
+    } else {
+        fullImage = "./assets/uploads/brands/" + req.params.id +  "/" + imageName;
+    };
     /* find document by ID */
     Brand.findOneAndUpdate(
         { _id: req.params.id },
@@ -91,11 +100,7 @@ router.put("/:id", function(req, res, next) {
                 name: req.body.name,
                 slug: req.body.slug,
                 description: req.body.description,
-                image:
-                    "./assets/uploads/brands/" +
-                    req.body._id +
-                    "/" +
-                    req.body.image
+                image: fullImage
             }
         },
         /* callback */
@@ -162,7 +167,7 @@ router.delete("/:id", function(req, res, next) {
             _id: req.params.id
         },
         /* callback */
-        function(err, success) {
+        function(err, data) {
             if (err) {
                 return res.status(500).json({
                     title: "Greška! Brend nije izbrisan iz baze",
@@ -170,9 +175,15 @@ router.delete("/:id", function(req, res, next) {
                     error: err
                 });
             }
+            /* remove image folder */
+            let folderDest = "./dist/electro-vision/assets/uploads/brands/" + req.params.id + "/";
+            if (fs.existsSync(folderDest)) {
+                fs.remove(folderDest).then( console.log('deleted Folder') );
+            }
+            /* success */
             res.status(201).json({
                 title: "Upravo ste izbrisali brend iz baze",
-                success: 1
+                data: 1
             });
         }
     );

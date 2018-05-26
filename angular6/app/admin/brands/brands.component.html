@@ -50,6 +50,10 @@
         <label for=""> Opis
             <input [(ngModel)]="brand.description" name="description" type="text" placeholder="Opis brenda" autocomplete="off">
         </label>
+        <!-- Brand Description -->
+        <label for="" style="display: none;"> Slika
+            <input [(ngModel)]="brand.image" name="image" type="text" placeholder="Slika" autocomplete="off">
+        </label>
         <br>
         <br>
         <!-- footer -->
@@ -81,36 +85,38 @@
         <div class="dialog-header">
             <span class="dialog-header-title"> Postavi sliku </span>
             <!-- x -->
-            <button type="button"
-                    class="cancel-x btn btn-link"
-                    (click)="closeImageDialog()">
+            <button type="button" class="cancel-x btn btn-link" (click)="closeImageDialog()">
                 <i class="fa fa-times "></i>
             </button>
         </div>
         <br>
         <!-- Image -->
-        <label for="image-loader">
+        <label for="image-loader" class="image-label">
             <div>
+                <div>Postojeća slika</div>
                 <img src="{{imageInDialog}}" alt="">
+                <hr>
             </div>
-            <div class="input" class="image-wrapper">
-                <input id="image-loader" name="image" #imageholder type="file"
-                ngFileSelect (uploadOutput)="onUploadOutput($event)"
-                [uploadInput]="uploadInput"
+            <span class="new-image-title">
+                <span *ngIf="!imageholder.files[0]"> Učitaj novu sliku </span>
+                <span *ngIf="imageholder.files[0]">
+                    <b>{{imageholder.files[0]?.name}} </b>
+                    <span *ngIf="imageholder.files[0].size < 1000000">({{imageholder.files[0]?.size / 1000 | number:'1.0-0'}} KB)</span>
+                    <span *ngIf="imageholder.files[0].size > 1000000">({{imageholder.files[0]?.size / 1000000 | number:'1.1-1'}} MB)</span>
+                </span>
+            </span>
+            <input id="image-loader" name="image" #imageholder type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
                 style="display:none">
-            </div>
         </label>
+        <hr>
+
         <!-- footer -->
         <div class="dialog-footer">
-            <button type="button" (click)="closeImageDialog()"
-                    class="btn  btn-info">
+            <button type="button" (click)="closeImageDialog()" class="btn  btn-info">
                 <i class="fa fa-ban"></i>
                 Odustani
             </button>
-            <button
-                type="submit"
-                class="btn btn-success"
-                (click)="postImage()">
+            <button type="submit" class="btn btn-success" (click)="postImage()">
                 <i class="fa fa-check"></i>
                 Snimi
             </button>

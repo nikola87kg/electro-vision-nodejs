@@ -63,6 +63,8 @@ export class BrandsComponent implements OnInit {
     baseUrl: String = 'http://localhost:3000/api';
 
     /* Upload images */
+
+
     onUploadOutput(output: UploadOutput): void {
         if (output.type === 'allAddedToQueue') {
         } else if (

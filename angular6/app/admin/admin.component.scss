@@ -128,8 +128,8 @@ h2.page-title {
                 margin: 10px;
                 display: inline-block;
                 vertical-align: top;
-                width: 100px;
-                height: 100px;
+                max-width: 100px;
+                max-height: 100px;
             }
             div.item-info {
                 display: inline-block;
@@ -177,37 +177,14 @@ form.form-dialog {
         width: 100%;
         padding-right: 20px;
         margin-bottom: 0;
+        &.image-label {
+            text-align: center;
+            padding-right: 0;
+        }
         input,
         select,
         .input {
             width: 300px;
-        }
-        div.image-wrapper {
-            display: inline-block;
-            text-align: left;
-            vertical-align: middle;
-            height: 35px;
-            margin: 10px;
-            height: 30px;
-            width: 300px;
-            span {
-                display: inline-block;
-                max-width: 300px;
-                width: auto;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-                padding: 4px 16px;
-                color: white;
-                cursor: pointer;
-                border: 1px solid darkslategray;
-                background: darkslategray;
-                border-radius: 3px;
-                &:hover {
-                    border: 1px solid rgb(56, 94, 94);
-                    background: rgb(56, 94, 94);
-                }
-            }
         }
     }
     &.image-dialog {
@@ -218,6 +195,24 @@ form.form-dialog {
             padding: 10px;
             &:hover {
                 box-shadow: 1px 1px 20px 1px lightgrey;
+            }
+        }
+        .new-image-title {
+            background: green;
+            color: white;
+            font-weight: normal;
+            padding: 5px 20px;
+            display: table;
+            margin: 0 auto;
+            margin-top: 5px;
+            min-width: 200px;
+            &:hover {
+                background: darken(green, 10);
+                cursor: pointer;
+            }
+            span span {
+                font-size: 14px;
+                color: lightgray;
             }
         }
         label {
