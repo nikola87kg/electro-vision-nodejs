@@ -10,10 +10,18 @@ export class AdminComponent implements OnInit {
 
   constructor() { }
 
-  wideMenu = true;
+  wideMenu = localStorage.getItem('sidebarOpen') || 'open';
 
   togleMenu() {
-    this.wideMenu = !this.wideMenu;
+    const sidebar = localStorage.getItem('sidebarOpen');
+    if (sidebar === 'open') {
+        localStorage.setItem('sidebarOpen', 'closed');
+        this.wideMenu = 'closed';
+    } else {
+        localStorage.setItem('sidebarOpen', 'open');
+        this.wideMenu = 'open';
+    }
+    console.log(sidebar);
   }
 
   ngOnInit() {

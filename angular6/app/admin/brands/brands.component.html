@@ -3,78 +3,117 @@
 
 <!-- Brand List -->
 <div class="table-wrapper">
-  <div class="headline">
-      Ukupno rezultata: <span>{{brandList.length || 0}}</span>
-    <button (click)="openDialog(false)" class="btn btn-plus" title="Dodaj novi brend">
-      <i class="fa fa-plus"></i> Dodaj novi brend
-    </button>
-  </div>
-  <div class="list">
-    <div class="list-item" *ngFor="let singleBrand of brandList; let i = index" >
-        <img *ngIf="!singleBrand.image" src="{{singleBrand.image}}" width="100" height="100">
-        <img *ngIf="singleBrand.image" src="./assets/default_images/default-product.jpg" width="100" height="100">
-      <h4>{{singleBrand.name}}
-          <button class="btn edit" (click)="openDialog(true, singleBrand, i)"> izmeni </button>
-      </h4>
-      <span class="slug-line"> electrovision.rs/brendovi/{{singleBrand.slug}} </span>
-      <p>"{{singleBrand.description}}"</p>
+    <div class="headline">
+        Ukupno rezultata:
+        <span>{{brandList.length || 0}}</span>
+        <button (click)="openDialog(false)" class="btn btn-plus" title="Dodaj novi brend">
+            <i class="fa fa-plus mr5"></i> Dodaj novi brend
+        </button>
     </div>
-  </div>
+    <div class="list row">
+        <div class="col-md-12 col-lg-6" *ngFor="let singleBrand of brandList; let i = index">
+            <div class="list-item">
+                <h4 class="trim" (click)="openDialog(true, singleBrand, i)">
+                    {{singleBrand.name}}
+                </h4>
+                <img (click)="openImageDialog(i)" *ngIf="singleBrand.image" src="{{singleBrand.image}}">
+                <img (click)="openImageDialog(i)" *ngIf="!singleBrand.image" src="./assets/default_images/default-product.jpg">
+                <div class="item-info">
+                    <span class="slug-line trim"> brendovi/{{singleBrand.slug}} </span>
+                    <p class="trim-block-3"> Opis: {{singleBrand.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- DIALOG -->
+<!-- ADD BRAND DIALOG -->
 <div class="fixed dialog-wrapper" *ngIf="dialogIsOpen">
-  <form class="form-dialog" #brands="ngForm">
-    <!-- header -->
-    <div class="dialog-header">
-      <span class="dialog-header-title"> {{dialogTitle}} </span>
-      <button type="button" class="cancel-x btn btn-link" (click)="closeDialog()">
-        <i class="fa fa-times "></i>
-      </button>
-    </div>
-    <br>
-    <!-- Brand Name -->
-    <label for=""> Brend
-      <input [(ngModel)]="brand.name" name="name" type="text" placeholder="Super kamera" autocomplete="off" autofocus required>
-    </label>
-    <!-- Brand Link -->
-    <label for=""> Link
-      <input [(ngModel)]="brand.slug" name="slug" type="text" placeholder="kamere-i-alarmi" autocomplete="off" required>
-    </label>
-    <!-- Brand Description -->
-    <label for=""> Opis
-      <input [(ngModel)]="brand.description" name="description" type="text" placeholder="Opis brenda" autocomplete="off">
-    </label>
-    <!-- Brand Image -->
-    <label for="image-loader" style="min-height:50px"> Slika
-      <div class="input" class="image-wrapper">
-        <span *ngIf="imageholder.files[0]">{{imageholder.files[0].name}}</span>
-        <span *ngIf="!imageholder.files[0]">Izaberi sliku</span>
-        <input id="image-loader" name="image" #imageholder type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
-          style="display:none">
-      </div>
-    </label>
-    <br>
-    <br>
-    <!-- footer -->
-    <div class="dialog-footer">
-      <button type="button" (click)="deleteBrand(brand._id, currentIndex)" class="btn btn-danger" *ngIf="dialogIsEditing">
-        <i class="fa fa-trash"></i>
-        Briši
-      </button>
-      <button type="button" (click)="closeDialog()" class="btn  btn-info">
-        <i class="fa fa-ban"></i>
-        Odustani
-      </button>
-      <button type="submit" [disabled]="!brands.valid" class="btn btn-success" (click)="startUpload(brand.slug); postBrand(brand)"
-        *ngIf="!dialogIsEditing">
-        <i class="fa fa-check"></i>
-        Snimi
-      </button>
-      <button type="submit" [disabled]="!brands.valid" class="btn btn-success" (click)="putBrand(brand)" *ngIf="dialogIsEditing">
-        <i class="fa fa-check"></i>
-        Ažuriraj
-      </button>
-    </div>
-  </form>
+    <form class="form-dialog" #brands="ngForm">
+        <!-- header -->
+        <div class="dialog-header">
+            <span class="dialog-header-title"> {{dialogTitle}} </span>
+            <button type="button" class="cancel-x btn btn-link" (click)="closeDialog()">
+                <i class="fa fa-times "></i>
+            </button>
+        </div>
+        <br>
+        <!-- Brand Name -->
+        <label for=""> Brend
+            <input [(ngModel)]="brand.name" name="name" type="text" placeholder="Super kamera" autocomplete="off" autofocus required>
+        </label>
+        <!-- Brand Link -->
+        <label for=""> Link
+            <input [(ngModel)]="brand.slug" name="slug" type="text" placeholder="kamere-i-alarmi" autocomplete="off" required>
+        </label>
+        <!-- Brand Description -->
+        <label for=""> Opis
+            <input [(ngModel)]="brand.description" name="description" type="text" placeholder="Opis brenda" autocomplete="off">
+        </label>
+        <br>
+        <br>
+        <!-- footer -->
+        <div class="dialog-footer">
+            <button type="button" (click)="deleteBrand(brand._id, currentIndex)" class="btn btn-danger" *ngIf="dialogIsEditing">
+                <i class="fa fa-trash"></i>
+                Briši
+            </button>
+            <button type="button" (click)="closeDialog()" class="btn  btn-info">
+                <i class="fa fa-ban"></i>
+                Odustani
+            </button>
+            <button type="submit" [disabled]="!brands.valid" class="btn btn-success" (click)="postBrand(brand)" *ngIf="!dialogIsEditing">
+                <i class="fa fa-check"></i>
+                Snimi
+            </button>
+            <button type="submit" [disabled]="!brands.valid" class="btn btn-success" (click)="putBrand(brand)" *ngIf="dialogIsEditing">
+                <i class="fa fa-check"></i>
+                Ažuriraj
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- ADD IMAGE DIALOG -->
+<div class="fixed dialog-wrapper" *ngIf="imageDialogIsOpen">
+    <form class="form-dialog image-dialog" #image="ngForm">
+        <!-- header -->
+        <div class="dialog-header">
+            <span class="dialog-header-title"> Postavi sliku </span>
+            <!-- x -->
+            <button type="button"
+                    class="cancel-x btn btn-link"
+                    (click)="closeImageDialog()">
+                <i class="fa fa-times "></i>
+            </button>
+        </div>
+        <br>
+        <!-- Image -->
+        <label for="image-loader">
+            <div>
+                <img src="{{imageInDialog}}" alt="">
+            </div>
+            <div class="input" class="image-wrapper">
+                <input id="image-loader" name="image" #imageholder type="file"
+                ngFileSelect (uploadOutput)="onUploadOutput($event)"
+                [uploadInput]="uploadInput"
+                style="display:none">
+            </div>
+        </label>
+        <!-- footer -->
+        <div class="dialog-footer">
+            <button type="button" (click)="closeImageDialog()"
+                    class="btn  btn-info">
+                <i class="fa fa-ban"></i>
+                Odustani
+            </button>
+            <button
+                type="submit"
+                class="btn btn-success"
+                (click)="postImage()">
+                <i class="fa fa-check"></i>
+                Snimi
+            </button>
+        </div>
+    </form>
 </div>

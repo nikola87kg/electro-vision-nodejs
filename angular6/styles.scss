@@ -8,52 +8,73 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 /**** BASIC ELEMENTS ****/
 
 body {
-  padding: 0;
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
 }
 
 a {
-  color: white;
-  &:hover {
-    text-decoration: underline;
     color: white;
-  }
+    &:hover {
+        text-decoration: underline;
+        color: white;
+    }
 }
 
 button,
 .button {
-  cursor: pointer;
-  &[disabled] {
-    cursor: not-allowed;
-  }
+    cursor: pointer;
+    &[disabled] {
+        cursor: not-allowed;
+    }
 }
 
 ul {
-  list-style-type: none;
-  padding-left: 0;
+    list-style-type: none;
+    padding-left: 0;
 }
 
 input,
 select {
-  margin: 10px;
-  padding: 2px 5px 2px 20px;
-  width: 235px;
-  height: 30px;
+    margin: 10px;
+    padding: 2px 5px 2px 20px;
+    width: 235px;
+    height: 30px;
 }
 
 /***** COMMON CLASSES ****/
 
 .mr5 {
-  margin-right: 5px
+    margin-right: 5px;
 }
 
 .ml5 {
-  margin-left: 5px
+    margin-left: 5px;
 }
 
 .inline-element {
-  display: inline-block;
-  width: 200px;
+    display: inline-block;
+    width: 200px;
+}
+
+/* Trim multiline */
+
+.trim-block-3 {
+    overflow: hidden;
+    position: relative;
+    line-height: 1.2em;
+    max-height: 3.6em;
+    margin-right: -1em;
+    padding-right: 1em;
+    text-overflow: ellipsis;
+}
+
+/* Trim singleline */
+
+.trim {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
 }

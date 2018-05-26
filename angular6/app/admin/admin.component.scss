@@ -1,241 +1,263 @@
 @import "angular6/app/partials/_variables.scss";
 
 nav {
-  position: fixed;
-  background: $primary-color;
-  height: 100vh;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  margin: 0;
-  padding: 10px 0;
-  border: 2px solid $primary-color;
-  .admin-menu {
-    color: white;
-    margin: 10px 0;
-    padding: 0 10px;
-    transition: width 0.1s ease-in-out;
-    i {
-      cursor: pointer;
-      display: inline-block;
-      text-align: right;
-      width: 30px;
-      padding-right: 10px;
-      &:hover {
-        color: darkgray;
-      }
-    }
-  }
-  a {
-    display: block;
+    position: fixed;
+    background: $primary-color;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 100;
     margin: 0;
-    padding: 10px;
-    border-radius: 0;
-    text-decoration: none;
-    outline: none;
-    &:focus {
-      outline: none;
+    padding: 10px 0;
+    border: 2px solid $primary-color;
+    .admin-menu {
+        color: white;
+        margin: 10px 0;
+        padding: 0 10px;
+        transition: width 0.1s ease-in-out;
+        i {
+            cursor: pointer;
+            display: inline-block;
+            text-align: right;
+            width: 30px;
+            padding-right: 10px;
+            &:hover {
+                color: darkgray;
+            }
+        }
     }
-    &.active {
-      outline: none;
-      background: white;
-      color: $primary-color;
-      font-weight: bold;
+    a {
+        display: block;
+        margin: 0;
+        padding: 10px;
+        border-radius: 0;
+        text-decoration: none;
+        outline: none;
+        &:focus {
+            outline: none;
+        }
+        &.active {
+            outline: none;
+            background: white;
+            color: $primary-color;
+            font-weight: bold;
+        }
+        &:hover {
+            font-weight: bold;
+            text-decoration: none;
+        }
+        i {
+            display: inline-block;
+            width: 30px;
+        }
     }
-    &:hover {
-      font-weight: bold;
-      text-decoration: none;
-    }
-    i {
-      display: inline-block;
-      width: 30px;
-    }
-  }
 }
 
 .route-wrapper {
-  transition: margin 0.1s ease-in-out;
+    transition: margin 0.1s ease-in-out;
 }
 
 /* ADMIN PAGES  */
 
 h2.page-title {
-  text-align: center;
-  color: rgb(41, 63, 126);
-  margin: 15px 30px;
-  padding: 15px;
-  font-weight: bold;
+    text-align: center;
+    color: rgb(41, 63, 126);
+    margin: 15px 30px;
+    padding: 15px;
+    font-weight: bold;
 }
 
 .filter-wrapper {
-  width: calc(100% - 60px);
-  margin: 5px 30px;
-  text-align: left;
-  select {
-    background: $third-color;
-    color: white;
-  }
-  i {
-    margin-right: 10px;
-  }
+    width: calc(100% - 60px);
+    margin: 5px 30px;
+    text-align: left;
+    select {
+        background: $third-color;
+        color: white;
+    }
+    i {
+        margin-right: 10px;
+    }
 }
 
 .table-wrapper {
-  margin: 10px 0;
-  .headline {
-    margin: 10px;
-    height: 40px;
-    text-align: right;
-    padding-right: 20px;
-    span {
-      color: $primary-color;
-      font-weight: bold;
-      font-size: 18px;
-    }
-    button {
-      background: $third-color;
-      float: left;
-      color: white;
-      &:hover {
-        background: darken($third-color, 10);
-      }
-    }
-  }
-  .list {
-    margin: 10px;
-    .list-item {
-      display: grid;
-      grid-template-areas:
-        "image name"
-        "image slug"
-        "image desc";
-      grid-template-columns: 120px auto;
-      grid-template-rows: 35px 25px auto;
-      grid-column-gap: 10px;
-      grid-row-gap: 10px;
-      color: black;
-      h4 {
-        grid-area: name;
-        margin: 10px 0;
-        .edit {
-          background: $third-color;
-          color: white;
-          font-size: 0.8rem;
-          padding: 5px 10px;
-          &:hover {
-            background: $primary-color;
-          }
+    margin: 10px 0;
+    .headline {
+        margin: 10px 20px;
+        height: 40px;
+        text-align: right;
+        padding-right: 20px;
+        span {
+            color: $primary-color;
+            font-weight: bold;
+            font-size: 18px;
         }
-      }
-      .slug-line {
-        grid-area: slug;
-        color: $third-color;
-        font-size: 1.2rem;
-      }
-      p {
-        grid-area: desc;
-        margin: 0;
-      }
-      img {
-        grid-area: image;
-        margin: 10px;
-      }
+        button {
+            background: $third-color;
+            padding: 10px 20px;
+            float: left;
+            color: white;
+            &:hover {
+                background: darken($third-color, 10);
+            }
+            &:active {
+                background: green;
+            }
+        }
     }
-  }
+    .list {
+        .list-item {
+            border: 1px solid darkgray;
+            margin: 5px;
+            color: black;
+            h4 {
+                margin: 0;
+                padding: 10px;
+                font-size: 16px;
+                text-align: center;
+                width: 100%;
+                display: block;
+                cursor: pointer;
+                color: white;
+                background: $third-color;
+                &:hover {
+                    background: darken($third-color, 10);
+                }
+            }
+            img {
+                margin: 10px;
+                display: inline-block;
+                vertical-align: top;
+                width: 100px;
+                height: 100px;
+            }
+            div.item-info {
+                display: inline-block;
+                width: calc(100% - 120px);
+                padding: 10px;
+                vertical-align: top;
+                .slug-line {
+                    color: lighten($primary-color, 10);
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+                p {
+                    font-size: 16px;
+                    margin: 5px 0;
+                    font-style: italic;
+                    color: gray;
+                }
+            }
+        }
+    }
 }
 
 /* Dialog */
 div.dialog-wrapper.fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.651);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.651);
 }
 
 form.form-dialog {
-  text-align: center;
-  width: 500px;
-  max-width: 100%;
-  margin: 50px auto 0;
-  box-shadow: 2px 2px 20px 2px gray;
-  border-radius: 7px;
-  background: white;
-  border: 1px solid gray;
-  label {
-    font-weight: bold;
-    text-align: right;
-    width: 100%;
-    padding-right: 20px;
-    margin-bottom: 0;
-    input,
-    select,
-    .input {
-      width: 300px;
-    }
-    div.image-wrapper {
-      display: inline-block;
-      text-align: left;
-      vertical-align: middle;
-      height: 35px;
-      margin: 10px;
-      height: 30px;
-      width: 300px;
-      span {
-        display: inline-block;
-        max-width: 300px;
-        width: auto;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        padding: 4px 16px;
-        color: white;
-        cursor: pointer;
-        border: 1px solid darkslategray;
-        background: darkslategray;
-        border-radius: 3px;
-        &:hover {
-          border: 1px solid rgb(56, 94, 94);
-          background: rgb(56, 94, 94);
+    text-align: center;
+    width: 500px;
+    max-width: 100%;
+    margin: 50px auto 0;
+    box-shadow: 2px 2px 20px 2px gray;
+    border-radius: 7px;
+    background: white;
+    border: 1px solid gray;
+    label {
+        font-weight: bold;
+        text-align: right;
+        width: 100%;
+        padding-right: 20px;
+        margin-bottom: 0;
+        input,
+        select,
+        .input {
+            width: 300px;
         }
-      }
+        div.image-wrapper {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+            height: 35px;
+            margin: 10px;
+            height: 30px;
+            width: 300px;
+            span {
+                display: inline-block;
+                max-width: 300px;
+                width: auto;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                padding: 4px 16px;
+                color: white;
+                cursor: pointer;
+                border: 1px solid darkslategray;
+                background: darkslategray;
+                border-radius: 3px;
+                &:hover {
+                    border: 1px solid rgb(56, 94, 94);
+                    background: rgb(56, 94, 94);
+                }
+            }
+        }
     }
-  }
+    &.image-dialog {
+        img {
+            width: 250px;
+            height: auto;
+            border: 1px solid lightgray;
+            padding: 10px;
+            &:hover {
+                box-shadow: 1px 1px 20px 1px lightgrey;
+            }
+        }
+        label {
+            text-align: center;
+        }
+    }
 }
 
 .dialog-footer {
-  padding: 10px;
-  background: #e6e6e6;
-  height: 60px;
-  border-top: 1px solid #daddde;
-  border-radius: 0 0 5px 5px;
-  button {
-    margin: 0 10px;
-    width: 120px;
-    i {
-      margin-right: 5px;
+    padding: 10px;
+    background: #e6e6e6;
+    height: 60px;
+    border-top: 1px solid #daddde;
+    border-radius: 0 0 5px 5px;
+    button {
+        margin: 0 10px;
+        width: 120px;
+        i {
+            margin-right: 5px;
+        }
     }
-  }
 }
 
 .dialog-header {
-  padding: 10px;
-  background: #31708f;
-  color: white;
-  border-radius: 5px 5px 0 0;
-  height: 50px;
-  .dialog-header-title {
-    font-size: 20px;
-    user-select: none;
-    font-weight: bold;
-  }
-  button.cancel-x {
-    float: right;
-    padding: 0;
+    padding: 10px;
+    background: #31708f;
     color: white;
-    &:hover {
-      color: rgb(204, 212, 174);
+    border-radius: 5px 5px 0 0;
+    height: 50px;
+    .dialog-header-title {
+        font-size: 20px;
+        user-select: none;
+        font-weight: bold;
     }
-  }
+    button.cancel-x {
+        float: right;
+        padding: 0;
+        color: white;
+        &:hover {
+            color: rgb(204, 212, 174);
+        }
+    }
 }
