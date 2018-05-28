@@ -58,6 +58,26 @@ select {
     width: 200px;
 }
 
+@media screen and (max-width:768px) {
+    .smallScreenHidden {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:1028px) {
+    .middleScreenHidden {
+        display: none !important;
+    }
+
+}
+
+@media screen and (min-width:1028px) {
+    .bigScreenHidden {
+        display: none !important;
+    }
+
+}
+
 /* Trim multiline */
 
 .trim-block-3 {

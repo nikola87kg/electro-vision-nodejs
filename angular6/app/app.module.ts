@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
+import { BrandPageComponent } from './pages/brand-page/brand-page.component';
 
 /* App Services */
 
@@ -32,7 +33,8 @@ import { FooterComponent } from './partials/footer/footer.component';
     AppComponent,
     HomepageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    BrandPageComponent
   ],
   bootstrap: [AppComponent]
 })

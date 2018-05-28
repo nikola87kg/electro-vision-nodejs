@@ -1,0 +1,37 @@
+@import "angular6/app/partials/_variables.scss";
+
+.brand-info {
+    color: gray;
+    padding: 10px 20px;
+    h1 {
+        padding: 10px;
+        border-bottom: 2px solid $primary-color;
+    }
+    h4 {
+        font-style: italic;
+        padding: 10px;
+    }
+}
+
+.brand-image {
+    img {
+        width: 100%;
+        height: auto;
+        border: 2px solid lightgray;
+        padding: 5px;
+        margin-left: 20px;
+    }
+}
+
+hr {
+    margin:0;
+    &:nth-of-type(1) {
+        border-top: 15px solid $primary-color;
+    }
+    &:nth-of-type(2) {
+        border-top: 15px solid rgb(25, 18, 117);
+    }
+    &:nth-of-type(3) {
+        border-top: 15px solid rgb(216, 216, 216);
+    }
+}

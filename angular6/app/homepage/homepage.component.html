@@ -1,109 +1,115 @@
 <div id="homepage">
-  <!-- Slider Banner -->
-  <div id="slider-wrapper" class="row">
-    <div class="col-sm-12 slider">
-      <carousel>
-        <slide>
-          <div class="banner first"></div>
-          <div class="carousel-caption d-none d-md-block">
-            <h3>Ugradnja kamera</h3>
-            <p>Nudimo kamere vrhunskog kvaliteta.</p>
-          </div>
-        </slide>
-        <slide>
-          <div class="banner second"></div>
-          <div class="carousel-caption d-none d-md-block">
-            <h3>Ugradnja alarma</h3>
-            <p>Ugrađujemo moderne alarme.</p>
-          </div>
-        </slide>
-        <slide>
-          <div class="banner third"></div>
-          <div class="carousel-caption d-none d-md-block">
-            <h3>Video nadzor</h3>
-            <p> Najbolji video nadzor u gradu! </p>
-          </div>
-        </slide>
-      </carousel>
-    </div>
-  </div>
-
-  <!-- Primery menu -->
-  <div id="primary-menu-wrapper" class="row">
-    <div class="col-sm-12 primary-menu">
-      <ul>
-        <li> Početna </li>
-        <li> O nama </li>
-        <li> Proizvodi </li>
-        <li> Cenovnik </li>
-        <li> Servis </li>
-        <li> Galerija </li>
-        <li> Kontakt </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="main-section row">
-    <!-- CATEGORY & BRANDS -->
-    <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
-      <ul class="list category">
-        <li class="headline category">Kategorije</li>
-        <li>Alarmi</li>
-        <li>Video nadzor</li>
-        <li>Tehnika</li>
-        <li>Senzori</li>
-      </ul>
-      <br>
-      <!-- BRANDS -->
-      <ul class="list brand">
-        <li class="headline brand">Brendovi</li>
-        <li>Samsung</li>
-        <li>Apple</li>
-        <li>Huawei</li>
-        <!-- <li *ngFor="let singleBrand of brandList; let i = index" (click)="goToBrand(singleBrand.slug)">{{singleBrand.name}}</li> -->
-      </ul>
-    </div>
-
-    <!-- TOP PRODUCTS -->
-    <div class="col-sm-12 col-md-8 col-lg-7 content">
-      <div class="top-product-wrapper">
-        <!-- Headline -->
-        <h4 class="breaking-news">
-          <i class="fa fa-hand-o-down up-down mr5 ml5" aria-hidden="true"></i>
-          Aktuelno u ponudi
-          <i class="fa fa-hand-o-down up-down mr5 ml5" aria-hidden="true"></i>
-        </h4>
-        <div class="row">
-          <div class="top-product-box col-sm-12 col-md-6 col-lg-6 col-xl-4">
-            <div class="col-sm-12 image">
-              <img src=".\assets\default_images\default-product.jpg" alt="Nema slike">
+    <!-- Slider Banner -->
+    <div id="slider-wrapper" class="row">
+        <div class="col-sm-12 slider">
+            <!-- Social icons -->
+            <div class="header-icons">
+                <a class="facebook">
+                    <img src="assets\icons\facebook.png" title="ElectroVision na Facebooku">
+                </a>
+                <a class="instagram">
+                    <img src="assets\icons\instagram.png" title="ElectroVision na Instragramu">
+                </a>
+                <a class="youtube">
+                    <img src="assets\icons\youtube.png" title="ElectroVision na Youtube">
+                </a>
+                <a class="kp">
+                    <img src="assets\icons\kp.png" title="ElectroVision na KupujemProdajem">
+                </a>
             </div>
-            <div class="col-sm-12">
-              <h5>Kamera Samsung</h5>
-              <p>"Najbolja kamera koju ćete naći na tržištu Srbije, a sada i po povoljnoj ceni"</p>
-            </div>
-          </div>
-          <div class="top-product-box col-sm-12 col-md-6 col-lg-6 col-xl-4">
-            <div class="col-sm-12 image">
-              <img src=".\assets\default_images\default-product.jpg" alt="Nema slike">
-            </div>
-            <div class="col-sm-12">
-              <h5>Neki super video alarm</h5>
-              <p>"Ovo je najbolji video alarm ikada viđen..."</p>
-            </div>
-          </div>
-          <div class="top-product-box col-sm-12 col-md-6 col-lg-6 col-xl-4">
-            <div class="col-sm-12 image">
-              <img src=".\assets\default_images\default-product.jpg" alt="Nema slike">
-            </div>
-            <div class="col-sm-12">
-              <h5>Video nadzor A+</h5>
-              <p>"Hvata lopove bolje nego policija."</p>
-            </div>
-          </div>
+            <!-- Carousel -->
+            <carousel>
+                <slide>
+                    <div class="banner first"></div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Ugradnja kamera</h3>
+                        <p>Nudimo kamere vrhunskog kvaliteta.</p>
+                    </div>
+                </slide>
+                <slide>
+                    <div class="banner second"></div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Ugradnja alarma</h3>
+                        <p>Ugrađujemo moderne alarme.</p>
+                    </div>
+                </slide>
+                <slide>
+                    <div class="banner third"></div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Video nadzor</h3>
+                        <p> Najbolji video nadzor u gradu! </p>
+                    </div>
+                </slide>
+            </carousel>
         </div>
-      </div>
-
     </div>
 
-  </div>
+    <!-- Primery menu -->
+    <div id="primary-menu-wrapper" class="row">
+        <div class="col-sm-12 primary-menu">
+            <ul>
+                <li class="bigScreenHidden" (click)="toggleList()">
+                    <i class="fa fa-bars"></i>
+                </li>
+                <li *ngIf="listMobile"> Početna </li>
+                <li *ngIf="listMobile"> O nama </li>
+                <li *ngIf="listMobile"> Proizvodi </li>
+                <li *ngIf="listMobile"> Cenovnik </li>
+                <li *ngIf="listMobile"> Servis </li>
+                <li *ngIf="listMobile"> Galerija </li>
+                <li *ngIf="listMobile"> Kontakt </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-section row">
+        <!-- CATEGORY & BRANDS -->
+        <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
+            <ul class="list category">
+                <li class="headline category">Kategorije</li>
+                <li>Alarmi</li>
+                <li>Video nadzor</li>
+                <li>Tehnika</li>
+                <li>Senzori</li>
+            </ul>
+            <br>
+            <!-- BRANDS -->
+            <ul class="list brand">
+                <li class="headline brand" (click)="smallScreen() && toggleBrands() ">Brendovi</li>
+                <li *ngFor="let brand of brandList; let i = index" (click)="goToBrand(brand.slug)">
+                    <ng-container *ngIf="bigScreen() && brandsMobile">
+                        <div class="thumb-wrapper" [ngStyle]="{'background': 'url(' + brand.image + ') no-repeat center center', 'background-size': 'contain'}">
+                        </div>
+                        {{brand.name}}
+                    </ng-container>
+                </li>
+            </ul>
+        </div>
+
+        <!-- TOP PRODUCTS -->
+        <div class="col-sm-12 col-md-8 col-lg-7 content">
+            <div class="top-product-wrapper">
+                <!-- Headline -->
+                <h4 class="breaking-news">
+                    <i class="fa fa-hand-o-down up-down mr5 ml5" aria-hidden="true"></i>
+                    Aktuelno u ponudi
+                    <i class="fa fa-hand-o-down up-down mr5 ml5" aria-hidden="true"></i>
+                </h4>
+                <div class="row">
+                    <div class="top-product-box col-sm-12 col-md-6 col-lg-6 col-xl-4"
+                         *ngFor="let brand1 of brandList; let i = index">
+                        <div class="col-sm-12 image">
+                            <img *ngIf="brand1.image" src="{{brand1.image}}">
+                            <img *ngIf="!brand1.image" src=".\assets\default_images\default-product.jpg">
+                        </div>
+                        <div class="col-sm-12">
+                            <h5>{{brand1.name}}</h5>
+                            <p>"{{brand1.description}}"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
