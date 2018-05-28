@@ -19,7 +19,6 @@ export class HomepageComponent implements OnInit {
     constructor(private brandService: BrandsService, private router: Router) {}
 
     actualWidth = window.innerWidth;
-    isAdminPanel = false;
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {

@@ -15,9 +15,7 @@ export class AppComponent implements OnInit {
     ) {
     }
 
-    doNothing() {
-
-    }
+    isAdminPanel = false;
 
 
     ngOnInit() {
