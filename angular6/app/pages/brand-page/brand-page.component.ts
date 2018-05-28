@@ -9,7 +9,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class BrandPageComponent implements OnInit {
 
-    brand: object;
+    brand = {
+        name: '',
+        description: '',
+        image: ''
+    };
     constructor(
         private activatedRoute: ActivatedRoute,
         private brandService: BrandsService) {}
@@ -28,11 +32,14 @@ export class BrandPageComponent implements OnInit {
             console.log('result', result);
             let brandsResponse: any = {
                 message: '',
-                object: {}
+                object: {
+                    name: '',
+                    description: '',
+                    image: ''
+                }
             };
             brandsResponse = result;
             this.brand = brandsResponse.object;
-            console.log('brand', this.brand);
 
         });
     }
