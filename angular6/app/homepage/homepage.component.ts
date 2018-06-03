@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 /* Pixelarium */
 import { BrandsService } from 'angular6/app/_services/brands.service';
+import { CategoriesService } from '../_services/categories.service';
 
 @Component({
     selector: 'px-homepage',
@@ -12,11 +13,15 @@ import { BrandsService } from 'angular6/app/_services/brands.service';
 })
 export class HomepageComponent implements OnInit {
     brandList: any = [];
+    categoryList = [];
     listMobile = false;
     brandsMobile = true;
     categoryMobile = false;
 
-    constructor(private brandService: BrandsService, private router: Router) {}
+    constructor(
+        private brandService: BrandsService,
+        private categoryService: CategoriesService,
+        private router: Router) {}
 
     actualWidth = window.innerWidth;
 
@@ -25,27 +30,27 @@ export class HomepageComponent implements OnInit {
       this.actualWidth = event.target.innerWidth;
     }
 
+    /* INIT */
     ngOnInit() {
         this.getBrands();
+        this.getCategories();
     }
 
+    /* Screens */
     bigScreen() {
         if (this.actualWidth > 1028) {
-            console.log(this.actualWidth);
             return true;
         }
-        console.log(this.actualWidth);
         return false;
     }
 
     smallScreen() {
         if (this.actualWidth < 768) {
-            console.log(this.actualWidth);
             return true;
         }
-        console.log(this.actualWidth);
         return false;
     }
+
     /* Get brand */
     getBrands() {
         this.brandService.get().subscribe(result => {
@@ -58,12 +63,24 @@ export class HomepageComponent implements OnInit {
         });
     }
 
-    /* Navigate to Brand */
+    /* Get category */
+    getCategories() {
+        this.categoryService.get().subscribe(result => {
+            let categoriesResponse: any = {
+                message: '',
+                object: {}
+            };
+            categoriesResponse = result;
+            this.categoryList = categoriesResponse.object;
+        });
+    }
+
+    /* Navigation */
     goToBrand(slug) {
         this.router.navigate(['/brend/' + slug]);
     }
 
-    /* Toggle */
+    /* Toggle Lists */
     toggleList() {
         this.listMobile = !this.listMobile;
     }

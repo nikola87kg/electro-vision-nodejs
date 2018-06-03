@@ -63,14 +63,20 @@
     </div>
 
     <div class="main-section row">
-        <!-- CATEGORY & BRANDS -->
+        <!-- SIDELISTS -->
         <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
+            <!-- CATEGORIES -->
             <ul class="list category">
-                <li class="headline category">Kategorije</li>
-                <li>Alarmi</li>
-                <li>Video nadzor</li>
-                <li>Tehnika</li>
-                <li>Senzori</li>
+                <li class="headline category" (click)="smallScreen() && toggleBrands() ">Kategorije</li>
+                <li *ngFor="let cat of categoryList; let i = index" (click)="goToBrand(cat.slug)">
+                    <ng-container *ngIf="bigScreen()">
+                        <div class="thumb-wrapper category"
+                        [ngStyle]="{'background': 'url(' + cat.image + ') no-repeat center center',
+                                    'background-size': 'contain'}">
+                        </div>
+                    </ng-container>
+                    {{cat.name}}
+                </li>
             </ul>
             <br>
             <!-- BRANDS -->
@@ -78,9 +84,10 @@
                 <li class="headline brand" (click)="smallScreen() && toggleBrands() ">Brendovi</li>
                 <li *ngFor="let brand of brandList; let i = index" (click)="goToBrand(brand.slug)">
                     <ng-container *ngIf="bigScreen() && brandsMobile">
-                        <div class="thumb-wrapper" [ngStyle]="{'background': 'url(' + brand.image + ') no-repeat center center', 'background-size': 'contain'}">
+                        <div class="thumb-wrapper"
+                             [ngStyle]="{'background': 'url(' + brand.image + ') no-repeat center center',
+                             'background-size': 'contain'}">
                         </div>
-                        {{brand.name}}
                     </ng-container>
                 </li>
             </ul>

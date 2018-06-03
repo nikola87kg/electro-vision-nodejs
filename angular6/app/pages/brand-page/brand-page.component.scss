@@ -13,6 +13,12 @@
     }
 }
 
+.brand-background {
+    background: url("../../../assets/baner/banner-page.png") no-repeat top center fixed;
+    background-size: cover;
+    height: 200px;
+}
+
 .brand-image {
     img {
         width: 100%;
@@ -25,13 +31,5 @@
 
 hr {
     margin:0;
-    &:nth-of-type(1) {
-        border-top: 15px solid $primary-color;
-    }
-    &:nth-of-type(2) {
-        border-top: 15px solid rgb(25, 18, 117);
-    }
-    &:nth-of-type(3) {
-        border-top: 15px solid rgb(216, 216, 216);
-    }
+    border-top: 15px solid rgb(216, 216, 216);
 }

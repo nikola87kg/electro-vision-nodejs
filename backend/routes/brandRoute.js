@@ -7,7 +7,6 @@ var ncp = require("ncp").ncp; // copy files
 const multer = require("multer"); // image uplaoder
 var colors = require('colors'); // colored console log
 
-
 // Model
 var Brand = require("../models/brandModel");
 
@@ -17,7 +16,7 @@ var storeFile = multer.diskStorage({
         let folderDest =
             "./dist/electro-vision/assets/uploads/brands/" + req.params.id + "/";
             if (!fs.existsSync(folderDest)) {
-                fs.mkdir(folderDest, (error) => { console.log(error) }); // create folder
+                fs.mkdir(folderDest, (error) => { console.log(error) });
             }
             callback(null, folderDest);
     },
@@ -26,10 +25,9 @@ var storeFile = multer.diskStorage({
     }
 });
 
-var uploadFile = multer({
-    storage: storeFile
-}).single("file");
+var uploadFile = multer({ storage: storeFile }).single("file");
 
+/* backup */
 ncp.limit = 16;
 var originalFolder = './dist/electro-vision/assets/uploads';
 var backupFolder = './backup';
@@ -46,7 +44,7 @@ router.post("/images/:id", function(req, res) {
             }
         });
         res.status(200).json({
-            title: "Bravo! Slika je uspešno snimljena u bazu",
+            title: "Bravo! Slika brenda je uspešno snimljena u bazu",
             success: 1,
             path: req.file.path,
             image: req.file.originalname,
@@ -73,7 +71,6 @@ router.post("/", function(req, res, next) {
             });
         }
         if (!error) {
-            /* Send JSON */
             return res.status(201).json({
                 title: "Bravo! Brend je uspešno snimljen u bazu",
                 data: brand
@@ -162,10 +159,8 @@ router.get("/", function(req, res, next) {
 // 5. DELETE
 router.delete("/:id", function(req, res, next) {
     Brand.findOneAndRemove(
-        /* slug match */
-        {
-            _id: req.params.id
-        },
+        /* id match */
+        {  _id: req.params.id },
         /* callback */
         function(err, data) {
             if (err) {
@@ -183,7 +178,7 @@ router.delete("/:id", function(req, res, next) {
             /* success */
             res.status(201).json({
                 title: "Upravo ste izbrisali brend iz baze",
-                data: 1
+                data: data
             });
         }
     );

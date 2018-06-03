@@ -105,14 +105,20 @@ carousel h3 {
             cursor: pointer;
             color: gray;
             vertical-align: middle;
+            text-align: left;
             div.thumb-wrapper {
                 display: inline-block;
-                height: 30px;
-                width: 50px;
+                height: 50px;
+                width: 100px;
                 padding: 0;
                 text-align: center;
                 background-size: cover;
                 vertical-align: middle;
+                &.category {
+                    text-align: left;
+                    height: 50px;
+                    width: 50px;
+                }
             }
             &.headline {
                 width: 200px;

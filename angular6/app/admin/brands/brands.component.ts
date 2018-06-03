@@ -1,6 +1,9 @@
 /* Angular */
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import {
+    Component,
+    OnInit,
+    EventEmitter
+} from '@angular/core';
 
 /* 3rd party */
 import {
@@ -12,7 +15,9 @@ import {
 } from 'ngx-uploader';
 
 /* Services */
-import { BrandsService } from 'angular6/app/_services/brands.service';
+import {
+    BrandsService
+} from 'angular6/app/_services/brands.service';
 
 /* Decorator */
 @Component({
@@ -33,8 +38,7 @@ export class BrandsComponent implements OnInit {
 
     /* Constructor */
     constructor(
-        private brandService: BrandsService,
-        private sanitizer: DomSanitizer
+        private brandService: BrandsService
     ) {
         this.files = []; // local uploading files array
         this.uploadInput = new EventEmitter<UploadInput>();
@@ -63,8 +67,6 @@ export class BrandsComponent implements OnInit {
     baseUrl: String = 'http://localhost:3000/api';
 
     /* Upload images */
-
-
     onUploadOutput(output: UploadOutput): void {
         if (output.type === 'allAddedToQueue') {
         } else if (

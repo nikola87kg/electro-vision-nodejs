@@ -2,41 +2,50 @@
 var express = require("express");
 var router = express.Router();
 var mongoose = require("mongoose");
+var fs = require("fs-extra"); // file system
+var ncp = require("ncp").ncp; // copy files
+const multer = require("multer"); // image uplaoder
+var colors = require('colors'); // colored console log
 
 // Model
 var Category = require("../models/categoryModel");
 
 /** FILE UPLOAD */
 
-const multer = require("multer");
-
 var storeFile = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function(req, file, callback) {
         let folderDest =
-            "./dist/electro-vision/assets/uploads/categories/" +
-            req.params.slug +
-            "/"; //folder path
-        fs.mkdir(folderDest, error => {
-            console.log(error);
-        }); // create folder
-        cb(null, folderDest); // error , folder name
+            "./dist/electro-vision/assets/uploads/categories/" + req.params.id + "/";
+        if (!fs.existsSync(folderDest)) {
+            fs.mkdir(folderDest, (error) => { console.log(error) });
+        }
+        callback(null, folderDest);
     },
-
     filename: function(req, file, cb) {
-        cb(null, file.originalname); // error , file name
+        cb(null, file.originalname);
     }
 });
 
 var uploadFile = multer({ storage: storeFile }).single("file");
 
+/* backup */
+ncp.limit = 16;
+var originalFolder = './dist/electro-vision/assets/uploads';
+var backupFolder = './backup';
+
 /** UPLOAD IMAGE ROUTE */
-router.post("/images/:slug", function(req, res) {
+router.post("/images/:id", function(req, res) {
     uploadFile(req, res, function(err) {
         if (err) {
             return res.status(501).json({ error: err });
         }
+        ncp(originalFolder, backupFolder, function(err) {
+            if (err) {
+                return console.error(err);
+            }
+        });
         res.status(200).json({
-            title: "Bravo! Slika je uspešno snimljena u bazu",
+            title: "Bravo! Slika kategorije je uspešno snimljena u bazu",
             success: 1,
             path: req.file.path,
             image: req.file.originalname,
@@ -52,10 +61,10 @@ router.post("/", function(req, res, next) {
         name: req.body.name,
         description: req.body.description,
         slug: req.body.slug,
-        image: "./assets/uploads/categories/" + req.body.slug + "/" + req.body.image
+        image: "./assets/uploads/categories/default.jpg"
     });
     /* save */
-    category.save(function(error, categoryDocument) {
+    category.save(function(error, category) {
         if (error) {
             return res.status(500).json({
                 title: "Greška! Kategorija nije snimljena u bazu",
@@ -65,7 +74,7 @@ router.post("/", function(req, res, next) {
         if (!error) {
             res.status(201).json({
                 title: "Bravo! Kategorija je uspešno snimljena u bazu",
-                data: categoryDocument
+                data: category
             });
         }
     });
@@ -93,41 +102,30 @@ router.get("/:slug", function(req, res, next) {
 
 });
 
-// 2.GET ALL
-router.get("/", function(req, res, next) {
-    /* Find categories in DB */
-    Category.find().exec(function(err, data) {
-        if (err) {
-            return res.status(500).json({
-                title: "Greška! Niste dobili kategoriju iz baze",
-                error: err
-            });
-        }
-        res.status(200).json({
-            message: "Bravo! Kategorija je uspešno učitana",
-            object: data
-        });
-    });
-});
-
-/* 3. UPDATE */
+/* 2. UPDATE */
 router.put("/:id", function(req, res, next) {
+    const imageName = req.body.image;
+    let fullImage = '';
+    if (imageName.split( '/' ).length > 1) {
+        fullImage = imageName;
+    } else {
+        fullImage = "./assets/uploads/categories/" + req.params.id +  "/" + imageName;
+    };
     /* find document by ID */
     Category.findOneAndUpdate(
         /* ID match */
-        {
-            _id: req.params.id
-        },
+        { _id: req.params.id },
         /* update Category */
         {
             $set: {
                 name: req.body.name,
                 slug: req.body.slug,
-                description: req.body.description
+                description: req.body.description,
+                image: fullImage
             }
         },
         /* callback */
-        function(err, success) {
+        function(err, data) {
             if (err) {
                 return res.status(500).json({
                     title: "Greška! Kategorija nije snimljena u bazu",
@@ -137,21 +135,39 @@ router.put("/:id", function(req, res, next) {
             }
             res.status(201).json({
                 title: "Bravo! Kategorija je uspešno snimljena u bazu",
+                id: data.id,
                 success: 1
             });
         }
     );
 });
 
+// 2.GET ALL
+router.get("/", function(req, res, next) {
+    /* Query */
+    const query = Category.find();
+    /* Find categories in DB */
+    query.exec(function(err, categoryList) {
+        if (err) {
+            return res.status(500).json({
+                title: "Greška! Niste dobili kategoriju iz baze",
+                error: err
+            });
+        }
+        res.status(200).json({
+            message: "Bravo! Kategorija je uspešno učitana",
+            object: categoryList
+        });
+    });
+});
+
 /* 4. DELETE */
 router.delete("/:id", function(req, res, next) {
     Category.findOneAndRemove(
-        /* slug match */
-        {
-            _id: req.params.id
-        },
+        /* id match */
+        { _id: req.params.id  },
         /* callback */
-        function(err, success) {
+        function(err, data) {
             if (err) {
                 return res.status(500).json({
                     title: "Greška! Kategorija nije izbrisana iz baze",
@@ -159,9 +175,15 @@ router.delete("/:id", function(req, res, next) {
                     error: err
                 });
             }
+            /* remove image folder */
+            let folderDest = "./dist/electro-vision/assets/uploads/categories/" + req.params.id + "/";
+            if (fs.existsSync(folderDest)) {
+                fs.remove(folderDest).then( console.log('deleted Folder') );
+            }
+            /* success */
             res.status(201).json({
                 title: "Upravo ste izbrisali kategoriju iz baze",
-                success: 1
+                data: data
             });
         }
     );
