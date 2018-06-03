@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 
 /* 3rd party modules */
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { ToastrModule } from 'ngx-toastr';
 
 /* App modules */
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,7 @@ import { BrandPageComponent } from './pages/brand-page/brand-page.component';
     FormsModule,
     HttpClientModule,
     CarouselModule,
+    ToastrModule.forRoot(),
     AppRoutingModule
   ],
   declarations: [

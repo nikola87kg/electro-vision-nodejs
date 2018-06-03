@@ -51,7 +51,7 @@ router.post("/images/:id", function(req, res) {
             }
         });
         res.status(200).json({
-            title: "Bravo! Slika grupe je uspešno snimljena u bazu",
+            title: "Bravo! Slika potkategorije " + data.name + " je uspešno snimljena u bazu",
             success: 1,
             path: req.file.path,
             image: req.file.originalname,
@@ -80,7 +80,7 @@ router.post("/", function(req, res, next) {
             });
         }
         res.status(201).json({
-            title: "Bravo! Grupa je uspešno snimljena u bazu",
+            title: " Grupa " + data.name + " je uspešno snimljena u bazu",
             data: data
         });
     });
@@ -121,7 +121,7 @@ router.put("/:id", function(req, res, next) {
                 });
             }
             res.status(201).json({
-                title: "Bravo! Grupa je uspešno snimljena u bazu",
+                title: "Grupa " + data.name + " je uspešno snimljena u bazu",
                 id: data.id,
                 success: 1
             });
@@ -144,7 +144,7 @@ router.get("/", function(req, res, next) {
             });
         }
         res.status(200).json({
-            message: "Bravo! Grupe su uspešno učitane",
+            message: "Potkategorije su uspešno učitane",
             object: groupList
         });
     });

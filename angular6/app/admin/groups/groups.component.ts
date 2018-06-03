@@ -2,6 +2,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 /* 3rd party */
+import { ToastrService } from 'ngx-toastr';
 import {
     UploadOutput,
     UploadInput,
@@ -31,7 +32,8 @@ export class GroupsComponent implements OnInit {
     /* Constructor */
     constructor(
         private groupService: GroupsService,
-        private categoryService: CategoriesService
+        private categoryService: CategoriesService,
+        private toastr: ToastrService
     ) {
         this.files = []; // local uploading files array
         this.uploadInput = new EventEmitter<UploadInput>();
@@ -112,7 +114,7 @@ export class GroupsComponent implements OnInit {
         if (editing) {
             this.dialogIsOpen = true;
             this.dialogIsEditing = true;
-            this.dialogTitle = 'Ažuriranje grupe';
+            this.dialogTitle = 'Ažuriranje potkategorije';
             this.group = Object.assign({}, singleGroup);
             if (index) {
                 this.currentIndex = index;
@@ -121,7 +123,7 @@ export class GroupsComponent implements OnInit {
         if (!editing) {
             this.dialogIsOpen = true;
             this.dialogIsEditing = false;
-            this.dialogTitle = 'Dodavanje proizvoda';
+            this.dialogTitle = 'Dodavanje potkategorije';
             this.clearForm();
         }
     }
@@ -155,41 +157,83 @@ export class GroupsComponent implements OnInit {
 
     /* Add new group */
     postGroup(group) {
-        this.groupService.post(group).subscribe(data => {
+        let response: any = {
+            title: ''
+        };
+        this.groupService.post(group).subscribe(
+            (data) => {
             this.closeDialog();
             this.getGroups();
-        });
+            response = data;
+            this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Update group */
     putGroup(group) {
-        this.groupService.put(group._id, group).subscribe(data => {
-            this.closeDialog();
-            this.getGroups();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.groupService.put(group._id, group).subscribe(
+            (data) => {
+                this.closeDialog();
+                this.getGroups();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Update image */
     postImage() {
+        let response: any = {
+            title: ''
+        };
         const total = this.files.length - 1;
         const image = this.files[total].name || 'no-image';
         const thisGroup = this.groupList[this.imageindex];
         thisGroup.image = image;
-        this.groupService
-            .put(thisGroup._id, thisGroup)
-            .subscribe(data => {
+        this.groupService.put(thisGroup._id, thisGroup).subscribe(
+            (data) => {
                 this.closeImageDialog();
                 this.startUpload(data);
                 this.getGroups();
-            });
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Delete group */
     deleteGroup(id, index) {
-        this.groupService.delete(id).subscribe(() => {
-            this.groupList.splice(index, 1);
-            this.closeDialog();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.groupService.delete(id).subscribe(
+            (data) => {
+                this.groupList.splice(index, 1);
+                this.closeDialog();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Get groups */

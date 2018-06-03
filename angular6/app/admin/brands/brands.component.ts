@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 
 /* 3rd party */
+import { ToastrService } from 'ngx-toastr';
 import {
     UploadOutput,
     UploadInput,
@@ -38,7 +39,8 @@ export class BrandsComponent implements OnInit {
 
     /* Constructor */
     constructor(
-        private brandService: BrandsService
+        private brandService: BrandsService,
+        private toastr: ToastrService
     ) {
         this.files = []; // local uploading files array
         this.uploadInput = new EventEmitter<UploadInput>();
@@ -156,40 +158,83 @@ export class BrandsComponent implements OnInit {
 
     /* Add new brand */
     postBrand(brand) {
-        this.brandService.post(brand).subscribe(response => {
-            this.closeDialog();
-            this.getBrands();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.brandService.post(brand).subscribe(
+            (data) => {
+                this.closeDialog();
+                this.getBrands();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Update brand */
     putBrand(brand) {
-        this.brandService.put(brand._id, brand).subscribe(data => {
-            this.closeDialog();
-            this.getBrands();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.brandService.put(brand._id, brand).subscribe(
+            (data) => {
+                this.closeDialog();
+                this.getBrands();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Update image */
     postImage() {
+        let response: any = {
+            title: ''
+        };
         const total = this.files.length - 1;
         const image = this.files[total].name || 'no-image';
         const thisBrand = this.brandList[this.imageindex];
         thisBrand.image = image;
-        this.brandService.put(thisBrand._id, thisBrand)
-                         .subscribe(data => {
-                             this.closeImageDialog();
-                             this.startUpload(data);
-                             this.getBrands();
-                         });
+        this.brandService.put(thisBrand._id, thisBrand).subscribe(
+            (data) => {
+                this.closeImageDialog();
+                this.startUpload(data);
+                this.getBrands();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Delete Brand */
     deleteBrand(id, index) {
-        this.brandService.delete(id).subscribe(() => {
-            this.brandList.splice(index, 1);
-            this.closeDialog();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.brandService.delete(id).subscribe(
+            (data) => {
+                this.brandList.splice(index, 1);
+                this.closeDialog();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Get brand */

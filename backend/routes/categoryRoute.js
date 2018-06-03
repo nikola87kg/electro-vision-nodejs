@@ -45,7 +45,7 @@ router.post("/images/:id", function(req, res) {
             }
         });
         res.status(200).json({
-            title: "Bravo! Slika kategorije je uspešno snimljena u bazu",
+            title: "Slika kategorije " + data.name + " je uspešno snimljena u bazu",
             success: 1,
             path: req.file.path,
             image: req.file.originalname,
@@ -74,7 +74,7 @@ router.post("/", function(req, res, next) {
         }
         if (!error) {
             res.status(201).json({
-                title: "Bravo! Kategorija je uspešno snimljena u bazu",
+                title: "Kategorija" + data.name + " je uspešno snimljena u bazu",
                 data: category
             });
         }
@@ -114,7 +114,7 @@ router.put("/:id", function(req, res, next) {
                 });
             }
             res.status(201).json({
-                title: "Bravo! Kategorija je uspešno snimljena u bazu",
+                title: "Kategorija " + data.name + " je uspešno snimljena u bazu",
                 id: data.id,
                 success: 1
             });
@@ -158,7 +158,7 @@ router.get("/:slug", function(req, res, next) {
             });
         }
         res.status(200).json({
-            message: "Bravo! Kategorija je uspešno učitana",
+            message: "Kategorija " + data.name + " je uspešno učitana",
             object: category
         });
     };

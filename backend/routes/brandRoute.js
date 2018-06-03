@@ -44,7 +44,7 @@ router.post("/images/:id", function(req, res) {
             }
         });
         res.status(200).json({
-            title: "Bravo! Slika brenda je uspešno snimljena u bazu",
+            title: "Slika brenda je uspešno snimljena u bazu",
             success: 1,
             path: req.file.path,
             image: req.file.originalname,
@@ -72,7 +72,7 @@ router.post("/", function(req, res, next) {
         }
         if (!error) {
             return res.status(201).json({
-                title: "Bravo! Brend je uspešno snimljen u bazu",
+                title: "Bravo! Brend " + data.name + " je uspešno snimljen u bazu",
                 data: brand
             });
         }
@@ -110,7 +110,7 @@ router.put("/:id", function(req, res, next) {
                 });
             }
             res.status(201).json({
-                title: "Bravo! Brend je uspešno snimljen u bazu",
+                title: "Brend " + data.name + " je uspešno snimljen u bazu",
                 id: data.id,
                 success: 1
             });
@@ -131,7 +131,7 @@ router.get("/:slug", function(req, res, next) {
             });
         }
         res.status(200).json({
-            message: "Bravo! Brendovi su uspešno učitani",
+            message: "Brendovi su uspešno učitani",
             object: brand
         });
     });
@@ -150,7 +150,7 @@ router.get("/", function(req, res, next) {
             });
         }
         res.status(200).json({
-            message: "Bravo! Brendovi su uspešno učitani",
+            message: "Brendovi su uspešno učitani",
             object: brandList
         });
     });
@@ -177,7 +177,7 @@ router.delete("/:id", function(req, res, next) {
             }
             /* success */
             res.status(201).json({
-                title: "Upravo ste izbrisali brend iz baze",
+                title: "Upravo ste izbrisali brend " + data.name + " iz baze",
                 data: data
             });
         }

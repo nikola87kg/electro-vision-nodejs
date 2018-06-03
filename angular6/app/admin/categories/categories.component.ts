@@ -2,6 +2,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 /* 3rd party */
+import { ToastrService } from 'ngx-toastr';
 import {
     UploadOutput,
     UploadInput,
@@ -28,7 +29,10 @@ export class CategoriesComponent implements OnInit {
     dragOver: boolean;
 
     /* Constructor */
-    constructor(private categoryService: CategoriesService) {
+    constructor(
+        private categoryService: CategoriesService,
+        private toastr: ToastrService
+    ) {
         this.files = []; // local uploading files array
         this.uploadInput = new EventEmitter<UploadInput>();
         this.humanizeBytes = humanizeBytes;
@@ -144,41 +148,83 @@ export class CategoriesComponent implements OnInit {
     }
     /* Add new category */
     postCategory(category) {
-        this.categoryService.post(category).subscribe(response => {
-            this.closeDialog();
-            this.getCategories();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.categoryService.post(category).subscribe(
+            (data) => {
+                this.closeDialog();
+                this.getCategories();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Update category */
     putCategory(category) {
-        this.categoryService.put(category._id, category).subscribe(data => {
-            this.closeDialog();
-            this.getCategories();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.categoryService.put(category._id, category).subscribe(
+            (data) => {
+                this.closeDialog();
+                this.getCategories();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Update image */
     postImage() {
+        let response: any = {
+            title: ''
+        };
         const total = this.files.length - 1;
         const image = this.files[total].name || 'no-image';
         const thisCategory = this.categoryList[this.imageindex];
         thisCategory.image = image;
-        this.categoryService
-            .put(thisCategory._id, thisCategory)
-            .subscribe(data => {
+        this.categoryService.put(thisCategory._id, thisCategory).subscribe(
+            (data) => {
                 this.closeImageDialog();
                 this.startUpload(data);
                 this.getCategories();
-            });
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Delete category */
     deleteCategory(id, index) {
-        this.categoryService.delete(id).subscribe(() => {
-            this.categoryList.splice(index, 1);
-            this.closeDialog();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.categoryService.delete(id).subscribe(
+            (data) => {
+                this.categoryList.splice(index, 1);
+                this.closeDialog();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Get category */

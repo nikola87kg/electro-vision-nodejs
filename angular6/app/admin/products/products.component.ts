@@ -2,6 +2,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 /* 3rd party */
+import { ToastrService } from 'ngx-toastr';
 import {
     UploadOutput,
     UploadInput,
@@ -35,7 +36,8 @@ export class ProductsComponent implements OnInit {
         private productService: ProductsService,
         private groupService: GroupsService,
         private categoryService: CategoriesService,
-        private brandService: BrandsService
+        private brandService: BrandsService,
+        private toastr: ToastrService
     ) {
         this.files = []; // local uploading files array
         this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
@@ -168,77 +170,123 @@ export class ProductsComponent implements OnInit {
 
     /* Add new product */
     postProduct(product) {
-        this.productService.post(product).subscribe(data => {
-            this.closeDialog();
-            this.getProducts();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.productService.post(product).subscribe(
+            (data) => {
+                this.closeDialog();
+                this.getProducts();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Update product */
     putProduct(product) {
-        this.productService.put(product._id, product).subscribe(data => {
+        let response: any = {
+            title: ''
+        };
+        this.productService.put(product._id, product).subscribe(
+            data => {
             this.closeDialog();
             this.getProducts();
-        });
+            response = data;
+            this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Update image */
     postImage() {
+        let response: any = {
+            title: ''
+        };
         const total = this.files.length - 1;
         const image = this.files[total].name || 'no-image';
         const thisProduct = this.productList[this.imageindex];
         thisProduct.image = image;
         this.productService
             .put(thisProduct._id, thisProduct)
-            .subscribe(data => {
+            .subscribe(
+                (data) => {
                 this.closeImageDialog();
                 this.startUpload(data);
                 this.getGroups();
-            });
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+                },
+                (error) => {
+                    response = error;
+                    this.toastr.error(JSON.stringify(response.title));
+                }
+            );
     }
 
     /* Delete product */
     deleteProduct(id, index) {
-        this.productService.delete(id).subscribe(() => {
-            this.productList.splice(index, 1);
-            this.closeDialog();
-        });
+        let response: any = {
+            title: ''
+        };
+        this.productService.delete(id).subscribe(
+            (data) => {
+                this.productList.splice(index, 1);
+                this.closeDialog();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
+            },
+            (error) => {
+                response = error;
+                this.toastr.error(JSON.stringify(response.title));
+            }
+        );
     }
 
     /* Get products + filter */
     getProducts(categoryFilter?, groupFilter?, brandFilter?) {
-        this.productService.get().subscribe(response => {
-            let productsResponse: any = {
-                message: '',
-                object: {}
-            };
-            productsResponse = response;
-            if (categoryFilter) {
-                this.productList = productsResponse.object.filter(
-                    p => p.category._id === categoryFilter
-                );
-                if (brandFilter) {
-                    this.productList = this.productList.filter(
+        this.productService.get().subscribe(
+            (response) => {
+                let productsResponse: any = {
+                    message: '',
+                    object: {}
+                };
+                productsResponse = response;
+                if (categoryFilter) {
+                    this.productList = productsResponse.object.filter(
+                        p => p.category._id === categoryFilter
+                    );
+                    if (brandFilter) {
+                        this.productList = this.productList.filter(
+                            p => p.brand._id === brandFilter
+                        );
+                    }
+                } else if (groupFilter) {
+                    this.productList = productsResponse.object.filter(
+                        p => p.group._id === groupFilter
+                    );
+                    if (brandFilter) {
+                        this.productList = this.productList.filter(
+                            p => p.brand._id === brandFilter
+                        );
+                    }
+                } else if (brandFilter) {
+                    this.productList = productsResponse.object.filter(
                         p => p.brand._id === brandFilter
                     );
+                } else {
+                    this.productList = productsResponse.object;
                 }
-            } else if (groupFilter) {
-                this.productList = productsResponse.object.filter(
-                    p => p.group._id === groupFilter
-                );
-                if (brandFilter) {
-                    this.productList = this.productList.filter(
-                        p => p.brand._id === brandFilter
-                    );
-                }
-            } else if (brandFilter) {
-                this.productList = productsResponse.object.filter(
-                    p => p.brand._id === brandFilter
-                );
-            } else {
-                this.productList = productsResponse.object;
             }
-        });
+        );
     }
 
     /* Get brands */

@@ -84,7 +84,7 @@ router.post("/", function(req, res, next) {
             });
         }
         res.status(201).json({
-            title: "Bravo! Proizvod je uspešno snimljen u bazu",
+            title: "Proizvod " + data.name + " je uspešno snimljen u bazu",
             success: 1,
             data: data
         });
@@ -129,7 +129,7 @@ router.put("/:id", function(req, res, next) {
                 });
             }
             res.status(201).json({
-                title: "Bravo! Proizvod je uspešno snimljen u bazu",
+                title: "Proizvod " + data.name + " je uspešno ažuriran",
                 id: data.id,
                 success: 1
             });
@@ -209,7 +209,7 @@ router.delete("/:id", function(req, res, next) {
             }
             /* send JSON */
             res.status(201).json({
-                title: "Upravo ste izbrisali proizvod iz baze",
+                title: "Proizvod " + data.name + " je uspešno izbrisan",
                 success: 1,
                 data: data
             });
