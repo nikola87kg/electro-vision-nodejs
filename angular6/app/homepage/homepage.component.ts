@@ -2,10 +2,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-/* Pixelarium */
+/* Services */
 import { BrandsService } from 'angular6/app/_services/brands.service';
-import { CategoriesService } from '../_services/categories.service';
-import { ProductsService } from '../_services/products.service';
+import { CategoriesService } from 'angular6/app/_services/categories.service';
+import { ProductsService } from 'angular6/app/_services/products.service';
 
 @Component({
     selector: 'px-homepage',

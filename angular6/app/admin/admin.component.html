@@ -1,42 +1,39 @@
-<nav id="admin-navigator" [ngStyle]="{
-  'text-align': wideMenu ? 'left' : 'center'
-}">
-  <div class="admin-menu" [ngStyle]="{
-        'width': wideMenu === 'open' ? '200px' : '30px',
-        'text-align': wideMenu === 'open' ? 'left' : 'center'
-      }">
-    <span *ngIf="wideMenu === 'open' ">Admin panel</span>
-    <i *ngIf=" wideMenu === 'open' "  (click)="togleMenu()" class="fa fa-angle-double-left float-right" ></i>
-    <i *ngIf=" wideMenu === 'closed'" (click)="togleMenu()" class="fa fa-angle-double-right"></i>
-  </div>
-  <a routerLink="/admin/pregled" routerLinkActive="active">
-    <i class="fa fa-th-large" ></i>
-    <span *ngIf="wideMenu === 'open' ">Pregled</span>
-  </a>
-  <a routerLink="/admin/proizvodi" routerLinkActive="active">
-    <i class="fa fa-product-hunt" ></i>
-    <span *ngIf="wideMenu === 'open' ">Proizvodi</span>
-  </a>
-  <a routerLink="/admin/grupe" routerLinkActive="active">
-    <i class="fa fa-users" ></i>
-    <span *ngIf="wideMenu === 'open' ">Grupe</span>
-  </a>
-  <a routerLink="/admin/kategorije" routerLinkActive="active">
-    <i class="fa fa-folder" ></i>
-    <span *ngIf="wideMenu === 'open' ">Kategorije</span>
+<nav id="admin-navigator"
+    [ngClass]="{ 'text-centered': wideMenu !== 'open' }"
+    [ngStyle]="{'text-align': wideMenu ? 'left' : 'center'}">
+    <div class="admin-menu" [ngStyle]="{ 'width': wideMenu === 'open' ? '200px' : '30px' }">
+        <span *ngIf="wideMenu === 'open' ">Admin panel</span>
+        <i *ngIf=" wideMenu === 'open' " (click)="togleMenu()" class="fa fa-angle-double-left float-right"></i>
+        <i *ngIf=" wideMenu === 'closed'" (click)="togleMenu()" class="fa fa-angle-double-right"></i>
+    </div>
+    <a routerLink="/admin/pregled" routerLinkActive="active">
+        <i class="fa fa-th-large"></i>
+        <span *ngIf="wideMenu === 'open' ">Pregled</span>
+    </a>
+    <a routerLink="/admin/proizvodi" routerLinkActive="active">
+        <i class="fa fa-product-hunt"></i>
+        <span *ngIf="wideMenu === 'open' ">Proizvodi</span>
+    </a>
+    <a routerLink="/admin/grupe" routerLinkActive="active">
+        <i class="fa fa-users"></i>
+        <span *ngIf="wideMenu === 'open' ">Grupe</span>
+    </a>
+    <a routerLink="/admin/kategorije" routerLinkActive="active">
+        <i class="fa fa-folder"></i>
+        <span *ngIf="wideMenu === 'open' ">Kategorije</span>
 
-  </a>
-  <a routerLink="/admin/brendovi" routerLinkActive="active">
-    <i class="fa fa-telegram" ></i>
-    <span *ngIf="wideMenu === 'open' ">Brendovi</span>
-  </a>
-  <a routerLink="/" style="position: fixed; bottom:0;">
-    <i class="fa fa-home" ></i>
-    <span *ngIf="wideMenu === 'open' ">Početna</span>
-  </a>
+    </a>
+    <a routerLink="/admin/brendovi" routerLinkActive="active">
+        <i class="fa fa-telegram"></i>
+        <span *ngIf="wideMenu === 'open' ">Brendovi</span>
+    </a>
+    <a routerLink="/" class="home-link">
+        <i class="fa fa-home"></i>
+        <span *ngIf="wideMenu === 'open' ">Početna</span>
+    </a>
 </nav>
 
 <!-- Admin routes placeholder -->
 <div class="route-wrapper" [ngStyle]="{'margin-left': wideMenu === 'open' ? '210px' : '50px'}">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>

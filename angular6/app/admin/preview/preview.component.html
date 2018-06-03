@@ -1,63 +1,90 @@
 <div class="row">
-  <div class=" col-sm-12 col-md-12 col-lg-6">
-    <div class="preview-panel products" routerLink="/admin/proizvodi" >
-      <h3>
-        Proizvodi
-        <i class="fa fa-product-hunt" aria-hidden="true"></i>
-      </h3>
-      <table class="table preview-table">
-        <tr>
-          <td> Naziv </td>
-          <td> Slug </td>
-          <td> VIP </td>
-          <td> Nova </td>
-        </tr>
-      </table>
+    <div class=" col-sm-12">
+        <h1 id="dashboard-title">KONTROLNA TABLA</h1>
     </div>
-  </div>
-  <div class="col-sm-12 col-md-12 col-lg-6">
-    <div class="preview-panel groups" routerLink="/admin/grupe" >
-      <h3>
-        Grupe
-        <i class="fa fa-users" aria-hidden="true"></i>
-      </h3>
-      <table class="table preview-table">
-        <tr>
-          <td> Naziv </td>
-          <td> Slug </td>
-          <td> Opis </td>
-        </tr>
-      </table>
+    <!-- Proizvodi -->
+    <div class=" col-sm-12 col-md-12 col-lg-6">
+        <div class="preview-panel products" routerLink="/admin/proizvodi">
+            <h3>
+                Proizvodi
+                <i class="fa fa-product-hunt" aria-hidden="true"></i>
+            </h3>
+            <table class="table preview-table">
+                <tr>
+                    <th> Naziv </th>
+                    <th> URL </th>
+                    <th> Opis </th>
+                </tr>
+                <tr *ngFor="let product of productList; let i = index">
+                    <td> {{product.name}} </td>
+                    <td> {{product.slug}} </td>
+                    <td> {{product.description}} </td>
+                </tr>
+            </table>
+        </div>
     </div>
-  </div>
-  <div class=" col-sm-12 col-md-12 col-lg-6">
-    <div class="preview-panel categories" routerLink="/admin/kategorije" >
-      <h3>
-        Kategorije
-        <i class="fa fa-folder" aria-hidden="true"></i>
-      </h3>
-      <table class="table preview-table">
-        <tr>
-          <td> Naziv </td>
-          <td> Slug </td>
-          <td> Opis </td>
-        </tr>
-      </table>
+
+    <!-- Brendovi -->
+    <div class=" col-sm-12 col-md-12 col-lg-6">
+        <div class="preview-panel brands" routerLink="/admin/brendovi">
+            <h3>
+                Brendovi
+                <i class="fa fa-telegram" aria-hidden="true"></i>
+            </h3>
+            <table class="table preview-table">
+                <tr>
+                    <th> Naziv </th>
+                    <th> URL </th>
+                    <th> Opis</th>
+                </tr>
+                <tr *ngFor="let brand of brandList; let i = index">
+                    <td> {{brand.name}} </td>
+                    <td> {{brand.slug}} </td>
+                    <td> {{brand.description}} </td>
+                </tr>
+            </table>
+        </div>
     </div>
-  </div>
-  <div class=" col-sm-12 col-md-12 col-lg-6">
-    <div class="preview-panel brands" routerLink="/admin/brendovi" >
-        <h3>
-          Brendovi
-          <i class="fa fa-telegram" aria-hidden="true"></i>
-        </h3>
-        <table class="table preview-table">
-          <tr>
-            <td> Naziv </td>
-            <td> Slug </td>
-            <td> Opis </td>
-          </tr>
-        </table>
-      </div>
-  </div>
+    <!-- Kategorije -->
+    <div class=" col-sm-12 col-md-12 col-lg-6">
+        <div class="preview-panel categories" routerLink="/admin/kategorije">
+            <h3>
+                Kategorije
+                <i class="fa fa-folder" aria-hidden="true"></i>
+            </h3>
+            <table class="table preview-table">
+                <tr>
+                    <th> Naziv </th>
+                    <th> URL </th>
+                    <th> Opis</th>
+                </tr>
+                <tr *ngFor="let cat of categoryList; let i = index">
+                    <td> {{cat.name}} </td>
+                    <td> {{cat.slug}} </td>
+                    <td> {{cat.description}} </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- Potkategorije -->
+    <div class="col-sm-12 col-md-12 col-lg-6">
+        <div class="preview-panel groups" routerLink="/admin/grupe">
+            <h3>
+                Potkategorije
+                <i class="fa fa-users" aria-hidden="true"></i>
+            </h3>
+            <table class="table preview-table">
+                <tr>
+                    <th> Naziv </th>
+                    <th> URL </th>
+                    <th> Opis </th>
+                </tr>
+                <tr *ngFor="let group of groupList; let i = index">
+                    <td> {{group.name}} </td>
+                    <td> {{group.slug}} </td>
+                    <td> {{group.description}} </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

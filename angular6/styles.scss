@@ -45,6 +45,11 @@ select {
 
 /***** COMMON CLASSES ****/
 
+.text-centered,
+.text-centered a  {
+    text-align: center !important;
+}
+
 .mr5 {
     margin-right: 5px;
 }

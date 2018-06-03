@@ -1,38 +1,58 @@
 @import "angular6/app/partials/_variables.scss";
 
+h1#dashboard-title {
+    text-align: center;
+    margin: 10px 20px;
+    color: $primary-color;
+    padding: 10px 20px;
+    border-bottom: 2px solid $primary-color;
+}
+
 .preview-panel {
-  margin: 20px;
-  padding: 20px;
-  cursor: pointer;
-  text-align: center;
-  color: white;
-  background: gray;
-  &.products {
-    background: $secondary-color;
-  }
-  &.groups {
-    background: $third-color;
-  }
-  &.categories {
-    background: $third-color;
-  }
-  &.brands {
-    background: $secondary-color;
-  }
-  h3 {
-    margin-bottom: 20px;
-    i {
-      float: right;
-      font-size: 16px;
-      &:hover {
-        color: darkgray;
-      }
+    margin: 20px;
+    padding: 20px;
+    cursor: pointer;
+    text-align: center;
+    height: 300px;
+    overflow-y: auto;
+    color: white;
+    background: gray;
+    &.products {
+        background: lighten($third-color, 10);
     }
-  }
-  .preview-table {
-    color: black;
-    td {
-      text-align: center;
+    &.brands {
+        background: $third-color;
     }
-  }
+    &.categories {
+        background: darken($third-color, 10);
+    }
+    &.groups {
+        background: darken($third-color, 20);
+    }
+    h3 {
+        margin-bottom: 20px;
+        color: rgb(229, 252, 126);
+        i {
+            float: right;
+            font-size: 16px;
+            &:hover {
+                color: darkgray;
+            }
+        }
+    }
+    .preview-table {
+        color: white;
+        td {
+            text-align: left;
+            color: white;
+            padding: 3px 10px;
+            border: none;
+        }
+        th {
+            padding: 5px 10px;
+            text-align: left;
+            color: rgb(229, 252, 126);
+            font-weight: normal;
+        }
+    }
 }
