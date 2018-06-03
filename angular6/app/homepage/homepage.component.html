@@ -1,4 +1,5 @@
 <div id="homepage">
+
     <!-- Slider Banner -->
     <div id="slider-wrapper" class="row">
         <div class="col-sm-12 slider">
@@ -63,16 +64,14 @@
     </div>
 
     <div class="main-section row">
-        <!-- SIDELISTS -->
+        <!-- Side Menu -->
         <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
-            <!-- CATEGORIES -->
+            <!-- categories -->
             <ul class="list category">
                 <li class="headline category" (click)="smallScreen() && toggleBrands() ">Kategorije</li>
-                <li *ngFor="let cat of categoryList; let i = index"
-                    (click)="goToBrand(cat.slug)">
+                <li *ngFor="let cat of categoryList; let i = index" (click)="goToBrand(cat.slug)">
                     <ng-container *ngIf="bigScreen()">
-                        <div class="thumb-wrapper category"
-                        [ngStyle]="{'background': 'url(' + cat.image + ') no-repeat center center',
+                        <div class="thumb-wrapper category" [ngStyle]="{'background': 'url(' + cat.image + ') no-repeat center center',
                                     'background-size': 'contain'}">
                         </div>
                         {{cat.name}}
@@ -80,13 +79,12 @@
                 </li>
             </ul>
             <br>
-            <!-- BRANDS -->
+            <!-- brands -->
             <ul class="list brand">
                 <li class="headline brand" (click)="smallScreen() && toggleBrands() ">Brendovi</li>
                 <li *ngFor="let brand of brandList; let i = index" (click)="goToBrand(brand.slug)">
                     <ng-container *ngIf="bigScreen() && brandsMobile">
-                        <div class="thumb-wrapper"
-                             [ngStyle]="{'background': 'url(' + brand.image + ') no-repeat center center',
+                        <div class="thumb-wrapper" [ngStyle]="{'background': 'url(' + brand.image + ') no-repeat center center',
                              'background-size': 'contain'}">
                         </div>
                     </ng-container>
@@ -94,25 +92,30 @@
             </ul>
         </div>
 
-        <!-- TOP PRODUCTS -->
+        <!-- Main Area -->
         <div class="col-sm-12 col-md-8 col-lg-7 content">
+            <!-- Top products -->
             <div class="top-product-wrapper">
-                <!-- Headline -->
+                <!-- headline -->
                 <h4 class="breaking-news">
                     <i class="fa fa-hand-o-down up-down mr5 ml5"></i>
                     Aktuelno u ponudi
                     <i class="fa fa-hand-o-down up-down mr5 ml5"></i>
                 </h4>
+                <!-- list -->
                 <div class="row">
-                    <div class="top-product-box col-sm-12 col-md-6 col-lg-6 col-xl-4"
-                         *ngFor="let brand1 of brandList; let i = index">
-                        <div class="col-sm-12 image">
-                            <img *ngIf="brand1.image" src="{{brand1.image}}">
-                            <img *ngIf="!brand1.image" src=".\assets\default_images\default-product.jpg">
-                        </div>
-                        <div class="col-sm-12">
-                            <h5>{{brand1.name}}</h5>
-                            <p>"{{brand1.description}}"</p>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 top-product-box" *ngFor="let prod of productList; let i = index">
+                        <div>
+                            <div class="col-sm-12 image">
+                                <img *ngIf="prod.image" src="{{prod.image}}">
+                                <img *ngIf="!prod.image" src=".\assets\default_images\default-product.jpg">
+                            </div>
+                            <div class="col-sm-12">
+                                <h5>{{prod.name}}</h5>
+                                <h6>{{prod.brand.name}}</h6>
+                                <h6>{{prod.category.name}}</h6>
+                                <p>"{{prod.description}}"</p>
+                            </div>
                         </div>
                     </div>
                 </div>

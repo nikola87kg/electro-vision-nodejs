@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 /* Pixelarium */
 import { BrandsService } from 'angular6/app/_services/brands.service';
 import { CategoriesService } from '../_services/categories.service';
+import { ProductsService } from '../_services/products.service';
 
 @Component({
     selector: 'px-homepage',
@@ -12,7 +13,8 @@ import { CategoriesService } from '../_services/categories.service';
     styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
-    brandList: any = [];
+    productList = [];
+    brandList = [];
     categoryList = [];
     listMobile = false;
     brandsMobile = true;
@@ -21,6 +23,7 @@ export class HomepageComponent implements OnInit {
     constructor(
         private brandService: BrandsService,
         private categoryService: CategoriesService,
+        private productService: ProductsService,
         private router: Router) {}
 
     actualWidth = window.innerWidth;
@@ -34,6 +37,7 @@ export class HomepageComponent implements OnInit {
     ngOnInit() {
         this.getBrands();
         this.getCategories();
+        this.getProducts();
     }
 
     /* Screens */
@@ -49,6 +53,18 @@ export class HomepageComponent implements OnInit {
             return true;
         }
         return false;
+    }
+
+    /* Get products + filter */
+    getProducts(categoryFilter?, groupFilter?, brandFilter?) {
+        this.productService.get().subscribe(response => {
+            let productsResponse: any = {
+                message: '',
+                object: {}
+            };
+            productsResponse = response;
+            this.productList = productsResponse.object;
+        });
     }
 
     /* Get brand */

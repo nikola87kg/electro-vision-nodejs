@@ -152,7 +152,7 @@ carousel h3 {
         padding: 10px;
         text-transform: uppercase;
         letter-spacing: 1px;
-        text-align: center;
+        text-align: left;
     }
     .up-down {
         animation: updown 1s linear infinite, blinker 1s linear infinite;
@@ -160,8 +160,13 @@ carousel h3 {
 }
 
 .top-product-box {
-    padding: 20px 10px;
     > div {
+        border: 1px solid lightgray;
+        &:hover {
+            box-shadow: 1px 1px 20px 1px lightgray;
+        }
+    }
+    > div > div {
         text-align: center;
         img {
             width: 100%;
