@@ -1,9 +1,5 @@
 /* Angular */
-import {
-    Component,
-    OnInit,
-    EventEmitter
-} from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 
 /* 3rd party */
 import {
@@ -15,9 +11,7 @@ import {
 } from 'ngx-uploader';
 
 /* Services */
-import {
-    CategoriesService
-} from 'angular6/app/_services/categories.service';
+import { CategoriesService } from 'angular6/app/_services/categories.service';
 
 @Component({
     selector: 'px-categories',
@@ -33,9 +27,8 @@ export class CategoriesComponent implements OnInit {
     humanizeBytes: Function;
     dragOver: boolean;
 
-    constructor(
-        private categoryService: CategoriesService
-    ) {
+    /* Constructor */
+    constructor(private categoryService: CategoriesService) {
         this.files = []; // local uploading files array
         this.uploadInput = new EventEmitter<UploadInput>();
         this.humanizeBytes = humanizeBytes;
@@ -171,12 +164,13 @@ export class CategoriesComponent implements OnInit {
         const image = this.files[total].name || 'no-image';
         const thisCategory = this.categoryList[this.imageindex];
         thisCategory.image = image;
-        this.categoryService.put(thisCategory._id, thisCategory)
-                         .subscribe(data => {
-                             this.closeImageDialog();
-                             this.startUpload(data);
-                             this.getCategories();
-                         });
+        this.categoryService
+            .put(thisCategory._id, thisCategory)
+            .subscribe(data => {
+                this.closeImageDialog();
+                this.startUpload(data);
+                this.getCategories();
+            });
     }
 
     /* Delete category */

@@ -54,7 +54,8 @@ router.post("/images/:id", function(req, res) {
     });
 });
 
-// 1. POST
+/*************************** 1. POST ***************************/
+
 router.post("/", function(req, res, next) {
     /* create */
     var category = new Category({
@@ -80,29 +81,8 @@ router.post("/", function(req, res, next) {
     });
 });
 
-// 2.GET BY SLUG
-router.get("/:slug", function(req, res, next) {
+/*************************** 2. UPDATE ***************************/
 
-    /* Query */
-    Category.findOne({ slug: req.params.slug }).exec(callback);
-
-    /* Callback */
-    var callback = function(error, category) {
-        if (error) {
-            return res.status(500).json({
-                title: "Greška! Niste dobili listu kategorije iz baze",
-                error: error
-            });
-        }
-        res.status(200).json({
-            message: "Bravo! Kategorija je uspešno učitana",
-            object: category
-        });
-    };
-
-});
-
-/* 2. UPDATE */
 router.put("/:id", function(req, res, next) {
     const imageName = req.body.image;
     let fullImage = '';
@@ -142,7 +122,8 @@ router.put("/:id", function(req, res, next) {
     );
 });
 
-// 2.GET ALL
+/*************************** 3.GET ALL ***************************/
+
 router.get("/", function(req, res, next) {
     /* Query */
     const query = Category.find();
@@ -161,7 +142,31 @@ router.get("/", function(req, res, next) {
     });
 });
 
-/* 4. DELETE */
+/*************************** 3a.GET BY SLUG ***************************/
+
+router.get("/:slug", function(req, res, next) {
+
+    /* Query */
+    Category.findOne({ slug: req.params.slug }).exec(callback);
+
+    /* Callback */
+    var callback = function(error, category) {
+        if (error) {
+            return res.status(500).json({
+                title: "Greška! Niste dobili listu kategorije iz baze",
+                error: error
+            });
+        }
+        res.status(200).json({
+            message: "Bravo! Kategorija je uspešno učitana",
+            object: category
+        });
+    };
+
+});
+
+/*************************** 4. DELETE ***************************/
+
 router.delete("/:id", function(req, res, next) {
     Category.findOneAndRemove(
         /* id match */
@@ -183,6 +188,7 @@ router.delete("/:id", function(req, res, next) {
             /* success */
             res.status(201).json({
                 title: "Upravo ste izbrisali kategoriju iz baze",
+                success: 1,
                 data: data
             });
         }

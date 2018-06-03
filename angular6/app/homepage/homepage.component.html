@@ -68,14 +68,15 @@
             <!-- CATEGORIES -->
             <ul class="list category">
                 <li class="headline category" (click)="smallScreen() && toggleBrands() ">Kategorije</li>
-                <li *ngFor="let cat of categoryList; let i = index" (click)="goToBrand(cat.slug)">
+                <li *ngFor="let cat of categoryList; let i = index"
+                    (click)="goToBrand(cat.slug)">
                     <ng-container *ngIf="bigScreen()">
                         <div class="thumb-wrapper category"
                         [ngStyle]="{'background': 'url(' + cat.image + ') no-repeat center center',
                                     'background-size': 'contain'}">
                         </div>
+                        {{cat.name}}
                     </ng-container>
-                    {{cat.name}}
                 </li>
             </ul>
             <br>

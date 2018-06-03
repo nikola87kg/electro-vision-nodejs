@@ -101,7 +101,7 @@ carousel h3 {
         $brand-color: $third-color;
         margin: 20px;
         li {
-            padding: 0px 10px;
+            padding: 2px 10px;
             cursor: pointer;
             color: gray;
             vertical-align: middle;
@@ -118,6 +118,7 @@ carousel h3 {
                     text-align: left;
                     height: 50px;
                     width: 50px;
+                    border: 1px solid lightgray;
                 }
             }
             &.headline {
