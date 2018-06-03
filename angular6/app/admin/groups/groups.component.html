@@ -6,10 +6,10 @@
     <div class="headline">
         Ukupno rezultata:
         <span>{{groupList.length || 0}}</span>
-        <!-- <select #categoryFilter (change)="getGroups(categoryFilter.value)" class="form-control inline-element">
+        <select #categoryFilter (change)="getGroups(categoryFilter.value)" class="form-control inline-element">
           <option selected value="">Sve kategorije</option>
-          <option *ngFor="let group of groupList" value="{{category._id}}">{{category.name}}</option>
-        </select> -->
+          <option *ngFor="let cat of categoryList" value="{{cat._id}}">{{cat.name}}</option>
+        </select>
         <button (click)="openDialog(false)" class="btn btn-plus" title="Dodaj novu potkategoriju">
             <i class="fa fa-plus mr5"></i> Dodaj novu potkategoriju
         </button>
@@ -24,6 +24,7 @@
                 <img (click)="openImageDialog(i)" *ngIf="!group.image" src="./assets/default_images/default-product.jpg">
                 <div class="item-info">
                     <span class="slug-line trim"> grupa/{{group.slug}} </span>
+                    <p class="trim"> Kategorija: {{group.category.name}}</p>
                     <p class="trim-block-3"> Opis: {{group.description}}</p>
                 </div>
             </div>
@@ -84,7 +85,6 @@
       </div>
     </form>
   </div>
-
 
 <!-- ADD IMAGE DIALOG -->
 <div class="fixed dialog-wrapper" *ngIf="imageDialogIsOpen">

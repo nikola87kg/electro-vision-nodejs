@@ -92,17 +92,25 @@ h2.page-title {
             font-weight: bold;
             font-size: 18px;
         }
+        select {
+            background: $third-color;
+            color: white;
+            &:focus { border-color: $third-color; }
+            &:hover { border-color: $third-color; }
+            option {
+                background: white;
+                color: black;
+                padding: 2px 5px;
+                &:checked { background:  rgb(230, 240, 255);}
+            }
+        }
         button {
             background: $third-color;
             padding: 10px 20px;
             float: left;
             color: white;
-            &:hover {
-                background: darken($third-color, 10);
-            }
-            &:active {
-                background: green;
-            }
+            &:hover  { background: darken($third-color, 10); }
+            &:active { background: green; }
         }
     }
     .list {
@@ -120,9 +128,7 @@ h2.page-title {
                 cursor: pointer;
                 color: white;
                 background: $third-color;
-                &:hover {
-                    background: darken($third-color, 10);
-                }
+                &:hover { background: darken($third-color, 10); }
             }
             img {
                 margin: 10px;
@@ -206,10 +212,7 @@ form.form-dialog {
             margin: 0 auto;
             margin-top: 5px;
             min-width: 200px;
-            &:hover {
-                background: darken(green, 10);
-                cursor: pointer;
-            }
+            &:hover { background: darken(green, 10); cursor: pointer; }
             span span {
                 font-size: 14px;
                 color: lightgray;

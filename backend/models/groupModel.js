@@ -1,8 +1,11 @@
+/* Reference models */
+var Category = require('./categoryModel');
+
+/* Requires Mongoose Schema */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Category = require('./categoryModel');
-
+/* Creates a schema */
 var groupSchema = new Schema({
     name:           {type: String, required: true},
     description:    {type: String },
@@ -13,7 +16,7 @@ var groupSchema = new Schema({
     updatedAt:      {type: Date, default: Date.now}
 });
 
-/* checking createdAt */
+/* Pre hook */
 groupSchema.pre('save', function(next){
   if (!this.createdAt) {
       this.createdAt = new Date();
@@ -24,4 +27,5 @@ groupSchema.pre('save', function(next){
 /* Creates a model */
 const groupModel = mongoose.model('Group', groupSchema);
 
+/* Export model */
 module.exports = groupModel;

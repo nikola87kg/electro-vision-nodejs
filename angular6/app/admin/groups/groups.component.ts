@@ -43,7 +43,7 @@ export class GroupsComponent implements OnInit {
         name: '',
         slug: '',
         description: '',
-        category: { _id: '' },
+        category: { _id: '', name: '' },
         image: ''
     };
 
@@ -147,7 +147,7 @@ export class GroupsComponent implements OnInit {
         this.group = {
             name: '',
             slug: '',
-            category: { _id: '' },
+            category: { _id: '', name: '' },
             description: '',
             image: ''
         };
@@ -219,7 +219,6 @@ export class GroupsComponent implements OnInit {
             };
             categoriesResponse = result;
             this.categoryList = categoriesResponse.object;
-
         });
     }
 }

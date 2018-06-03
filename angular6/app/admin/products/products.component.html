@@ -1,161 +1,172 @@
-<!-- DIALOG -->
-<div class="fixed dialog-wrapper" *ngIf="dialogIsOpen">
-  <form class="form-dialog" #products="ngForm">
-    <!-- header -->
-    <div class="dialog-header">
-      <span class="dialog-header-title"> {{dialogTitle}} </span>
-      <button type="button" class="cancel-x btn btn-link" (click)="closeDialog()">
-        <i class="fa fa-times "></i>
-      </button>
-    </div>
-    <br>
-    <!-- inputs -->
-    <label for="">Proizvod
-      <input [(ngModel)]="product.name" autofocus
-              placeholder="Super kamera" name="name"
-              type="text" autocomplete="off" required>
-    </label>
-    <label for="">Link
-      <input [(ngModel)]="product.slug" placeholder="kamere-i-alarmi"
-      name="slug" type="text" autocomplete="off" required>
-    </label>
-    <label for="">Opis
-      <input [(ngModel)]="product.description" placeholder="Opis proizvoda"
-            autocomplete="off"  name="description" type="text">
-    </label>
-    <label for="">Kategorija
-      <select [(ngModel)]="product.category._id" name="category" type="text" required>
-        <option disabled value="">Izaberi kategoriju</option>
-        <option *ngFor="let category of categoryList" value="{{category._id}}">{{category.name}}</option>
-      </select>
-    </label>
-    <label for="">Grupa
-      <select [(ngModel)]="product.group._id" name="group" type="text" required>
-        <option disabled value="">Izaberi grupu</option>
-        <option *ngFor="let group of groupList" value="{{group._id}}">{{group.name}}</option>
-      </select>
-    </label>
-    <label for="">Brend
-      <select [(ngModel)]="product.brand._id" name="brand" type="text" required>
-        <option disabled value="">Izaberi brend</option>
-        <option *ngFor="let brand of brandList" value="{{brand._id}}">{{brand.name}}</option>
-      </select>
-    </label>
-    <label for="image-loader" style="min-height:50px">Slika
-      <div class="input" class="image-wrapper">
-          <span *ngIf="imageholder.files[0]">{{imageholder.files[0].name}}</span>
-          <span *ngIf="!imageholder.files[0]">Izaberi sliku</span>
-          <input id="image-loader" #imageholder  ngFileSelect
-                 (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
-                 type="file" name="image" style="display:none">
-      </div>
-    </label>
-    <br>
-    <br>
-    <!-- dialog footer -->
-    <div class="dialog-footer">
-      <button type="button" (click)="deleteProduct(product._id, currentIndex)" class="btn btn-danger" *ngIf="dialogIsEditing">
-        <i class="fa fa-trash"></i>
-        Briši
-      </button>
-      <button type="button" (click)="closeDialog()" class="btn  btn-info">
-        <i class="fa fa-ban"></i>
-        Odustani
-      </button>
-      <button type="submit" [disabled]="!products.form.valid" class="btn btn-success"
-      (click)="startUpload(product.slug); postProduct(product)" *ngIf="!dialogIsEditing">
-        <i class="fa fa-check"></i>
-        Snimi
-      </button>
-      <button type="submit" [disabled]="!products.form.valid" class="btn btn-success" (click)="putProduct(product)" *ngIf="dialogIsEditing">
-        <i class="fa fa-check"></i>
-        Ažuriraj
-      </button>
-    </div>
-  </form>
-</div>
-
-
-<!-- TITLE  -->
-<h2 class="page-title"> LISTA PROIZVODA
-    <button class="btn btn-warning" style="float: right;" (click)=" brandFilter.value = '';
+<!-- Page title  -->
+<h2 class="page-title"> ElectroVision - Proizvodi
+<!-- <button class="btn btn-warning" style="float: right;" (click)=" brandFilter.value = '';
                         groupFilter.value = '';
                         categoryFilter.value = '';
                         getProducts();">
-      <i class="fa fa-refresh"></i>
-    </button>
+    <i class="fa fa-refresh"></i>
+</button> -->
 </h2>
 
-
-<!-- TABLE -->
+<!-- Product  List -->
 <div class="table-wrapper">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Br.</th>
-        <th>
-          <button (click)="openDialog(false)" class="btn btn-success btn-plus" title="Dodaj novi proizvod">
-            <i class="fa fa-plus"></i>
-          </button>
-        </th>
-        <th>Proizvod
-        </th>
-        <th>Opis
-        </th>
-        <th>
-          <select #categoryFilter class="form-control inline-element"
-          (change)="groupFilter.value = ''; getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)"
-          >
+    <div class="headline">
+        Ukupno rezultata:
+        <span>{{productList.length || 0}}</span>
+
+        <select #categoryFilter class="form-control inline-element" (change)="groupFilter.value = ''; getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
             <option selected value="">Sve kategorije</option>
-            <option *ngFor="let category of categoryList" value="{{category._id}}">{{category.name}}</option>
-          </select>
-        </th>
-        <th>
-          <select #groupFilter
-          (change)="categoryFilter.value = ''; getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)" class="form-control inline-element" >
+            <option *ngFor="let cat of categoryList" value="{{cat._id}}">{{cat.name}}</option>
+        </select>
+        <select #groupFilter (change)="categoryFilter.value = ''; getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)"
+            class="form-control inline-element">
             <option selected value="">Sve grupe</option>
             <option *ngFor="let group of groupList" value="{{group._id}}">{{group.name}}</option>
-          </select>
-        </th>
-        <th>
-          <select #brandFilter
-          (change)="getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)" class="form-control inline-element">
+        </select>
+        <select #brandFilter (change)="getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)" class="form-control inline-element">
             <option selected value="">Svi brendovi</option>
             <option *ngFor="let brand of brandList" value="{{brand._id}}">{{brand.name}}</option>
-          </select>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Product Loop -->
-      <tr *ngFor="let singleProduct of productList; let i = index">
-        <td class="counter-field"> {{i + 1}}.</td>
-        <td class="button-field">
-          <button class="btn btn-primary btn-plus" (click)="openDialog(true, singleProduct, i)" title="Izmeni proizvod">
-            <i class="fa fa-edit"></i>
-          </button>
-        </td>
-        <td class="main-field">
-          <img src="{{singleProduct.image}}" alt="{{singleProduct.image}}"
-                width="50" height="50">
-          <strong title="Link: {{singleProduct.slug}}"> {{singleProduct.name}} </strong>
-        </td>
-        <td> {{singleProduct.description}}</td>
-        <td> {{singleProduct.category.name}}</td>
-        <td> {{singleProduct.group.name}}</td>
-        <td> {{singleProduct.brand.name}}</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="100%">
-          Ukupno rezultata:
-          <span *ngIf="productList">
-            {{productList.length || 0}}
-          </span>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+        </select>
+
+        <button (click)="openDialog(false)" class="btn btn-plus" title="Dodaj novi proizvod">
+            <i class="fa fa-plus mr5"></i> Dodaj novi proizvod
+        </button>
+    </div>
+    <div class="list row">
+        <div class="col-md-12 col-lg-6" *ngFor="let product of productList; let i = index">
+            <div class="list-item">
+                <h4 class="trim" (click)="openDialog(true, product, i)">
+                    {{product.name}}
+                </h4>
+                <img (click)="openImageDialog(i)" *ngIf="product.image" src="{{product.image}}">
+                <img (click)="openImageDialog(i)" *ngIf="!product.image" src="./assets/default_images/default-product.jpg">
+                <div class="item-info">
+                    <span class="slug-line trim"> proizvod/{{product.slug}} </span>
+                    <p class="trim"> Kategorija: {{product.category.name}}</p>
+                    <p class="trim"> Potkategorija: {{product.group.name}}</p>
+                    <p class="trim"> Brend: {{product.brand.name}}</p>
+                    <p class="trim-block-3"> Opis: {{product.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD PRODUCT DIALOG -->
+<div class="fixed dialog-wrapper" *ngIf="dialogIsOpen">
+    <form class="form-dialog" #products="ngForm">
+        <!-- header -->
+        <div class="dialog-header">
+            <span class="dialog-header-title"> {{dialogTitle}} </span>
+            <button type="button" class="cancel-x btn btn-link" (click)="closeDialog()">
+                <i class="fa fa-times "></i>
+            </button>
+        </div>
+        <br>
+        <!-- Product name -->
+        <label for="">Proizvod
+            <input [(ngModel)]="product.name" autofocus placeholder="Super kamera" name="name" type="text" autocomplete="off" required>
+        </label>
+        <!-- Product link -->
+        <label for="">Link
+            <input [(ngModel)]="product.slug" placeholder="kamere-i-alarmi" name="slug" type="text" autocomplete="off" required>
+        </label>
+        <!-- Product description -->
+        <label for="">Opis
+            <input [(ngModel)]="product.description" placeholder="Opis proizvoda" autocomplete="off" name="description" type="text">
+        </label>
+        <!-- Product category -->
+        <label for="">Kategorija
+            <select [(ngModel)]="product.category._id" name="category" type="text" required>
+                <option disabled value="">Izaberi kategoriju</option>
+                <option *ngFor="let category of categoryList" value="{{category._id}}">{{category.name}}</option>
+            </select>
+        </label>
+        <!-- Product group -->
+        <label for="">Grupa
+            <select [(ngModel)]="product.group._id" name="group" type="text" required>
+                <option disabled value="">Izaberi grupu</option>
+                <option *ngFor="let group of groupList" value="{{group._id}}">{{group.name}}</option>
+            </select>
+        </label>
+        <!-- Product brand -->
+        <label for="">Brend
+            <select [(ngModel)]="product.brand._id" name="brand" type="text" required>
+                <option disabled value="">Izaberi brend</option>
+                <option *ngFor="let brand of brandList" value="{{brand._id}}">{{brand.name}}</option>
+            </select>
+        </label>
+        <br>
+        <br>
+        <!-- dialog footer -->
+        <div class="dialog-footer">
+            <button type="button"
+                    (click)="deleteProduct(product._id, currentIndex)"
+                    class="btn btn-danger"
+                    *ngIf="dialogIsEditing">
+                <i class="fa fa-trash"></i>
+                Briši
+            </button>
+            <button type="button" (click)="closeDialog()" class="btn  btn-info">
+                <i class="fa fa-ban"></i>
+                Odustani
+            </button>
+            <button type="submit" [disabled]="!products.form.valid" class="btn btn-success" (click)="startUpload(product.slug); postProduct(product)"
+                *ngIf="!dialogIsEditing">
+                <i class="fa fa-check"></i>
+                Snimi
+            </button>
+            <button type="submit" [disabled]="!products.form.valid" class="btn btn-success" (click)="putProduct(product)" *ngIf="dialogIsEditing">
+                <i class="fa fa-check"></i>
+                Ažuriraj
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- ADD IMAGE DIALOG -->
+<div class="fixed dialog-wrapper" *ngIf="imageDialogIsOpen">
+    <form class="form-dialog image-dialog" #image="ngForm">
+        <!-- header -->
+        <div class="dialog-header">
+            <span class="dialog-header-title"> Postavi sliku potkategorije </span>
+            <!-- x -->
+            <button type="button" class="cancel-x btn btn-link" (click)="closeImageDialog()">
+                <i class="fa fa-times "></i>
+            </button>
+        </div>
+        <br>
+        <!-- Image -->
+        <label for="image-loader" class="image-label">
+            <div>
+                <div>Postojeća slika</div>
+                <img src="{{imageInDialog}}" alt="">
+                <hr>
+            </div>
+            <span class="new-image-title">
+                <span *ngIf="!imageholder.files[0]"> Učitaj novu sliku </span>
+                <span *ngIf="imageholder.files[0]">
+                    <b>{{imageholder.files[0]?.name}} </b>
+                    <span *ngIf="imageholder.files[0].size < 1000000">({{imageholder.files[0]?.size / 1000 | number:'1.0-0'}} KB)</span>
+                    <span *ngIf="imageholder.files[0].size > 1000000">({{imageholder.files[0]?.size / 1000000 | number:'1.1-1'}} MB)</span>
+                </span>
+            </span>
+            <input id="image-loader" name="image" #imageholder type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                style="display:none">
+        </label>
+        <hr>
+
+        <!-- footer -->
+        <div class="dialog-footer">
+            <button type="button" (click)="closeImageDialog()" class="btn  btn-info">
+                <i class="fa fa-ban"></i>
+                Odustani
+            </button>
+            <button type="submit" class="btn btn-success" (click)="postImage()">
+                <i class="fa fa-check"></i>
+                Snimi
+            </button>
+        </div>
+    </form>
 </div>
 

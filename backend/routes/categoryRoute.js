@@ -10,7 +10,7 @@ var colors = require('colors'); // colored console log
 // Model
 var Category = require("../models/categoryModel");
 
-/** FILE UPLOAD */
+/*************************** IMAGE UPLOAD ***************************/
 
 var storeFile = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -28,12 +28,12 @@ var storeFile = multer.diskStorage({
 
 var uploadFile = multer({ storage: storeFile }).single("file");
 
-/* backup */
+// backup
 ncp.limit = 16;
 var originalFolder = './dist/electro-vision/assets/uploads';
 var backupFolder = './backup';
 
-/** UPLOAD IMAGE ROUTE */
+// post image
 router.post("/images/:id", function(req, res) {
     uploadFile(req, res, function(err) {
         if (err) {
@@ -122,7 +122,7 @@ router.put("/:id", function(req, res, next) {
     );
 });
 
-/*************************** 3.GET ALL ***************************/
+/*************************** 3.GET  ***************************/
 
 router.get("/", function(req, res, next) {
     /* Query */
@@ -142,12 +142,12 @@ router.get("/", function(req, res, next) {
     });
 });
 
-/*************************** 3a.GET BY SLUG ***************************/
-
+/* GET ONE */
 router.get("/:slug", function(req, res, next) {
 
     /* Query */
-    Category.findOne({ slug: req.params.slug }).exec(callback);
+    Category.findOne({ slug: req.params.slug })
+            .exec(callback);
 
     /* Callback */
     var callback = function(error, category) {
