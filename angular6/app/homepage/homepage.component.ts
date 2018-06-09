@@ -1,11 +1,12 @@
 /* Angular */
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 /* Services */
 import { BrandsService } from 'angular6/app/_services/brands.service';
 import { CategoriesService } from 'angular6/app/_services/categories.service';
 import { ProductsService } from 'angular6/app/_services/products.service';
+import { GlobalService } from '../_services/global.service';
 
 @Component({
     selector: 'px-homepage',
@@ -24,35 +25,14 @@ export class HomepageComponent implements OnInit {
         private brandService: BrandsService,
         private categoryService: CategoriesService,
         private productService: ProductsService,
+        public global: GlobalService,
         private router: Router) {}
-
-    actualWidth = window.innerWidth;
-
-    @HostListener('window:resize', ['$event'])
-    onResize(event) {
-      this.actualWidth = event.target.innerWidth;
-    }
 
     /* INIT */
     ngOnInit() {
         this.getBrands();
         this.getCategories();
         this.getProducts();
-    }
-
-    /* Screens */
-    bigScreen() {
-        if (this.actualWidth > 1028) {
-            return true;
-        }
-        return false;
-    }
-
-    smallScreen() {
-        if (this.actualWidth < 768) {
-            return true;
-        }
-        return false;
     }
 
     /* Get products + filter */

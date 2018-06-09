@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 /* 3rd party modules */
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ToastrModule } from 'ngx-toastr';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 /* App modules */
 import { AppRoutingModule } from './app-routing.module';
@@ -19,8 +20,6 @@ import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
 import { BrandPageComponent } from './pages/brand-page/brand-page.component';
 
-/* App Services */
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -28,6 +27,7 @@ import { BrandPageComponent } from './pages/brand-page/brand-page.component';
     FormsModule,
     HttpClientModule,
     CarouselModule,
+    Ng2SearchPipeModule,
     ToastrModule.forRoot(),
     AppRoutingModule
   ],

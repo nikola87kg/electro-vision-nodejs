@@ -45,7 +45,21 @@
         </div>
     </div>
 
-    <!-- Primery menu -->
+    <!-- Roller -->
+    <div class="brand-roller">
+        <span *ngFor="let brand of brandList; let i = index" class="left-right">
+            <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
+        </span>
+        <span *ngFor="let brand of brandList; let i = index" class="left-right">
+            <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
+        </span>
+        <span *ngFor="let brand of brandList; let i = index" class="left-right">
+            <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
+        </span>
+    </div>
+
+
+    <!-- Navigation -->
     <div id="primary-menu-wrapper" class="row">
         <div class="col-sm-12 primary-menu">
             <ul>
@@ -63,58 +77,33 @@
         </div>
     </div>
 
+    <!-- Main area -->
     <div class="main-section row">
-        <!-- Side Menu -->
-        <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
-            <!-- categories -->
-            <ul class="list category">
-                <li class="headline category" (click)="smallScreen() && toggleBrands() ">Kategorije</li>
-                <li *ngFor="let cat of categoryList; let i = index" (click)="goToBrand(cat.slug)">
-                    <ng-container *ngIf="bigScreen()">
-                        <div class="thumb-wrapper category" [ngStyle]="{'background': 'url(' + cat.image + ') no-repeat center center',
-                                    'background-size': 'contain'}">
-                        </div>
-                        {{cat.name}}
-                    </ng-container>
-                </li>
-            </ul>
-            <br>
-            <!-- brands -->
-            <ul class="list brand">
-                <li class="headline brand" (click)="smallScreen() && toggleBrands() ">Brendovi</li>
-                <li *ngFor="let brand of brandList; let i = index" (click)="goToBrand(brand.slug)">
-                    <ng-container *ngIf="bigScreen() && brandsMobile">
-                        <div class="thumb-wrapper" [ngStyle]="{'background': 'url(' + brand.image + ') no-repeat center center',
-                             'background-size': 'contain'}">
-                        </div>
-                    </ng-container>
-                </li>
-            </ul>
+
+        <div class="col-lg-1 ">
         </div>
 
-        <!-- Main Area -->
-        <div class="col-sm-12 col-md-8 col-lg-7 content">
-            <!-- Top products -->
+        <!-- Top products -->
+        <div class="col-sm-12 col-md-8 col-lg-8 content">
             <div class="top-product-wrapper">
                 <!-- headline -->
                 <h4 class="breaking-news">
-                    <i class="fa fa-hand-o-down up-down mr5 ml5"></i>
+                    <i class="fa fa-map-marker up-down mr5 ml5"></i>
                     Aktuelno u ponudi
-                    <i class="fa fa-hand-o-down up-down mr5 ml5"></i>
                 </h4>
                 <!-- list -->
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 top-product-box" *ngFor="let prod of productList; let i = index">
-                        <div>
+                        <div style="margin-bottom: 10px;">
                             <div class="col-sm-12 image">
                                 <img *ngIf="prod.image" src="{{prod.image}}">
                                 <img *ngIf="!prod.image" src=".\assets\default_images\default-product.jpg">
                             </div>
                             <div class="col-sm-12">
-                                <h5>{{prod.name}}</h5>
-                                <h6>{{prod.brand.name}}</h6>
-                                <h6>{{prod.category.name}}</h6>
-                                <p>"{{prod.description}}"</p>
+                                <h5> {{prod.name}} </h5>
+                                <h6> Proizvođač: {{prod.brand.name}} </h6>
+                                <h6> Grupa: {{prod.group.name}} </h6>
+                                <p> "{{prod.description}}" </p>
                             </div>
                         </div>
                     </div>
@@ -123,4 +112,20 @@
 
         </div>
 
+        <!-- Side Menu -->
+        <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
+            <!-- categories -->
+            <ul class="list">
+                <li class="headline" (click)="global.smallScreen() && toggleBrands() ">Kategorije</li>
+                <li class="category" *ngFor="let cat of categoryList; let i = index" (click)="goToBrand(cat.slug)">
+                    <ng-container *ngIf="global.bigScreen()">
+                        {{cat.name}}
+                    </ng-container>
+                </li>
+            </ul>
+        </div>
+
     </div>
+
+
+</div>
