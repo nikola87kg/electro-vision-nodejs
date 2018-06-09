@@ -29,7 +29,7 @@
             (keypress)="showResults()"
             (focus)="showResults()">
         <!-- Search results -->
-        <div class="search-results" *ngIf="this.showResult">
+        <div class="search-results" *ngIf="showResult" >
             <p  *ngFor="let result of resultsSorted | filter: searchInput; let i = index"
                 (click)="navigator(result.slug); hideResults()">
                 <span >
@@ -45,3 +45,5 @@
     </div>
 
 </header>
+
+<div class="invisible-area" *ngIf="showResult" (click)="showResult = false; searchInput=''"></div>
