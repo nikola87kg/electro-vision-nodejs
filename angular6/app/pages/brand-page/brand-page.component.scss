@@ -1,27 +1,33 @@
 @import "angular6/app/partials/_variables.scss";
 
-.brand-info {
-    color: gray;
-    padding: 10px 20px;
-    h1 {
-        padding: 10px;
-        border-bottom: 2px solid $primary-color;
-    }
-    h4 {
-        font-style: italic;
-        padding: 10px;
-    }
-}
-
 .brand-background {
     background: url("../../../assets/baner/banner-page.png") no-repeat top center fixed;
     background-size: cover;
     height: 200px;
+    text-align: center;
+    vertical-align: middle;
+    h4 {
+        color: white;
+        font-style: italic;
+    }
+    img {
+        margin-top: 25px;
+        max-height: 70%;
+        background: white;
+        display: inline-block;
+        vertical-align: middle;
+        width: 400px;
+        box-shadow: 1px 1px 20px 7px white;
+    }
 }
 
-.brand-image {
+
+/* Brand main */
+.brand-main {
+    text-align: center;
     img {
-        width: 100%;
+        width: 500px;
+        max-width: 100%;
         height: auto;
         border: 2px solid lightgray;
         padding: 5px;
@@ -29,7 +35,27 @@
     }
 }
 
-hr {
-    margin:0;
-    border-top: 15px solid rgb(216, 216, 216);
+.brand-products {
+    text-align: center;
+    .product-single {
+        text-align: center;
+        display: inline-block;
+        margin: 5px 20px;
+        cursor: pointer;
+        border: 1px solid #e4e4e4;
+        color: $secondary-color;
+        &:hover {
+            box-shadow: 1px 1px 20px 1px lightgray;
+        }
+        img {
+            height: 200px;
+            margin: 10px;
+        }
+        h3 {
+            font-size: 20px;
+            padding: 10px 15px;
+            color: white;
+            background: $primary-color;
+        }
+    }
 }

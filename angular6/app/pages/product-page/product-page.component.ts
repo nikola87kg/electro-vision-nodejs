@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { ProductsService } from '../../_services/products.service';
 
 @Component({
-  selector: 'px-product-page',
-  templateUrl: './product-page.component.html',
-  styleUrls: ['./product-page.component.scss']
+    selector: 'px-product-page',
+    templateUrl: './product-page.component.html',
+    styleUrls: ['./product-page.component.scss']
 })
 export class ProductPageComponent implements OnInit {
-
     product = {
         name: '',
         description: '',
@@ -26,14 +25,25 @@ export class ProductPageComponent implements OnInit {
             slug: ''
         }
     };
+    productList = [];
+
     constructor(
         private activatedRoute: ActivatedRoute,
         private productService: ProductsService,
-        private router: Router) {}
+        private router: Router
+    ) {
+        this.router.events.subscribe((e: any) => {
+            if (e instanceof NavigationEnd) {
+                this.getProduct();
+                this.getProducts();
+            }
+        });
+    }
 
     ngOnInit() {
-        setTimeout( () => {
+        setTimeout(() => {
             this.getProduct();
+            this.getProducts();
         }, 1);
     }
 
@@ -55,7 +65,7 @@ export class ProductPageComponent implements OnInit {
     getProduct() {
         let slug;
         this.activatedRoute.params.subscribe((params: Params) => {
-          slug = params['slug'];
+            slug = params['slug'];
         });
         this.productService.getBySlug(slug).subscribe(result => {
             let productResponse: any = {
@@ -68,6 +78,26 @@ export class ProductPageComponent implements OnInit {
             };
             productResponse = result;
             this.product = productResponse.object;
+        });
+    }
+
+    /* Get products + filter */
+    getProducts() {
+        this.productService.get().subscribe(response => {
+            let productsResponse: any = {
+                message: '',
+                object: {}
+            };
+            const categoryFilter = this.product.category.name;
+            productsResponse = response;
+            this.productList = productsResponse.object.filter(
+                p => p.name !== this.product.name
+            );
+            if (categoryFilter) {
+                this.productList = this.productList.filter(
+                    p => p.category.name === categoryFilter
+                );
+            }
         });
     }
 }

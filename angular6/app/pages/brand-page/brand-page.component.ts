@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandsService } from '../../_services/brands.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
+import { ProductsService } from '../../_services/products.service';
 
 @Component({
     selector: 'px-brand-page',
@@ -8,25 +9,38 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
     styleUrls: ['./brand-page.component.scss']
 })
 export class BrandPageComponent implements OnInit {
-
     brand = {
         name: '',
         description: '',
         image: ''
     };
+
+    productList = [];
+
     constructor(
         private activatedRoute: ActivatedRoute,
-        private brandService: BrandsService) {}
+        private brandService: BrandsService,
+        private router: Router,
+        private productService: ProductsService
+    ) {
+        this.router.events.subscribe((e: any) => {
+            if (e instanceof NavigationEnd) {
+                this.getBrand();
+                this.getProducts();
+            }
+        });
+    }
 
     ngOnInit() {
         this.getBrand();
+        this.getProducts();
     }
 
     /* Get brand */
     getBrand() {
         let slug;
         this.activatedRoute.params.subscribe((params: Params) => {
-          slug = params['slug'];
+            slug = params['slug'];
         });
         this.brandService.getBySlug(slug).subscribe(result => {
             let brandsResponse: any = {
@@ -39,7 +53,26 @@ export class BrandPageComponent implements OnInit {
             };
             brandsResponse = result;
             this.brand = brandsResponse.object;
-
         });
+    }
+
+    /* Get products + filter */
+    getProducts() {
+        this.productService.get().subscribe(response => {
+            let productsResponse: any = {
+                message: '',
+                object: {}
+            };
+            productsResponse = response;
+            this.productList = productsResponse.object.filter(
+                p => p.brand.name === this.brand.name
+            );
+        });
+    }
+
+    /* Redirection */
+
+    goToProduct(slug) {
+        this.router.navigate(['/proizvod/' + slug]);
     }
 }

@@ -58,7 +58,7 @@ export class HomepageComponent implements OnInit {
     }
 
     /* Get products + filter */
-    getProducts(categoryFilter?, groupFilter?, brandFilter?) {
+    getProducts() {
         this.productService.get().subscribe(response => {
             let productsResponse: any = {
                 message: '',

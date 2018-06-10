@@ -7,19 +7,20 @@
         padding: 10px;
         border-bottom: 2px solid $primary-color;
         font-size: 30px;
+        color: $primary-color;
     }
     h5 {
         color: $third-color;
         padding: 10px;
         span {
             cursor: pointer;
-            font-size: 20px;
+            font-size: 16px;
             display: inline-block;
-            padding: 2px 5px;
+            padding: 2px;
             border-bottom: 1px solid white;
             &:hover {
-                border-bottom: 1px solid $primary-color;
-                color: $primary-color;
+                border-bottom: 1px solid black;
+                color: gray;
             }
         }
         i {
@@ -27,8 +28,8 @@
             cursor: default;
             font-size: 10px;
             vertical-align: middle;
-            margin-right: 5px;
-            margin-left: 5px;
+            margin-right: 10px;
+            margin-left: 10px;
         }
     }
     h4 {
@@ -49,18 +50,55 @@
         width: 300px;
         max-width: 100%;
         height: auto;
-        border: 2px solid lightgray;
+        border: 2px solid #fafafa;
         padding: 5px;
         margin-left: 20px;
         &:hover {
-            transform: scale(1.5);
+            transform: scale(1.1);
             background: white;
-            transition: 0.4s linear;
+            transition: 0.2s linear;
         }
     }
 }
 
-hr {
-    margin:0;
-    border-top: 15px solid rgb(216, 216, 216);
+
+/* Gallery */
+.product-gallery {
+    text-align: right;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-bottom: 20px;
+    h2 {
+        margin-left: 10px;
+        font-size: 25px;
+        margin-right: 10px;
+        color: $third-color;
+        width: 250px;
+        max-width: 90%;
+        display: inline-block;
+        padding-bottom: 5px;
+        border-bottom: 2px solid $third-color;
+    }
+    .product-single {
+        border-right: 1px solid lightgray;
+        vertical-align: top;
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+        color: gray;
+        display: inline-block;
+        &:last-of-type {
+            border-right: none;
+        }
+        &:hover img {
+            transform: scale(1.05);
+            transition: 0.2s ease-in-out;
+        }
+        &:hover h5 {
+            color: black;
+        }
+    }
+    img {
+        width: 125px;
+    }
 }

@@ -4,7 +4,6 @@
 
 </div>
 <br>
-<br>
 <div class="row">
     <div class="col-lg-1">
     </div>
@@ -26,3 +25,21 @@
 <br>
 <hr>
 <br>
+
+<!-- list -->
+<div class="row">
+    <div class="col-sm-12 product-gallery">
+        <h2 *ngIf="productList.length != 0"> Slični proizvodi</h2>
+        <br>
+        <div class="product-single"
+             *ngFor="let prod of productList; let i = index"
+             (click)="goToProduct(prod.slug)">
+            <div class="col-sm-12">
+                <h5> {{prod.name}} </h5>
+            </div>
+            <div class="col-sm-12 image">
+                <img *ngIf="prod.image" src="{{prod.image}}">
+            </div>
+        </div>
+    </div>
+</div>

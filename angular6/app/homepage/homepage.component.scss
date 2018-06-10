@@ -204,33 +204,6 @@ carousel h3 {
     }
 }
 
-/* Roller */
-.brand-roller {
-    text-align: center;
-    padding: 10px 20px;
-    box-shadow: 1px 1px 20px 1px lightgray;
-    background: white;
-    width: 300vw;
-    position: relative;
-    left: -100%;
-    white-space: nowrap;
-    overflow: hidden;
-    span {
-        display: inline-block;
-        margin: auto 20px;
-        padding: 10px 20px;
-        vertical-align: middle;
-        cursor: pointer;
-        &:hover {
-            box-shadow: 1px 1px 20px 1px lightgray;
-        }
-        img {
-            display: inline-block;
-            vertical-align: middle;
-            width: 150px;
-        }
-    }
-}
 
 /* Animations */
 @keyframes blinker {
@@ -242,16 +215,6 @@ carousel h3 {
 @keyframes updown {
     50% {
         transform: translate(0, 3px);
-    }
-}
-
-.left-right {
-    animation: leftright 20s ease-in-out infinite;
-}
-
-@keyframes leftright {
-    50% {
-        transform: translate(300%, 0);
     }
 }
 
