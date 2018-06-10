@@ -23,7 +23,7 @@
             [(ngModel)]="searchInput"
             placeholder="Pretraga proizvoda..."
             #search
-            (keyup.enter)="goToProducts(search.value)"
+            (keyup.enter)="goToProducts()"
             (keyup.escape)="hideResults()"
             (keyup.backspace)="showResults()"
             (keypress)="showResults()"

@@ -2,7 +2,7 @@
 
     <!-- Background -->
     <div class="brand-background">
-        <img src="{{brand.image}}">
+        <h1>{{brand.name}}</h1>
     </div>
 
     <!-- Brand products -->
@@ -16,7 +16,8 @@
                     class="product-single"
                     (click)="goToProduct(prod.slug)">
                     <h3 [innerHtml]="prod.name"></h3>
-                    <img [src]="prod.image">
+                    <img class="prod-image" [src]="prod.image">
+                    <img class="corner-logo" src="{{brand.image}}">
                 </div>
             </div>
         </div>
