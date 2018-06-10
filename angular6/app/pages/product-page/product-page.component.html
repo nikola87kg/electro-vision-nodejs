@@ -1,0 +1,28 @@
+
+
+<div class="product-background">
+
+</div>
+<br>
+<br>
+<div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="product-image col-sm-12 col-md-6 col-lg-3 ">
+        <img src="{{product.image}}">
+    </div>
+    <div class="product-info col-sm-12 col-md-6 col-lg-7">
+        <h1>{{product.name}} </h1>
+        <h5>
+            <span (click)="goToCategory(product.category.slug)"> {{product.category.name | lowercase}} </span>
+            <i class="fa fa-chevron-right" ></i>
+            <span (click)="goToGroup(product.group.slug)"> {{product.group.name | lowercase}} </span>
+            <i class="fa fa-chevron-right" ></i>
+            <span (click)="goToBrand(product.brand.slug)"> {{product.brand.name}} </span>
+        </h5>
+        <h4>"{{product.description}}" </h4>
+    </div>
+</div>
+<br>
+<hr>
+<br>

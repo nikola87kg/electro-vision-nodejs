@@ -29,7 +29,6 @@ export class BrandPageComponent implements OnInit {
           slug = params['slug'];
         });
         this.brandService.getBySlug(slug).subscribe(result => {
-            console.log('result', result);
             let brandsResponse: any = {
                 message: '',
                 object: {

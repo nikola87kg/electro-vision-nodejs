@@ -45,6 +45,24 @@
         </div>
     </div>
 
+    <!-- Navigation Menu -->
+    <div id="primary-menu-wrapper" class="row">
+        <div class="col-sm-12 primary-menu">
+            <ul>
+                <li class="bigScreenHidden" (click)="toggleList()">
+                    <i class="fa fa-bars"></i>
+                </li>
+                <li *ngIf="navItemsVisible"> Početna </li>
+                <li *ngIf="navItemsVisible"> O nama </li>
+                <li *ngIf="navItemsVisible"> Proizvodi </li>
+                <li *ngIf="navItemsVisible"> Cenovnik </li>
+                <li *ngIf="navItemsVisible"> Servis </li>
+                <li *ngIf="navItemsVisible"> Galerija </li>
+                <li *ngIf="navItemsVisible"> Kontakt </li>
+            </ul>
+        </div>
+    </div>
+
     <!-- Roller -->
     <div class="brand-roller">
         <span *ngFor="let brand of brandList; let i = index" class="left-right">
@@ -56,25 +74,6 @@
         <span *ngFor="let brand of brandList; let i = index" class="left-right">
             <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
         </span>
-    </div>
-
-
-    <!-- Navigation -->
-    <div id="primary-menu-wrapper" class="row">
-        <div class="col-sm-12 primary-menu">
-            <ul>
-                <li class="bigScreenHidden" (click)="toggleList()">
-                    <i class="fa fa-bars"></i>
-                </li>
-                <li *ngIf="listMobile"> Početna </li>
-                <li *ngIf="listMobile"> O nama </li>
-                <li *ngIf="listMobile"> Proizvodi </li>
-                <li *ngIf="listMobile"> Cenovnik </li>
-                <li *ngIf="listMobile"> Servis </li>
-                <li *ngIf="listMobile"> Galerija </li>
-                <li *ngIf="listMobile"> Kontakt </li>
-            </ul>
-        </div>
     </div>
 
     <!-- Main area -->
@@ -93,7 +92,9 @@
                 </h4>
                 <!-- list -->
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 top-product-box" *ngFor="let prod of productList; let i = index">
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 top-product-box"
+                         *ngFor="let prod of productList; let i = index"
+                         (click)="goToProduct(prod.slug)">
                         <div style="margin-bottom: 10px;">
                             <div class="col-sm-12 image">
                                 <img *ngIf="prod.image" src="{{prod.image}}">
@@ -116,8 +117,10 @@
         <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
             <!-- categories -->
             <ul class="list">
-                <li class="headline" (click)="global.smallScreen() && toggleBrands() ">Kategorije</li>
-                <li class="category" *ngFor="let cat of categoryList; let i = index" (click)="goToBrand(cat.slug)">
+                <li class="headline">Kategorije</li>
+                <li class="category"
+                    *ngFor="let cat of categoryList; let i = index"
+                    (click)="goToCategory(cat.slug)">
                     <ng-container *ngIf="global.bigScreen()">
                         {{cat.name}}
                     </ng-container>

@@ -246,7 +246,7 @@ carousel h3 {
 }
 
 .left-right {
-    animation: leftright 20s ease-out infinite;
+    animation: leftright 20s ease-in-out infinite;
 }
 
 @keyframes leftright {

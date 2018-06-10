@@ -66,12 +66,12 @@ router.post("/images/:id", function(req, res) {
 router.post("/", function(req, res, next) {
     // create instance
     var product = new Product({
-        name:           req.body.name,
-        description:    req.body.description,
-        slug:           req.body.slug,
-        group:          req.body.group,
-        category:       req.body.category,
-        brand:          req.body.brand,
+        name: req.body.name,
+        description: req.body.description,
+        slug: req.body.slug,
+        group: req.body.group,
+        category: req.body.category,
+        brand: req.body.brand,
         image: "./assets/uploads/products/default.jpg"
     });
     // save to DB
@@ -90,7 +90,6 @@ router.post("/", function(req, res, next) {
         });
     });
 });
-
 
 /*************************** 2. UPDATE ***************************/
 
@@ -139,11 +138,35 @@ router.put("/:id", function(req, res, next) {
 
 /*************************** 3.GET  ***************************/
 
+// 3. GET BY SLUG
+router.get("/:slug", function(req, res, next) {
+    console.log(req.params.slug);
+    /* Query Builder */
+    Product.findOne({ slug: req.params.slug })
+        .populate("group", ["name", "slug"])
+        .populate("category", ["name", "slug"])
+        .populate("brand", ["name", "slug"])
+        .exec(function(error, data) {
+            if (error) {
+                return res.status(500).json({
+                    title: "Greška! Niste učitali proizvod iz baze",
+                    error: err
+                });
+            }
+            res.status(200).json({
+                message: "Bravo! Proizvod je uspešno učitan",
+                object: data
+            });
+        });
+});
+
+// 3. GET ALL
 router.get("/", function(req, res, next) {
     // Query
     const query = Product.find();
     // Populate and exec
-    query.populate("group", ["_id", "name"])
+    query
+        .populate("group", ["_id", "name"])
         .populate("category", ["_id", "name"])
         .populate("brand", ["_id", "name"])
         .exec(function(err, productList) {
@@ -158,29 +181,6 @@ router.get("/", function(req, res, next) {
                 object: productList
             });
         });
-});
-
-// 2.GET BY SLUG
-router.get("/:slug", function(req, res, next) {
-    /* Query Builder */
-    Product.findOne({ slug: req.params.slug })
-        .populate("group", ["name", "slug"] )
-        .populate("category", ["name", "slug"] )
-        .populate("brand", ["name", "slug"] )
-        .exec(callback);
-    /* Callback method */
-    var callback = function(error, data) {
-        if (error) {
-            return res.status(500).json({
-                title: "Greška! Niste učitali proizvod iz baze",
-                error: err
-            });
-        }
-        res.status(200).json({
-            message: "Bravo! Proizvod je uspešno učitan",
-            object: data
-        });
-    }
 });
 
 /*************************** 4. DELETE ***************************/
@@ -218,6 +218,3 @@ router.delete("/:id", function(req, res, next) {
 });
 
 module.exports = router;
-
-
-

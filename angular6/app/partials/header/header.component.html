@@ -21,7 +21,7 @@
         <input
             class="search-field"
             [(ngModel)]="searchInput"
-            placeholder="Pretraga..."
+            placeholder="Pretraga proizvoda..."
             #search
             (keyup.enter)="goToProducts(search.value)"
             (keyup.escape)="hideResults()"
@@ -31,12 +31,12 @@
         <!-- Search results -->
         <div class="search-results" *ngIf="showResult" >
             <p  *ngFor="let result of resultsSorted | filter: searchInput; let i = index"
-                (click)="navigator(result.slug); hideResults()">
+                (click)="goToProduct(result.slug); hideResults()">
                 <span >
                     {{result.name}}
                 </span>
             </p>
-            <p class="all-products" (click)="goToProducts(search.value)">
+            <p class="all-products">
                 <span>
                     Vidi sve proizvode...
                 </span>

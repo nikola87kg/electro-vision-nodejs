@@ -1,5 +1,5 @@
 /* Angular */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 /* Services */
@@ -17,9 +17,8 @@ export class HomepageComponent implements OnInit {
     productList = [];
     brandList = [];
     categoryList = [];
-    listMobile = false;
-    brandsMobile = true;
-    categoryMobile = false;
+    navItemsVisible = false;
+    actualWidth = window.innerWidth;
 
     constructor(
         private brandService: BrandsService,
@@ -28,11 +27,34 @@ export class HomepageComponent implements OnInit {
         public global: GlobalService,
         private router: Router) {}
 
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this.actualWidth = event.target.innerWidth;
+    }
+    /* Screens */
+    public bigScreen() {
+        if (this.actualWidth > 1028) {
+            return true;
+        }
+        return false;
+    }
+
+    public smallScreen() {
+        if (this.actualWidth < 768) {
+            return true;
+        }
+        return false;
+    }
+
     /* INIT */
     ngOnInit() {
         this.getBrands();
         this.getCategories();
         this.getProducts();
+        if (this.actualWidth > 768) {
+            this.navItemsVisible = true;
+        }
     }
 
     /* Get products + filter */
@@ -75,17 +97,15 @@ export class HomepageComponent implements OnInit {
     goToBrand(slug) {
         this.router.navigate(['/brend/' + slug]);
     }
+    goToProduct(slug) {
+        this.router.navigate(['/proizvod/' + slug]);
+    }
+    goToCategory(slug) {
+        this.router.navigate(['/kategorija/' + slug]);
+    }
 
     /* Toggle Lists */
     toggleList() {
-        this.listMobile = !this.listMobile;
-    }
-
-    toggleBrands() {
-        this.brandsMobile = !this.brandsMobile;
-    }
-
-    toggleCategories() {
-        this.categoryMobile = !this.categoryMobile;
+        this.navItemsVisible = !this.navItemsVisible;
     }
 }

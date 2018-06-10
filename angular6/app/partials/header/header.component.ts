@@ -76,7 +76,7 @@ export class HeaderComponent implements OnInit {
         });
     }
 
-    goToProducts(search) {
+    goToProducts() {
         this.showResult = false;
         this.clearSearch();
         this.router.navigate(['/proizvodi']);
@@ -84,9 +84,9 @@ export class HeaderComponent implements OnInit {
 
     /* Navigation on click */
 
-    navigator(slug) {
+    goToProduct(slug) {
         this.showResult = false;
         this.searchInput = '';
-        this.router.navigate(['/proizvodi/' + slug]);
+        this.router.navigate(['/proizvod/' + slug]);
     }
 }

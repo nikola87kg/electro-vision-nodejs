@@ -63,6 +63,14 @@ select {
     width: 200px;
 }
 
+.middle-dot {
+    font-size: 33px;
+    vertical-align: middle;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0 5px;
+}
+
 @media screen and (max-width:768px) {
     .smallScreenHidden {
         display: none !important;

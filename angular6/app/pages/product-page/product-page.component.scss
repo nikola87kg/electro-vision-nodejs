@@ -1,0 +1,66 @@
+@import "angular6/app/partials/_variables.scss";
+
+.product-info {
+    color: gray;
+    padding: 10px 20px;
+    h1 {
+        padding: 10px;
+        border-bottom: 2px solid $primary-color;
+        font-size: 30px;
+    }
+    h5 {
+        color: $third-color;
+        padding: 10px;
+        span {
+            cursor: pointer;
+            font-size: 20px;
+            display: inline-block;
+            padding: 2px 5px;
+            border-bottom: 1px solid white;
+            &:hover {
+                border-bottom: 1px solid $primary-color;
+                color: $primary-color;
+            }
+        }
+        i {
+            color: black;
+            cursor: default;
+            font-size: 10px;
+            vertical-align: middle;
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+    }
+    h4 {
+        font-style: italic;
+        padding: 10px;
+        font-size: 20px;
+    }
+}
+
+.product-background {
+    background: url("../../../assets/baner/banner-page.png") no-repeat top center fixed;
+    background-size: cover;
+    height: 200px;
+}
+
+.product-image {
+    img {
+        width: 300px;
+        max-width: 100%;
+        height: auto;
+        border: 2px solid lightgray;
+        padding: 5px;
+        margin-left: 20px;
+        &:hover {
+            transform: scale(1.5);
+            background: white;
+            transition: 0.4s linear;
+        }
+    }
+}
+
+hr {
+    margin:0;
+    border-top: 15px solid rgb(216, 216, 216);
+}

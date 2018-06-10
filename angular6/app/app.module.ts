@@ -19,6 +19,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
 import { BrandPageComponent } from './pages/brand-page/brand-page.component';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { GroupPageComponent } from './pages/group-page/group-page.component';
+import { CategoryPageComponent } from './pages/category-page/category-page.component';
 
 @NgModule({
   imports: [
@@ -36,7 +39,10 @@ import { BrandPageComponent } from './pages/brand-page/brand-page.component';
     HomepageComponent,
     HeaderComponent,
     FooterComponent,
-    BrandPageComponent
+    BrandPageComponent,
+    ProductPageComponent,
+    GroupPageComponent,
+    CategoryPageComponent
   ],
   bootstrap: [AppComponent]
 })
