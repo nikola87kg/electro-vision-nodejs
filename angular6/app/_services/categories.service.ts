@@ -15,12 +15,12 @@ export class CategoriesService {
 
     /* GET categories */
     get() {
-        return this.http.get(this.baseUrl + '/categories');
+        return this.http.get<{message: string, object}>(this.baseUrl + '/categories');
     }
 
     getBySlug(slug) {
     const URL = this.baseUrl + '/categories/' + slug;
-        return this.http.get(URL);
+        return this.http.get<{message: string, object}>(URL);
     }
 
     /* POST categories */

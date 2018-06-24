@@ -46,28 +46,13 @@
     </div>
 
     <!-- Navigation Menu -->
-    <div id="primary-menu-wrapper" class="row">
-        <div class="col-sm-12 primary-menu">
-            <ul>
-                <li class="bigScreenHidden" (click)="toggleList()">
-                    <i class="fa fa-bars"></i>
-                </li>
-                <li *ngIf="navItemsVisible"> Početna </li>
-                <li *ngIf="navItemsVisible"> O nama </li>
-                <li *ngIf="navItemsVisible"> Proizvodi </li>
-                <li *ngIf="navItemsVisible"> Cenovnik </li>
-                <li *ngIf="navItemsVisible"> Servis </li>
-                <li *ngIf="navItemsVisible"> Galerija </li>
-                <li *ngIf="navItemsVisible"> Kontakt </li>
-            </ul>
-        </div>
-    </div>
+    <px-navigation-menu></px-navigation-menu>
 
     <!-- Brand roller -->
     <px-brand-roller></px-brand-roller>
 
     <!-- Main area -->
-    <div class="main-section row">
+    <div class="main-section row invisible-onload" [ngClass]="{'fade-in' : isLoaded}">
 
         <div class="col-lg-1 ">
         </div>
@@ -94,7 +79,8 @@
                                 <h5> {{prod.name}} </h5>
                                 <h6> Proizvođač: {{prod.brand.name}} </h6>
                                 <h6> Grupa: {{prod.group.name}} </h6>
-                                <p> "{{prod.description}}" </p>
+                                <h6> Kategorija: {{prod.category.name}} </h6>
+                                <!-- <p> "{{prod.description}}" </p> -->
                             </div>
                         </div>
                     </div>

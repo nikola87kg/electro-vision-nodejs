@@ -10,7 +10,8 @@ var colors = require('colors'); // colored console log
 // Model
 var Brand = require("../models/brandModel");
 
-// 0. IMAGE UPLOAD
+/*************************** IMAGE UPLOAD ***************************/
+
 var storeFile = multer.diskStorage({
     destination: function(req, file, callback) {
         let folderDest =
@@ -53,7 +54,8 @@ router.post("/images/:id", function(req, res) {
     });
 });
 
-// 1. POST
+/*************************** 1. POST ***************************/
+
 router.post("/", function(req, res, next) {
     /* create */
     var brand = new Brand({
@@ -79,7 +81,8 @@ router.post("/", function(req, res, next) {
     });
 });
 
-// 2. UPDATE
+/*************************** 2. UPDATE ***************************/
+
 router.put("/:id", function(req, res, next) {
     const imageName = req.body.image;
     let fullImage = '';
@@ -118,26 +121,9 @@ router.put("/:id", function(req, res, next) {
     );
 });
 
-// 3. GET BY SLUG
-router.get("/:slug", function(req, res, next) {
-    /* Query */
-    const query = Brand.findOne({ slug: req.params.slug });
-    /* Callback */
-    query.exec(function(error, brand) {
-        if (error) {
-            return res.status(500).json({
-                title: "Greška! Niste dobili listu brendova iz baze",
-                error: error
-            });
-        }
-        res.status(200).json({
-            message: "Brendovi su uspešno učitani",
-            object: brand
-        });
-    });
-});
+/*************************** 3.GET  ***************************/
 
-// 4. GET ALL
+/*  GET ALL */
 router.get("/", function(req, res, next) {
     /* Query */
     const query = Brand.find();
@@ -156,7 +142,29 @@ router.get("/", function(req, res, next) {
     });
 });
 
-// 5. DELETE
+/*  GET BY SLUG */
+router.get("/:slug", function(req, res, next) {
+
+    /* Query */
+    const query = Brand.findOne({ slug: req.params.slug });
+
+    /* Callback */
+    query.exec(function(error, document) {
+        if (error) {
+            return res.status(500).json({
+                title: "Greška! Niste dobili listu brendova iz baze",
+                error: error
+            });
+        }
+        res.status(200).json({
+            message: "Brend uspešno učitan",
+            object: document
+        });
+    });
+});
+
+/*************************** 4. DELETE ***************************/
+
 router.delete("/:id", function(req, res, next) {
     Brand.findOneAndRemove(
         /* id match */

@@ -239,13 +239,8 @@ export class BrandsComponent implements OnInit {
 
     /* Get brand */
     getBrands() {
-        this.brandService.get().subscribe(result => {
-            let brandsResponse: any = {
-                message: '',
-                object: {}
-            };
-            brandsResponse = result;
-            this.brandList = brandsResponse.object;
+        this.brandService.get().subscribe(response => {
+            this.brandList = response.object;
         });
     }
 }

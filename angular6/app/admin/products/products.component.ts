@@ -170,19 +170,14 @@ export class ProductsComponent implements OnInit {
 
     /* Add new product */
     postProduct(product) {
-        let response: any = {
-            title: ''
-        };
         this.productService.post(product).subscribe(
-            (data) => {
+            (response) => {
                 this.closeDialog();
                 this.getProducts();
-                response = data;
                 this.toastr.success(JSON.stringify(response.title));
             },
             (error) => {
-                response = error;
-                this.toastr.error(JSON.stringify(response.title));
+                this.toastr.error(JSON.stringify(error.title));
             }
         );
     }
@@ -194,10 +189,10 @@ export class ProductsComponent implements OnInit {
         };
         this.productService.put(product._id, product).subscribe(
             data => {
-            this.closeDialog();
-            this.getProducts();
-            response = data;
-            this.toastr.success(JSON.stringify(response.title));
+                this.closeDialog();
+                this.getProducts();
+                response = data;
+                this.toastr.success(JSON.stringify(response.title));
             },
             (error) => {
                 response = error;
@@ -255,13 +250,8 @@ export class ProductsComponent implements OnInit {
     getProducts(categoryFilter?, groupFilter?, brandFilter?) {
         this.productService.get().subscribe(
             (response) => {
-                let productsResponse: any = {
-                    message: '',
-                    object: {}
-                };
-                productsResponse = response;
                 if (categoryFilter) {
-                    this.productList = productsResponse.object.filter(
+                    this.productList = response.object.filter(
                         p => p.category._id === categoryFilter
                     );
                     if (brandFilter) {
@@ -270,7 +260,7 @@ export class ProductsComponent implements OnInit {
                         );
                     }
                 } else if (groupFilter) {
-                    this.productList = productsResponse.object.filter(
+                    this.productList = response.object.filter(
                         p => p.group._id === groupFilter
                     );
                     if (brandFilter) {
@@ -279,11 +269,11 @@ export class ProductsComponent implements OnInit {
                         );
                     }
                 } else if (brandFilter) {
-                    this.productList = productsResponse.object.filter(
+                    this.productList = response.object.filter(
                         p => p.brand._id === brandFilter
                     );
                 } else {
-                    this.productList = productsResponse.object;
+                    this.productList = response.object;
                 }
             }
         );
@@ -291,37 +281,22 @@ export class ProductsComponent implements OnInit {
 
     /* Get brands */
     getBrands() {
-        this.brandService.get().subscribe(result => {
-            let brandsResponse: any = {
-                message: '',
-                object: {}
-            };
-            brandsResponse = result;
-            this.brandList = brandsResponse.object;
+        this.brandService.get().subscribe(response => {
+            this.brandList = response.object;
         });
     }
 
     /* Get groups */
     getGroups() {
-        this.groupService.get().subscribe(result => {
-            let groupResponse: any = {
-                message: '',
-                object: {}
-            };
-            groupResponse = result;
-            this.groupList = groupResponse.object;
+        this.groupService.get().subscribe(response => {
+            this.groupList = response.object;
         });
     }
 
     /* Get categories */
     getCategories() {
-        this.categoryService.get().subscribe(result => {
-            let categoriesResponse: any = {
-                message: '',
-                object: {}
-            };
-            categoriesResponse = result;
-            this.categoryList = categoriesResponse.object;
+        this.categoryService.get().subscribe(response => {
+            this.categoryList = response.object;
         });
     }
 }

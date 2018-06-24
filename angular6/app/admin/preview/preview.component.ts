@@ -34,48 +34,28 @@ export class PreviewComponent implements OnInit {
     /* Get products + filter */
     getProducts(categoryFilter?, groupFilter?, brandFilter?) {
         this.productService.get().subscribe(response => {
-            let productsResponse: any = {
-                message: '',
-                object: {}
-            };
-            productsResponse = response;
-            this.productList = productsResponse.object;
+            this.productList = response.object;
         });
     }
 
     /* Get brand */
     getBrands() {
-        this.brandService.get().subscribe(result => {
-            let brandsResponse: any = {
-                message: '',
-                object: {}
-            };
-            brandsResponse = result;
-            this.brandList = brandsResponse.object;
+        this.brandService.get().subscribe(response => {
+            this.brandList = response.object;
         });
     }
 
     /* Get categories */
     getCategories() {
-        this.categoryService.get().subscribe(result => {
-            let categoriesResponse: any = {
-                message: '',
-                object: {}
-            };
-            categoriesResponse = result;
-            this.categoryList = categoriesResponse.object;
+        this.categoryService.get().subscribe(response => {
+            this.categoryList = response.object;
         });
     }
 
     /* Get groups */
     getGroups() {
-        this.groupService.get().subscribe(result => {
-            let groupsResponse: any = {
-                message: '',
-                object: {}
-            };
-            groupsResponse = result;
-            this.groupList = groupsResponse.object;
+        this.groupService.get().subscribe(response => {
+            this.groupList = response.object;
         });
     }
 }

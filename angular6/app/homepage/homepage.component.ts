@@ -1,6 +1,6 @@
 /* Angular */
-import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 /* Services */
 import { BrandsService } from 'angular6/app/_services/brands.service';
@@ -19,6 +19,7 @@ export class HomepageComponent implements OnInit {
     categoryList = [];
     navItemsVisible = false;
     actualWidth = window.innerWidth;
+    isLoaded = false;
 
     constructor(
         private brandService: BrandsService,
@@ -27,11 +28,6 @@ export class HomepageComponent implements OnInit {
         public global: GlobalService,
         private router: Router) {}
 
-
-    @HostListener('window:resize', ['$event'])
-    onResize(event) {
-        this.actualWidth = event.target.innerWidth;
-    }
     /* Screens */
     public bigScreen() {
         if (this.actualWidth > 1028) {
@@ -48,48 +44,37 @@ export class HomepageComponent implements OnInit {
     }
 
     /* INIT */
+    onLoad() {
+        this.isLoaded = true;
+    }
+
     ngOnInit() {
         this.getBrands();
         this.getCategories();
         this.getProducts();
-        if (this.actualWidth > 768) {
-            this.navItemsVisible = true;
-        }
+        setTimeout(() => {
+            this.onLoad();
+        }, 1);
     }
 
     /* Get products + filter */
     getProducts() {
         this.productService.get().subscribe(response => {
-            let productsResponse: any = {
-                message: '',
-                object: {}
-            };
-            productsResponse = response;
-            this.productList = productsResponse.object;
+            this.productList = response.object;
         });
     }
 
     /* Get brand */
     getBrands() {
-        this.brandService.get().subscribe(result => {
-            let brandsResponse: any = {
-                message: '',
-                object: {}
-            };
-            brandsResponse = result;
-            this.brandList = brandsResponse.object;
+        this.brandService.get().subscribe(response => {
+            this.brandList = response.object;
         });
     }
 
     /* Get category */
     getCategories() {
-        this.categoryService.get().subscribe(result => {
-            let categoriesResponse: any = {
-                message: '',
-                object: {}
-            };
-            categoriesResponse = result;
-            this.categoryList = categoriesResponse.object;
+        this.categoryService.get().subscribe(response => {
+            this.categoryList = response.object;
         });
     }
 
@@ -104,8 +89,4 @@ export class HomepageComponent implements OnInit {
         this.router.navigate(['/kategorija/' + slug]);
     }
 
-    /* Toggle Lists */
-    toggleList() {
-        this.navItemsVisible = !this.navItemsVisible;
-    }
 }

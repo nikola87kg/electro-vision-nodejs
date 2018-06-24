@@ -1,0 +1,16 @@
+<div id="navigation-menu-wrapper" class="row">
+    <div class="col-sm-12 primary-menu">
+        <ul>
+            <li class="bigScreenHidden" (click)="toggleList()">
+                <i class="fa fa-bars"></i>
+            </li>
+            <li *ngIf="navItemsVisible" routerLink="/pocetna" routerLinkActive="nav-active"> Početna </li>
+            <li *ngIf="navItemsVisible"> O nama </li>
+            <li *ngIf="navItemsVisible" routerLink="/lista-proizvoda" routerLinkActive="nav-active"> Proizvodi </li>
+            <li *ngIf="navItemsVisible"> Cenovnik </li>
+            <li *ngIf="navItemsVisible"> Servis </li>
+            <li *ngIf="navItemsVisible"> Galerija </li>
+            <li *ngIf="navItemsVisible"> Kontakt </li>
+        </ul>
+    </div>
+</div>

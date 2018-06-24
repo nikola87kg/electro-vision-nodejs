@@ -35,7 +35,7 @@ var backupFolder = './backup';
 
 // post image
 router.post("/images/:id", function(req, res) {
-    uploadFile(req, res, function(err) {
+    uploadFile(req, res, function(err, data) {
         if (err) {
             return res.status(501).json({ error: err });
         }
@@ -45,7 +45,7 @@ router.post("/images/:id", function(req, res) {
             }
         });
         res.status(200).json({
-            title: "Slika kategorije " + data.name + " je uspešno snimljena u bazu",
+            title: "Slika kategorije je uspešno snimljena u bazu",
             success: 1,
             path: req.file.path,
             image: req.file.originalname,
@@ -124,6 +124,7 @@ router.put("/:id", function(req, res, next) {
 
 /*************************** 3.GET  ***************************/
 
+/*  GET ALL */
 router.get("/", function(req, res, next) {
     /* Query */
     const query = Category.find();
@@ -142,15 +143,15 @@ router.get("/", function(req, res, next) {
     });
 });
 
-/* GET ONE */
+/* GET BY SLUG */
 router.get("/:slug", function(req, res, next) {
 
     /* Query */
-    Category.findOne({ slug: req.params.slug })
-            .exec(callback);
+    const query = Category.findOne({ slug: req.params.slug });
+
 
     /* Callback */
-    var callback = function(error, category) {
+    query.exec(function(error, document) {
         if (error) {
             return res.status(500).json({
                 title: "Greška! Niste dobili listu kategorije iz baze",
@@ -158,11 +159,10 @@ router.get("/:slug", function(req, res, next) {
             });
         }
         res.status(200).json({
-            message: "Kategorija " + data.name + " je uspešno učitana",
-            object: category
+            message: "Kategorija uspešno učitana",
+            object: document
         });
-    };
-
+    });
 });
 
 /*************************** 4. DELETE ***************************/

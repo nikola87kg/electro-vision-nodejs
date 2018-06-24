@@ -239,30 +239,20 @@ export class GroupsComponent implements OnInit {
     /* Get groups */
     getGroups(categoryFilter?) {
         this.groupService.get().subscribe(response => {
-            let groupsResponse: any = {
-                message: '',
-                object: {}
-            };
-            groupsResponse = response;
             if (categoryFilter) {
-                this.groupList = groupsResponse.object.filter(
+                this.groupList = response.object.filter(
                     g => g.category._id === categoryFilter
                 );
             } else {
-                this.groupList = groupsResponse.object;
+                this.groupList = response.object;
             }
         });
     }
 
     /* Get categories */
     getCategories() {
-        this.categoryService.get().subscribe(result => {
-            let categoriesResponse: any = {
-                message: '',
-                object: {}
-            };
-            categoriesResponse = result;
-            this.categoryList = categoriesResponse.object;
+        this.categoryService.get().subscribe(response => {
+            this.categoryList = response.object;
         });
     }
 }

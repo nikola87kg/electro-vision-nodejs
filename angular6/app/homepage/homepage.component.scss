@@ -58,41 +58,6 @@ carousel h3 {
     font-size: 40px;
 }
 
-/* primary-menu */
-
-#primary-menu-wrapper {
-    padding: 0px;
-    background: $secondary-color;
-    .primary-menu {
-        text-align: left;
-        ul {
-            list-style: none;
-            margin-bottom: 0;
-            margin-left: 4%;
-            user-select: none;
-            padding: 0;
-            li {
-                display: inline-block;
-                margin: 0;
-                font-size: 16px;
-                cursor: pointer;
-                color: white;
-                padding: 10px 20px;
-                border-right: 1px solid rgb(72, 72, 72);
-                @media screen and (max-width:1028px) {
-                    display: block;
-                }
-                &:hover {
-                    color: $primary-color;
-                }
-                i {
-                    margin-right: 5px;
-                }
-            }
-        }
-    }
-}
-
 /* Sidelist */
 .sidebar {
     padding-left: 50px;
@@ -174,6 +139,12 @@ carousel h3 {
         text-align: left;
         &.image {
             text-align: center;
+            overflow: hidden;
+            &:hover img {
+                transform: scale(1.1) ;
+                filter: grayscale(1);
+                transition: 0.3s ease-out;
+            }
         }
         img {
             margin-top: 10px;

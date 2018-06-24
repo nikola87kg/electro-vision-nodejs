@@ -1,0 +1,36 @@
+<!-- background -->
+<div class="product-background">
+</div>
+
+<!-- Navigation Menu -->
+<px-navigation-menu></px-navigation-menu>
+
+<!-- Content -->
+<div id="products-by-category" class="row invisible-onload" [ngClass]="{'fade-in' : isLoaded}">
+    <!-- Category list -->
+    <div class="col-md-6 col-lg-4 category-wrapper" *ngFor="let category of categoryList">
+        <!-- Category title -->
+        <h3 class="category-title" (click)="goToCategory(category.slug)">
+            {{category?.name}}
+        </h3>
+        <!-- Group list -->
+        <div class="group-wrapper" *ngFor="let group of category.groups">
+            <!-- Group title -->
+            <h4 class="group-title" *ngIf="group.products?.length !== 0" (click)="goToGroup(group.slug)">
+                - {{group?.name}}
+            </h4>
+            <!-- Product list -->
+            <div class="product-wrapper" *ngFor="let product of group.products">
+                <!-- Product title -->
+                <h6 class="product-title" (click)="goToProduct(product.slug)">
+                    <!-- Product image -->
+                    <img [src]="product.image"> {{product?.name}}
+                </h6>
+            </div>
+        </div>
+        <!-- no groups message -->
+        <p *ngIf="category.groups?.length === 0">
+            Nema proizvoda za ovu kategoriju
+        </p>
+    </div>
+</div>

@@ -19,6 +19,7 @@
                     <img class="prod-image" [src]="prod.image">
                     <img class="corner-logo" src="{{brand.image}}">
                 </div>
+                <p class="no-results" *ngIf="productList.length === 0">Nema ubačenih proizvoda za ovaj brend</p>
             </div>
         </div>
     </div>

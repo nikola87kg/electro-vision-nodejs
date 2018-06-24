@@ -67,30 +67,16 @@ export class ProductPageComponent implements OnInit {
         this.activatedRoute.params.subscribe((params: Params) => {
             slug = params['slug'];
         });
-        this.productService.getBySlug(slug).subscribe(result => {
-            let productResponse: any = {
-                message: '',
-                object: {
-                    name: '',
-                    description: '',
-                    image: ''
-                }
-            };
-            productResponse = result;
-            this.product = productResponse.object;
+        this.productService.getBySlug(slug).subscribe(response => {
+            this.product = response.object;
         });
     }
 
     /* Get products + filter */
     getProducts() {
         this.productService.get().subscribe(response => {
-            let productsResponse: any = {
-                message: '',
-                object: {}
-            };
             const categoryFilter = this.product.category.name;
-            productsResponse = response;
-            this.productList = productsResponse.object.filter(
+            this.productList = response.object.filter(
                 p => p.name !== this.product.name
             );
             if (categoryFilter) {

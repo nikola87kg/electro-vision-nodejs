@@ -15,12 +15,12 @@ export class BrandsService {
 
     /* GET brands */
     get() {
-        return this.http.get(this.baseUrl + '/brands');
+        return this.http.get<{message: string, object}>(this.baseUrl + '/brands');
     }
 
     getBySlug(slug) {
         const URL = this.baseUrl + '/brands/' + slug;
-        return this.http.get(URL);
+        return this.http.get<{message: string, object}>(URL);
     }
 
     /* POST brands */

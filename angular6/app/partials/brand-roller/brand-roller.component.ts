@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BrandsService } from '../_services/brands.service';
+import { BrandsService } from '../../_services/brands.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,13 +22,8 @@ export class BrandRollerComponent implements OnInit {
 
     /* Get brand */
     getBrands() {
-        this.brandService.get().subscribe(result => {
-            let brandsResponse: any = {
-                message: '',
-                object: {}
-            };
-            brandsResponse = result;
-            this.brandList = brandsResponse.object;
+        this.brandService.get().subscribe(response => {
+            this.brandList = response.object;
         });
     }
 

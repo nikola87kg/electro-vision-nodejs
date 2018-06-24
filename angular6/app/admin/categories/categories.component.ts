@@ -229,13 +229,8 @@ export class CategoriesComponent implements OnInit {
 
     /* Get category */
     getCategories() {
-        this.categoryService.get().subscribe(result => {
-            let categoriesResponse: any = {
-                message: '',
-                object: {}
-            };
-            categoriesResponse = result;
-            this.categoryList = categoriesResponse.object;
+        this.categoryService.get().subscribe(response => {
+            this.categoryList = response.object;
         });
     }
 }

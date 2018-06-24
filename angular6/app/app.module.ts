@@ -22,8 +22,9 @@ import { BrandPageComponent } from './pages/brand-page/brand-page.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
-import { BrandRollerComponent } from './brand-roller/brand-roller.component';
-import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
+import { BrandRollerComponent } from './partials/brand-roller/brand-roller.component';
+import { NavigationMenuComponent } from './partials/navigation-menu/navigation-menu.component';
+import { ProductsAllComponent } from './pages/products-all/products-all.component';
 
 @NgModule({
   imports: [
@@ -46,7 +47,8 @@ import { NavigationMenuComponent } from './navigation-menu/navigation-menu.compo
     GroupPageComponent,
     CategoryPageComponent,
     BrandRollerComponent,
-    NavigationMenuComponent
+    NavigationMenuComponent,
+    ProductsAllComponent
   ],
   bootstrap: [AppComponent]
 })

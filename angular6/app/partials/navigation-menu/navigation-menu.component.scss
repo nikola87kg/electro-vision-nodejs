@@ -1,0 +1,38 @@
+@import "angular6/app/partials/_variables.scss";
+
+#navigation-menu-wrapper {
+    padding: 0px;
+    background: $secondary-color;
+    .primary-menu {
+        text-align: left;
+        ul {
+            list-style: none;
+            margin-bottom: 0;
+            margin-left: 4%;
+            user-select: none;
+            padding: 0;
+            li {
+                display: inline-block;
+                margin: 0;
+                font-size: 16px;
+                cursor: pointer;
+                color: white;
+                padding: 10px 20px;
+                border-right: 1px solid rgb(72, 72, 72);
+                &.nav-active {
+                    color: red;
+                }
+
+                @media screen and (max-width:1028px) {
+                    display: block;
+                }
+                &:hover {
+                    color: $primary-color;
+                }
+                i {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}

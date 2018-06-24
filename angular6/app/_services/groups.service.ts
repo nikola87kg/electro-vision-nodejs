@@ -15,12 +15,12 @@ export class GroupsService {
 
     /* GET groups */
     get() {
-        return this.http.get(this.baseUrl + '/groups');
+        return this.http.get<{message: string, object}>(this.baseUrl + '/groups');
     }
 
     getBySlug(slug) {
         const URL = this.baseUrl + '/groups/' + slug;
-        return this.http.get(URL);
+        return this.http.get<{message: string, object}>(URL);
     }
 
     /* POST groups */

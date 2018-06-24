@@ -42,29 +42,15 @@ export class BrandPageComponent implements OnInit {
         this.activatedRoute.params.subscribe((params: Params) => {
             slug = params['slug'];
         });
-        this.brandService.getBySlug(slug).subscribe(result => {
-            let brandsResponse: any = {
-                message: '',
-                object: {
-                    name: '',
-                    description: '',
-                    image: ''
-                }
-            };
-            brandsResponse = result;
-            this.brand = brandsResponse.object;
+        this.brandService.getBySlug(slug).subscribe(response => {
+            this.brand = response.object;
         });
     }
 
     /* Get products + filter */
     getProducts() {
         this.productService.get().subscribe(response => {
-            let productsResponse: any = {
-                message: '',
-                object: {}
-            };
-            productsResponse = response;
-            this.productList = productsResponse.object.filter(
+            this.productList = response.object.filter(
                 p => p.brand.name === this.brand.name
             );
         });

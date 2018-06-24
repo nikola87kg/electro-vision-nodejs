@@ -7,9 +7,11 @@
     text-align: center;
     vertical-align: middle;
     h1 {
-        color: gray;
+        color: white;
         font-style: italic;
-        text-shadow: 1px 1px white, -1px -1px white,;
+        line-height: 150px;
+        font-size: 3rem;
+        text-shadow: 1px 1px $primary-color, -1px -1px $primary-color;
     }
 }
 
@@ -58,6 +60,19 @@
             max-height: 100px;
             box-shadow: 1px 1px 20px 1px grey;
             z-index: 1000;
+            background: white;
+            padding: 5px 3px 3px 3px;
         }
     }
+}
+
+/* No results */
+
+.no-results {
+    color: rgb(150, 14, 14);
+    font-weight: bold;
+    padding: 20px;
+    margin-top: 20px;
+    background: rgb(244, 244, 244);
+    font-size: 20px;
 }

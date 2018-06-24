@@ -1,0 +1,71 @@
+@import "angular6/app/partials/_variables.scss";
+
+.product-background {
+    background: url("../../../assets/baner/product-all-back.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: 200px;
+}
+
+#products-by-category {
+    margin: 0;
+    .category-wrapper {
+        padding: 20px;
+        text-align: left;
+        max-height: 40vh;
+        overflow: auto;
+        .category-title {
+            color: white;
+            cursor: pointer;
+            background: $primary-color;
+            padding: 10px 20px;
+            font-size: 18px;
+            &:hover {
+                background: darken($primary-color, 10);
+            }
+        }
+    }
+    .group-wrapper {
+        padding: 0;
+        text-align: left;
+        .group-title {
+            color: black;
+            cursor: pointer;
+            font-weight: bold;
+            background: lightgray;
+            padding: 10px 20px;
+            font-size: 16px;
+            &:hover {
+                background: darken(lightgray, 10);
+            }
+        }
+    }
+    .product-wrapper {
+        padding: 0;
+        text-align: left;
+        .product-title {
+            color: white;
+            background: $third-color;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            &:hover {
+                background: darken($third-color, 10);
+            }
+            img {
+                height: 25px;
+                width: 25px;
+                padding: 1px;
+                background-origin: 1px solid black;
+                background: white;
+                margin-right: 10px;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+p {
+    color: lightgray;
+    text-align: center;
+    font-style: italic;
+}

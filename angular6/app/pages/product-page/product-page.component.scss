@@ -1,5 +1,12 @@
 @import "angular6/app/partials/_variables.scss";
 
+
+.product-background {
+    background: url("../../../assets/baner/banner-page.png") no-repeat top center fixed;
+    background-size: cover;
+    height: 200px;
+}
+
 .product-info {
     color: gray;
     padding: 10px 20px;
@@ -37,12 +44,6 @@
         padding: 10px;
         font-size: 20px;
     }
-}
-
-.product-background {
-    background: url("../../../assets/baner/banner-page.png") no-repeat top center fixed;
-    background-size: cover;
-    height: 200px;
 }
 
 .product-image {

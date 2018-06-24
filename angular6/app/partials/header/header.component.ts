@@ -54,13 +54,8 @@ export class HeaderComponent implements OnInit {
 
     getProductsSearch() {
         this.productService.get().subscribe(response => {
-            let productsResponse: any = {
-                message: '',
-                object: {}
-            };
-            productsResponse = response;
             /* sort array of objects */
-            productsResponse.object.sort(function(a, b) {
+            response.object.sort(function(a, b) {
                 const nameA = a.name.toLowerCase();
                 const nameB = b.name.toLowerCase();
                 if (nameA < nameB) {
@@ -71,7 +66,7 @@ export class HeaderComponent implements OnInit {
                 }
                 return 0;
             });
-            this.resultsSorted = productsResponse.object;
+            this.resultsSorted = response.object;
 
         });
     }
