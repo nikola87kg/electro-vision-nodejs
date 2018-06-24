@@ -1,0 +1,37 @@
+@import "angular6/app/partials/_variables.scss";
+
+/* Map */
+agm-map {
+    height: 300px;
+}
+
+/* Info */
+.contact-info {
+    text-align: center;
+    h3 {
+        margin: 20px;
+        color: $third-color;
+        padding: 10px;
+        border-bottom: 2px solid gray;
+        display: inline-block;
+        margin: 0 auto;
+        width: 450px;
+        max-width: 100%;
+    }
+    .inline-block {
+        text-align: left;
+        display: inline-block;
+        margin: 0 auto;
+    }
+    p {
+        margin: 5px 0;
+        span:first-child {
+            display: inline-block;
+            width: 100px;
+        }
+        span:last-child {
+            font-weight: bold;
+            color: $primary-color;
+        }
+    }
+}

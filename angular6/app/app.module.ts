@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ToastrModule } from 'ngx-toastr';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { AgmCoreModule } from '@agm/core';
 
 /* App modules */
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +26,7 @@ import { CategoryPageComponent } from './pages/category-page/category-page.compo
 import { BrandRollerComponent } from './partials/brand-roller/brand-roller.component';
 import { NavigationMenuComponent } from './partials/navigation-menu/navigation-menu.component';
 import { ProductsAllComponent } from './pages/products-all/products-all.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 @NgModule({
   imports: [
@@ -35,6 +37,9 @@ import { ProductsAllComponent } from './pages/products-all/products-all.componen
     CarouselModule,
     Ng2SearchPipeModule,
     ToastrModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDa6KMmeN1YNFuyxnH4v2jDdLQLxuiHQ1s'
+    }),
     AppRoutingModule
   ],
   declarations: [
@@ -48,7 +53,8 @@ import { ProductsAllComponent } from './pages/products-all/products-all.componen
     CategoryPageComponent,
     BrandRollerComponent,
     NavigationMenuComponent,
-    ProductsAllComponent
+    ProductsAllComponent,
+    ContactComponent
   ],
   bootstrap: [AppComponent]
 })

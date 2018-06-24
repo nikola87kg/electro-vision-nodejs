@@ -5,12 +5,12 @@
                 <i class="fa fa-bars"></i>
             </li>
             <li *ngIf="navItemsVisible" routerLink="/pocetna" routerLinkActive="nav-active"> Početna </li>
-            <li *ngIf="navItemsVisible"> O nama </li>
+            <!-- <li *ngIf="navItemsVisible"> O nama </li> -->
             <li *ngIf="navItemsVisible" routerLink="/lista-proizvoda" routerLinkActive="nav-active"> Proizvodi </li>
-            <li *ngIf="navItemsVisible"> Cenovnik </li>
+            <!-- <li *ngIf="navItemsVisible"> Cenovnik </li>
             <li *ngIf="navItemsVisible"> Servis </li>
-            <li *ngIf="navItemsVisible"> Galerija </li>
-            <li *ngIf="navItemsVisible"> Kontakt </li>
+            <li *ngIf="navItemsVisible"> Galerija </li> -->
+            <li *ngIf="navItemsVisible" routerLink="/kontakt" routerLinkActive="nav-active"> Kontakt </li>
         </ul>
     </div>
 </div>
