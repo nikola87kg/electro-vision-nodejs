@@ -140,7 +140,7 @@ router.put("/:id", function(req, res, next) {
 
 // 3. GET BY SLUG
 router.get("/:slug", function(req, res, next) {
-    console.log(req.params.slug);
+
     /* Query Builder */
     Product.findOne({ slug: req.params.slug })
         .populate("group", ["name", "slug"])
@@ -172,12 +172,12 @@ router.get("/", function(req, res, next) {
         .exec(function(err, productList) {
             if (err) {
                 return res.status(500).json({
-                    title: "Greška! Niste dobili listu proizvoda iz baze",
+                    title: "Greška! Niste dobili željeni proizvod iz baze",
                     error: err
                 });
             }
             res.status(200).json({
-                message: "Bravo! Proizvodi su uspešno učitani",
+                message: "Bravo! Proizvod je uspešno učitan",
                 object: productList
             });
         });

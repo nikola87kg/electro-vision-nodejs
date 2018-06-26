@@ -149,7 +149,6 @@ router.get("/:slug", function(req, res, next) {
     /* Query */
     const query = Category.findOne({ slug: req.params.slug });
 
-
     /* Callback */
     query.exec(function(error, document) {
         if (error) {

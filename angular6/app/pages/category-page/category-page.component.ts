@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd, Params } from '@angular/router';
 import { ProductsService } from '../../_services/products.service';
 import { CategoriesService } from '../../_services/categories.service';
+import { GroupsService } from '../../_services/groups.service';
 
 @Component({
   selector: 'px-category-page',
@@ -16,12 +17,13 @@ export class CategoryPageComponent implements OnInit {
     };
 
     categoryList = [];
-
+    groupList = [];
     productList = [];
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private categoryService: CategoriesService,
+        private groupService: GroupsService,
         private router: Router,
         private productService: ProductsService
     ) {
@@ -29,6 +31,7 @@ export class CategoryPageComponent implements OnInit {
             if (e instanceof NavigationEnd) {
                 this.getCategory();
                 this.getProducts();
+                this.getGroups();
             }
         });
     }
@@ -37,6 +40,7 @@ export class CategoryPageComponent implements OnInit {
         this.getCategory();
         this.getCategories();
         this.getProducts();
+        this.getGroups();
     }
 
     /* Get category */
@@ -66,14 +70,27 @@ export class CategoryPageComponent implements OnInit {
         });
     }
 
+    /* Get groups */
+    getGroups() {
+        this.groupService.get().subscribe(response => {
+            this.groupList = response.object.filter(
+                group => group.category.name === this.category.name
+            );
+        });
+    }
+
     /* Navigation */
     goToCategory(slug) {
         this.router.navigate(['/kategorija/' + slug]);
     }
 
-    /* Redirection */
-
     goToProduct(slug) {
         this.router.navigate(['/proizvod/' + slug]);
+    }
+    goToGroup(slug) {
+        this.router.navigate(['/potkategorija/' + slug]);
+    }
+    goToProducts() {
+        this.router.navigate(['/lista-proizvoda/']);
     }
 }

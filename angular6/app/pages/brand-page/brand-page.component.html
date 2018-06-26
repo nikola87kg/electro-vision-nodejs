@@ -1,9 +1,12 @@
 <div id="brand-page" style="position: relative;">
 
-    <!-- Background -->
+    <!-- Background Top -->
     <div class="brand-background">
         <h1>{{brand.name}}</h1>
     </div>
+
+    <!-- Navigation -->
+    <px-navigation-menu></px-navigation-menu>
 
     <!-- Brand products -->
     <div class="row">
@@ -12,14 +15,16 @@
             <div class="brand-products">
                 <br>
                 <div
-                    *ngFor="let prod of productList; let i = index"
+                    *ngFor="let product of productList; let i = index"
                     class="product-single"
-                    (click)="goToProduct(prod.slug)">
-                    <h3 [innerHtml]="prod.name"></h3>
-                    <img class="prod-image" [src]="prod.image">
+                    [ngStyle]="{'background': 'url(' + product.image + ') center/cover no-repeat '}"
+                    (click)="goToProduct(product.slug)">
+                    <h3 [innerHtml]="product.name"></h3>
                     <img class="corner-logo" src="{{brand.image}}">
                 </div>
-                <p class="no-results" *ngIf="productList.length === 0">Nema ubačenih proizvoda za ovaj brend</p>
+                <p class="no-results" *ngIf="productList.length === 0">
+                    Nema ubačenih proizvoda za ovaj brend
+                </p>
             </div>
         </div>
     </div>

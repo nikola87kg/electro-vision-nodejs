@@ -1,5 +1,6 @@
 @import "angular6/app/partials/_variables.scss";
 
+/* background top */
 .category-background {
     background: url("../../../assets/baner/banner-page.png") no-repeat top center fixed;
     background-size: cover;
@@ -15,49 +16,44 @@
     }
 }
 
-
-/* category main */
-.category-main {
-    text-align: center;
-    img {
-        width: 500px;
-        max-width: 100%;
-        height: auto;
-        border: 2px solid lightgray;
-        padding: 5px;
-        margin-left: 20px;
-    }
-}
-
+/* products */
 .category-products {
     text-align: center;
     .product-single {
         text-align: center;
-        max-width: 200px;
+        width: 200px;
+        height: 200px;
         position: relative;
         display: inline-block;
         margin: 5px 20px;
+        overflow: hidden;
         cursor: pointer;
         border: 1px solid #e4e4e4;
         color: $secondary-color;
+        h3 {
+            font-size: 15px;
+            padding: 5px 15px;
+            color: white;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            margin-bottom: 0;
+            background: rgba(140, 140, 140, 0.5);
+            right: 0;
+            z-index: 10;
+        }
         &:hover {
             box-shadow: 1px 1px 20px 1px lightgray;
-        }
-        h3 {
-            font-size: 20px;
-            padding: 10px 15px;
-            color: white;
-            background: $primary-color;
-        }
-        img.prod-image {
-            width: calc(100% - 20px);
-            margin: 10px;
+            transform: scale(1.03);
+            transition: 0.3s;
+            h3 {
+                background: rgba(140, 140, 140, 0.9);
+            }
         }
     }
 }
 
 /* No results */
-
 .no-results {
     color: rgb(150, 14, 14);
     font-weight: bold;
@@ -98,6 +94,10 @@
                 border-bottom: 2px solid $third-color;
                 transform: scale(1.03);
                 transition: 0.1s;
+                &.primary {
+                    color: $primary-color;
+                    border-bottom: 2px solid $primary-color;
+                }
                 &:hover {
                     font-weight: bold;
                 }
@@ -109,6 +109,10 @@
                 &:hover {
                     color: $category-color;
                     border-bottom: 1px solid $category-color;
+                }
+                &.primary:hover {
+                    color: $primary-color;
+                    border-bottom: 1px solid $primary-color;
                 }
             }
         }

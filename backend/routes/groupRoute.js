@@ -131,6 +131,7 @@ router.put("/:id", function(req, res, next) {
 
 /*************************** 3.GET  ***************************/
 
+/*  GET ALL */
 router.get("/", function(req, res, next) {
     // Query
     const query = Group.find();
@@ -148,6 +149,30 @@ router.get("/", function(req, res, next) {
             object: groupList
         });
     });
+});
+
+
+/* GET BY SLUG */
+router.get("/:slug", function(req, res, next) {
+
+    /* Query */
+    const query = Group.findOne({ slug: req.params.slug }) ;
+
+    /* Callback */
+    query
+        .populate("category", ["name", "slug"])
+        .exec(function(error, document) {
+            if (error) {
+                return res.status(500).json({
+                    title: "Greška! Niste dobili potkategoriju iz baze",
+                    error: error
+                });
+            }
+            res.status(200).json({
+                message: "Grupa je uspešno učitana",
+                object: document
+            });
+        });
 });
 
 /*************************** 4. DELETE ***************************/
