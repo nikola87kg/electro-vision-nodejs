@@ -27,9 +27,9 @@ import { BrandRollerComponent } from './partials/brand-roller/brand-roller.compo
 import { NavigationMenuComponent } from './partials/navigation-menu/navigation-menu.component';
 import { ProductsAllComponent } from './pages/products-all/products-all.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { AdminGuard } from './admin/admin.guard';
 
 /* Guards */
-import { AdminGuard } from './admin.guard';
 
 @NgModule({
   imports: [

@@ -12,7 +12,7 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
 import { ProductsAllComponent } from './pages/products-all/products-all.component';
 
 /* Guards */
-import { AdminGuard } from './admin.guard';
+import { AdminGuard } from './admin/admin.guard';
 
 const routes: Routes = [
     { path: 'brend/:slug',          component: BrandPageComponent },
