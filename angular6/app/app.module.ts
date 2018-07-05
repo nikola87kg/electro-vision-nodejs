@@ -28,6 +28,9 @@ import { NavigationMenuComponent } from './partials/navigation-menu/navigation-m
 import { ProductsAllComponent } from './pages/products-all/products-all.component';
 import { ContactComponent } from './pages/contact/contact.component';
 
+/* Guards */
+import { AdminGuard } from './admin.guard';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { ContactComponent } from './pages/contact/contact.component';
     ProductsAllComponent,
     ContactComponent
   ],
+  providers: [AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
