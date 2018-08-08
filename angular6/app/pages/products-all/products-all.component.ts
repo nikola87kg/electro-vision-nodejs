@@ -3,6 +3,7 @@ import { ProductsService } from '../../_services/products.service';
 import { CategoriesService } from '../../_services/categories.service';
 import { GroupsService } from '../../_services/groups.service';
 import { Router } from '@angular/router';
+import { isGeneratedFile } from '../../../../node_modules/@angular/compiler/src/aot/util';
 
 @Component({
     selector: 'px-products-all',
@@ -10,9 +11,10 @@ import { Router } from '@angular/router';
     styleUrls: ['./products-all.component.scss']
 })
 export class ProductsAllComponent implements OnInit {
-    productList = [];
-    categoryList = [];
-    isLoaded = false;
+    headline: string;
+    isLoaded: Boolean;
+    currentLevel: number;
+    currentList: Array<any>;
 
     constructor(
         public productService: ProductsService,
@@ -22,64 +24,56 @@ export class ProductsAllComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        setTimeout(() => {
-            this.getCategories();
-            this.onLoad();
-        }, 1);
+        this.currentLevel = 1;
+        this.headline = 'Kategorije proizvoda';
+        this.getCategories();
     }
 
-    onLoad() {
+    onLoadCompleted() {
         this.isLoaded = true;
+    }
+
+    onItemClick(id, slug) {
+        this.currentLevel = this.currentLevel + 1;
+        if ( this.currentLevel === 2 ) {
+            this.headline = 'Grupe proizvoda';
+            this.getGroups(id);
+        } else if ( this.currentLevel === 3 ) {
+            this.headline = 'Lista proizvoda';
+            this.getProducts(id);
+        } else if ( this.currentLevel === 4 ) {
+            this.goToProduct(slug);
+        }
     }
 
     /* Get categories*/
     getCategories() {
         this.categorytService.get().subscribe(response => {
-            this.categoryList = response.object;
-            this.categoryList.forEach(
-                category => {
-                    category = this.getGroups(category);
-                }
-            );
+            this.currentList = response.object;
+            this.onLoadCompleted();
         });
     }
 
     /* Get groups by Category */
-    getGroups(dynamicCategory) {
+    getGroups(categoryId) {
         this.groupService.get().subscribe(response => {
-            const groupArray =  response.object.filter(
-                group => group.category.name === dynamicCategory.name
+            this.currentList = response.object.filter(
+                group => group.category._id === categoryId
             );
-            dynamicCategory.groups = groupArray;
-            dynamicCategory.groups.forEach(
-                group => {
-                    group = this.getProducts(group);
-                }
-            );
-            return dynamicCategory;
         });
     }
 
     /* Get products by Group */
-    getProducts(dynamicGroup) {
+    getProducts(groupId) {
         this.productService.get().subscribe(response => {
-            const prodArray =  response.object.filter(
-                product => product.group.name === dynamicGroup.name
+            this.currentList = response.object.filter(
+                product => product.group._id === groupId
             );
-            dynamicGroup.products = prodArray;
-            return dynamicGroup;
         });
     }
 
-
     /* Navigation */
-    goToGroup(slug) {
-        this.router.navigate(['/potkategorija/' + slug]);
-    }
     goToProduct(slug) {
         this.router.navigate(['/proizvod/' + slug]);
-    }
-    goToCategory(slug) {
-        this.router.navigate(['/kategorija/' + slug]);
     }
 }
