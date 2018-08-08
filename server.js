@@ -50,18 +50,12 @@ app.use(logger("dev"));
 const errorHandler = require("errorhandler");
 app.use(errorHandler());
 
-app.use(function(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "POST, GET, PATCH, PUT, DELETE, OPTIONS"
-    );
-    next();
-});
+// app.use(function(req, res, next) {
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     res.setHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+//     res.setHeader("Access-Control-Allow-Methods","POST, GET, PATCH, PUT, DELETE, OPTIONS" );
+//     next();
+// });
 
 /* API ROUTES */
 const brandRoute = require("./backend/routes/brandRoute");

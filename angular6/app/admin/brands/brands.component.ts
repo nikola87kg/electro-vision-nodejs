@@ -93,12 +93,12 @@ export class BrandsComponent implements OnInit {
         }
     }
 
-    startUpload(obj): void {
+    startUpload(response): void {
         const imageData: UploadInput = {
             type: 'uploadAll',
-            url: this.baseUrl + '/brands/images/' + obj.id,
+            url: this.baseUrl + '/brands/images/' + response.object._id,
             method: 'POST',
-            data: { id: obj.id }
+            data: { id: response.object._id }
         };
         this.uploadInput.emit(imageData);
         setTimeout(() => {
@@ -241,6 +241,8 @@ export class BrandsComponent implements OnInit {
     getBrands() {
         this.brandService.get().subscribe(response => {
             this.brandList = response.object;
+            console.log(this.brandList);
+
         });
     }
 }

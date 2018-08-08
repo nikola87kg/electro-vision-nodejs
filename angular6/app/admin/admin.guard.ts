@@ -8,7 +8,7 @@ export class AdminGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         let answer = '';
-        const realPassword = 'mikilegenda';
+        const realPassword = '111';
         function enterPassword() {
             answer = prompt('Unesite admin lozinku');
             if (answer === realPassword) {
