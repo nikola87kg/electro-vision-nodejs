@@ -12,8 +12,8 @@ import {
 } from 'ngx-uploader';
 
 /* Services */
-import { GroupsService } from 'angular6/app/_services/groups.service';
-import { CategoriesService } from 'angular6/app/_services/categories.service';
+import { GroupsService } from '../../_services/groups.service';
+import { CategoriesService } from '../../_services/categories.service';
 
 @Component({
     selector: 'px-groups',

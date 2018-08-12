@@ -13,11 +13,30 @@
     </a>
 
     <!-- 2. SEARCH -->
-    <div class="searchbox">
-        <!-- Search icons -->
+    <form class="searchbox">
+        <mat-form-field>
+            <input
+                type="text"
+                placeholder="Pretraga"
+                matInput
+                [formControl]="searchInput"
+                (keyup.enter)="goToProduct(searchInput.value)"
+                [matAutocomplete]="auto">
+            <mat-autocomplete
+                autoActiveFirstOption
+                #auto="matAutocomplete">
+                <mat-option
+                    *ngFor="let option of filteredOptions | async"
+                    (click)="goToProduct(option)"
+                    [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+    <!-- <div class="searchbox">
         <i class="fa fa-search" (click)="showResults()"></i>
         <i class="fa fa-times" (click)="clearSearch(); hideResults()"></i>
-        <!-- Search field -->
         <input
             class="search-field"
             [(ngModel)]="searchInput"
@@ -28,7 +47,6 @@
             (keyup.backspace)="showResults()"
             (keypress)="showResults()"
             (focus)="showResults()">
-        <!-- Search results -->
         <div class="search-results" *ngIf="showResult" >
             <p  *ngFor="let result of resultsSorted | filter: searchInput; let i = index"
                 (click)="goToProduct(result.slug); hideResults()">
@@ -41,8 +59,8 @@
                     Vidi sve proizvode...
                 </span>
             </p>
-        </div>
-    </div>
+        </div> -->
+    <!-- </div> -->
 
 </header>
 

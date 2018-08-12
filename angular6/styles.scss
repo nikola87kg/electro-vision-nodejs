@@ -7,10 +7,12 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 /**** BASIC ELEMENTS ****/
 
+html, body { height: 100%; }
+
 body {
     padding: 0;
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
 }
 
@@ -27,6 +29,9 @@ button,
     cursor: pointer;
     &[disabled] {
         cursor: not-allowed;
+    }
+    &:focus {
+        outline: none;
     }
 }
 
@@ -131,3 +136,5 @@ select {
   }
 }
 
+
+// material themes: indigo-pink, deeppurple-amber, pink-bluegrey, purple-green

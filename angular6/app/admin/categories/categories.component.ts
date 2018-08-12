@@ -12,7 +12,7 @@ import {
 } from 'ngx-uploader';
 
 /* Services */
-import { CategoriesService } from 'angular6/app/_services/categories.service';
+import { CategoriesService } from '../../_services/categories.service';
 
 @Component({
     selector: 'px-categories',

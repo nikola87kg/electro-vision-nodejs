@@ -1,16 +1,36 @@
-<div id="navigation-menu-wrapper" class="row">
-    <div class="col-sm-12 primary-menu">
-        <ul>
-            <li class="bigScreenHidden" (click)="toggleList()">
-                <i class="fa fa-bars"></i>
-            </li>
-            <li *ngIf="navItemsVisible" routerLink="/pocetna" routerLinkActive="nav-active"> Početna </li>
-            <!-- <li *ngIf="navItemsVisible"> O nama </li> -->
-            <li *ngIf="navItemsVisible" routerLink="/lista-proizvoda" routerLinkActive="nav-active"> Proizvodi </li>
-            <!-- <li *ngIf="navItemsVisible"> Cenovnik </li>
-            <li *ngIf="navItemsVisible"> Servis </li>
-            <li *ngIf="navItemsVisible"> Galerija </li> -->
-            <li *ngIf="navItemsVisible" routerLink="/kontakt" routerLinkActive="nav-active"> Kontakt </li>
-        </ul>
-    </div>
+<div class="navigation">
+    <button mat-button routerLink="/pocetna" routerLinkActive="nav-active">
+        <mat-icon>home</mat-icon>
+        Početna
+    </button>
+    <button mat-button routerLink="/lista-proizvoda" routerLinkActive="nav-active">
+        <mat-icon>layers</mat-icon>
+        Proizvodi
+    </button>
+    <button mat-button routerLink="/kontakt" routerLinkActive="nav-active">
+        <mat-icon>phone</mat-icon>
+        Kontakt
+    </button>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" class="menu">
+        <button mat-menu-item>
+            <mat-icon>assignment</mat-icon>
+            <span>Cenovnik</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>build</mat-icon>
+            <span>Servis</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>photo_library </mat-icon>
+            <span>Galerija</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>assignment_ind</mat-icon>
+            <span>O nama</span>
+        </button>
+    </mat-menu>
 </div>

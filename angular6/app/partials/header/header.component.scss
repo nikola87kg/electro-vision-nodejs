@@ -1,5 +1,5 @@
 @import "angular6/app/partials/_variables.scss";
-$header-height: 50px;
+$header-height: 100px;
 
 .header-space {
   height: $header-height;
@@ -27,7 +27,7 @@ header {
 .logo {
   float: left;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 50px;
   text-decoration: none;
   span:first-of-type {
     color: $secondary-color;

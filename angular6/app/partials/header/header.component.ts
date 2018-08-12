@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { ProductsService } from 'angular6/app/_services/products.service';
+import { ProductsService } from '../../_services/products.service';
 import { GlobalService } from '../../_services/global.service';
+import { FormControl } from '../../../../node_modules/@angular/forms';
+import { Observable } from '../../../../node_modules/rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 declare var $: any;
 
@@ -19,69 +22,39 @@ export class HeaderComponent implements OnInit {
     ) {}
 
     showResult = false;
-    searchInput = '';
-    resultsSorted = [];
+
+    searchInput = new FormControl();
+    options = [];
+    filteredOptions: Observable<any[]>;
 
     ngOnInit() {
+        this.getAllProuducts();
         setTimeout(() => {
-            this.getProductsSearch();
-        }, 1);
+            this.filteredOptions = this.searchInput.valueChanges.pipe(
+                startWith(''),
+                map( value => this._filter(value) )
+            );
+        }, 500);
     }
 
-    /* Show result list */
-
-    clearSearch() {
-        this.searchInput = '';
+    private _filter(value: string): string[] {
+        const filterValue = value.toLowerCase();
+        return this.options.filter(
+            option => option.toLowerCase().indexOf(filterValue) === 0
+        );
     }
 
-    toggleResults() {
-        this.showResult = !this.showResult;
-    }
-
-    showResults() {
-        if (this.searchInput.length > 0) {
-            this.showResult = true;
-        } else {
-            this.showResult = false;
-        }
-    }
-
-    hideResults() {
-        this.showResult = false;
-    }
-
-    /* Get products + filter */
-
-    getProductsSearch() {
-        this.productService.get().subscribe(response => {
-            /* sort array of objects */
-            response.object.sort(function(a, b) {
-                const nameA = a.name.toLowerCase();
-                const nameB = b.name.toLowerCase();
-                if (nameA < nameB) {
-                    return -1;
-                }
-                if (nameA > nameB) {
-                    return 1;
-                }
-                return 0;
-            });
-            this.resultsSorted = response.object;
+    getAllProuducts() {
+        this.productService.get().subscribe( (result) => {
+            this.options = result.object.map(
+                object => object.slug
+            );
 
         });
     }
 
-    goToProducts() {
-        this.showResult = false;
-        this.clearSearch();
-        this.router.navigate(['/proizvodi']);
-    }
-
-    /* Navigation on click */
-
     goToProduct(slug) {
         this.showResult = false;
-        this.searchInput = '';
         this.router.navigate(['/proizvod/' + slug]);
     }
 }

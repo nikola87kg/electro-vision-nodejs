@@ -3,7 +3,7 @@ import { ProductsService } from '../../_services/products.service';
 import { CategoriesService } from '../../_services/categories.service';
 import { GroupsService } from '../../_services/groups.service';
 import { Router } from '@angular/router';
-import { isGeneratedFile } from '../../../../node_modules/@angular/compiler/src/aot/util';
+import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 
 @Component({
     selector: 'px-products-all',

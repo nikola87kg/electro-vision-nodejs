@@ -46,6 +46,9 @@
               "angular6/assets"
             ],
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              },
               "angular6/styles.scss"
             ],
             "scripts": []
@@ -95,6 +98,9 @@
             "tsConfig": "angular6/tsconfig.spec.json",
             "karmaConfig": "angular6/karma.conf.js",
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              },
               "styles.scss"
             ],
             "scripts": [],

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 /* Services */
-import { BrandsService } from 'angular6/app/_services/brands.service';
-import { CategoriesService } from 'angular6/app/_services/categories.service';
-import { ProductsService } from 'angular6/app/_services/products.service';
-import { GroupsService } from 'angular6/app/_services/groups.service';
+import { BrandsService } from '../../_services/brands.service';
+import { CategoriesService } from '../../_services/categories.service';
+import { ProductsService } from '../../_services/products.service';
+import { GroupsService } from '../../_services/groups.service';
 
 @Component({
     selector: 'px-preview',

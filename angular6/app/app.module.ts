@@ -1,7 +1,7 @@
 /* Core modules */
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
@@ -12,6 +12,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AgmCoreModule } from '@agm/core';
 
 /* App modules */
+import { AppMaterialModule } from './app.material.module';
 import { AppRoutingModule } from './app-routing.module';
 
 /* App components */
@@ -29,16 +30,17 @@ import { ProductsAllComponent } from './pages/products-all/products-all.componen
 import { ContactComponent } from './pages/contact/contact.component';
 import { AdminGuard } from './admin/admin.guard';
 
-/* Guards */
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     CarouselModule,
     Ng2SearchPipeModule,
+    AppMaterialModule,
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDa6KMmeN1YNFuyxnH4v2jDdLQLxuiHQ1s'

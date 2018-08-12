@@ -18,7 +18,7 @@ import {
 /* Services */
 import {
     BrandsService
-} from 'angular6/app/_services/brands.service';
+} from '../../_services/brands.service';
 
 /* Decorator */
 @Component({
