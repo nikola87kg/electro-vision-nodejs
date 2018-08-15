@@ -15,13 +15,13 @@ import { ProductsAllComponent } from './pages/products-all/products-all.componen
 import { AdminGuard } from './admin/admin.guard';
 
 const routes: Routes = [
-    { path: 'brend/:slug',          component: BrandPageComponent },
-    { path: 'kategorija/:slug',     component: CategoryPageComponent },
-    { path: 'kontakt',              component: ContactComponent },
     { path: 'pocetna',              component: HomepageComponent },
-    { path: 'potkategorija/:slug',  component: GroupPageComponent },
-    { path: 'lista-proizvoda',      component: ProductsAllComponent },
+    { path: 'kontakt',              component: ContactComponent },
     { path: 'proizvod/:slug',       component: ProductPageComponent },
+    { path: 'brend/:slug',          component: BrandPageComponent },
+    { path: 'potkategorija/:slug',  component: GroupPageComponent },
+    { path: 'kategorija/:slug',     component: CategoryPageComponent },
+    { path: 'kategorije',      component: ProductsAllComponent },
     { path: 'admin',                canActivate: [ AdminGuard ], loadChildren: './admin/admin.module#AdminModule' },
     { path: '',                     redirectTo: '/pocetna', pathMatch: 'full' },
     { path: '**',                   redirectTo: '/pocetna', }

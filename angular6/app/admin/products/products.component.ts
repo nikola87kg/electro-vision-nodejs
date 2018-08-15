@@ -250,7 +250,6 @@ export class ProductsComponent implements OnInit {
     getProducts(categoryFilter?, groupFilter?, brandFilter?) {
         this.productService.get().subscribe(
             (response) => {
-                console.log(123, response);
                 if (categoryFilter) {
                     this.productList = response.object.filter(
                         p => p.category._id === categoryFilter

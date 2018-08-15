@@ -3,7 +3,6 @@ import { ProductsService } from '../../_services/products.service';
 import { CategoriesService } from '../../_services/categories.service';
 import { GroupsService } from '../../_services/groups.service';
 import { Router } from '@angular/router';
-import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 
 @Component({
     selector: 'px-products-all',
@@ -15,6 +14,9 @@ export class ProductsAllComponent implements OnInit {
     isLoaded: Boolean;
     currentLevel: number;
     currentList: Array<any>;
+    lastCategoryID: any;
+    lastGroupID: any;
+    selectedItemName = 'Sve kategorije';
 
     constructor(
         public productService: ProductsService,
@@ -33,14 +35,31 @@ export class ProductsAllComponent implements OnInit {
         this.isLoaded = true;
     }
 
-    onItemClick(id, slug) {
-        this.currentLevel = this.currentLevel + 1;
-        if ( this.currentLevel === 2 ) {
-            this.headline = 'Grupe proizvoda';
-            this.getGroups(id);
+    OnLevelChange(increment, id?, slug?) {
+        if (increment === 0) {
+            this.currentLevel = 1;
+        } else {
+            this.currentLevel = this.currentLevel + increment;
+        }
+        if ( this.currentLevel === 1 ) {
+            this.getCategories();
+            this.selectedItemName = 'Sve kategorije';
+        } else if ( this.currentLevel === 2 ) {
+            let tempID = this.lastCategoryID;
+            if (id) {
+                tempID = id;
+                this.lastCategoryID = id;
+            }
+            this.getGroups(tempID);
+            this.selectedItemName = 'Filtrirane grupe proizvoda';
         } else if ( this.currentLevel === 3 ) {
-            this.headline = 'Lista proizvoda';
-            this.getProducts(id);
+            let tempID = this.lastCategoryID;
+            if (id) {
+                tempID = id;
+                this.lastGroupID = id;
+            }
+            this.getProducts(tempID);
+            this.selectedItemName = 'Filtrirani proizvodi';
         } else if ( this.currentLevel === 4 ) {
             this.goToProduct(slug);
         }

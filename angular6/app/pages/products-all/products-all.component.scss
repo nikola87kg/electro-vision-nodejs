@@ -3,11 +3,24 @@
 #headline {
     font-size: 24px;
     color: black;
+    padding-top: 50px;
     padding-left: 50px;
 }
 
 #items {
     padding: 0;
+}
+
+mat-horizontal-stepper {
+    width: 100%;
+    max-width: 700px;
+}
+
+.step-buttons {
+    margin: 20px;
+    button {
+        margin-right: 5px;
+    }
 }
 
 .item {
@@ -49,4 +62,8 @@
             background: rgba(0, 0, 0, 0.9);
         }
     }
+}
+
+.back-button {
+    margin: 20px;
 }

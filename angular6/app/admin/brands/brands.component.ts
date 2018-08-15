@@ -241,8 +241,6 @@ export class BrandsComponent implements OnInit {
     getBrands() {
         this.brandService.get().subscribe(response => {
             this.brandList = response.object;
-            console.log(this.brandList);
-
         });
     }
 }

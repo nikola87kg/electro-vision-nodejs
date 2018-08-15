@@ -5,9 +5,44 @@
 <!-- Navigation Menu -->
 <px-navigation-menu></px-navigation-menu>
 
-<!-- Headline -->
 
-<h1 id="headline"> {{headline}} </h1>
+<!-- Stepper -->
+<div class="step-buttons">
+    <button 
+        mat-raised-button 
+        [color]=" currentLevel === 1 ? 'primary' : '' "
+        (click)="OnLevelChange(0);">
+        1. Kategorije
+    </button>
+    <button 
+        mat-raised-button 
+        [disabled]="currentLevel < 2 "
+        (click)="OnLevelChange(-1);"
+        [color]=" currentLevel === 2 ? 'primary' : '' ">
+        2. Grupe proizvoda
+    </button>
+    <button 
+        mat-raised-button 
+        [disabled]="currentLevel < 3 "
+        [color]=" currentLevel === 3 ? 'primary' : '' ">
+        3. Proizvodi
+    </button>
+</div>
+
+<!-- Back button -->
+<mat-toolbar
+    *ngIf="selectedItemName">
+    {{selectedItemName}}
+    <button
+        *ngIf="currentLevel > 1"
+        class="back-button"
+        mat-raised-button
+        color="warn"
+        (click)="OnLevelChange(-1);">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Vrati se nazad
+    </button>
+</mat-toolbar>
 
 <!-- Content -->
 <div
@@ -17,7 +52,7 @@
     <div
         class="item"
         *ngFor="let item of currentList"
-        (click)="onItemClick(item._id, item.slug)">
+        (click)="OnLevelChange(1, item._id, item.slug);">
         <h4>{{ item.name }}</h4>
         <img [src]="item.image" >
     </div>
