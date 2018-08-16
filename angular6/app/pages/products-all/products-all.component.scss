@@ -11,10 +11,6 @@
     padding: 0;
 }
 
-mat-horizontal-stepper {
-    width: 100%;
-    max-width: 700px;
-}
 
 .step-buttons {
     margin: 20px;
@@ -66,4 +62,21 @@ mat-horizontal-stepper {
 
 .back-button {
     margin: 20px;
+}
+
+mat-card {
+    display: inline-block;
+    width: 300px;
+    max-width: 90%;
+    margin: 15px;
+}
+
+mat-card-actions {
+    float: right;
+}
+
+mat-form-field {
+    margin-left: 10px;
+    display: block;
+    width: 200px;
 }

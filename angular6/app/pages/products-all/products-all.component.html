@@ -11,7 +11,7 @@
     <button 
         mat-raised-button 
         [color]=" currentLevel === 1 ? 'primary' : '' "
-        (click)="OnLevelChange(0);">
+        (click)="OnLevelChange(100);">
         1. Kategorije
     </button>
     <button 
@@ -29,10 +29,11 @@
     </button>
 </div>
 
-<!-- Back button -->
+<!-- Toolbar -->
 <mat-toolbar
     *ngIf="selectedItemName">
     {{selectedItemName}}
+    <!-- Back button -->
     <button
         *ngIf="currentLevel > 1"
         class="back-button"
@@ -44,16 +45,29 @@
     </button>
 </mat-toolbar>
 
-<!-- Content -->
-<div
-    id="items"
-    class="invisible-onload"
-    [ngClass]="{'fade-in' : isLoaded}">
-    <div
-        class="item"
-        *ngFor="let item of currentList"
-        (click)="OnLevelChange(1, item._id, item.slug);">
-        <h4>{{ item.name }}</h4>
-        <img [src]="item.image" >
-    </div>
-</div>
+
+    <!-- Category Dropdown -->
+<mat-form-field *ngIf="currentLevel === 2 ">
+    <mat-select
+        placeholder="Promeni kategoriju"
+        [(ngModel)]="selectedCategory._id"
+        name="selectedSategory">
+        <mat-option  [value]="category._id"
+        *ngFor="let category of categoryList"
+        (click)="OnLevelChange(0, category)">
+            {{ category.name }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<!-- Cards -->
+
+<mat-card
+    (click)="OnLevelChange(1, item);"
+    *ngFor="let item of currentList">
+    <mat-card-title>  {{ item.name }} </mat-card-title>
+    <img mat-card-image [src]="item.image">
+    <mat-card-actions>
+        <button mat-raised-button color="warn">Izaberi</button>
+    </mat-card-actions>
+</mat-card>

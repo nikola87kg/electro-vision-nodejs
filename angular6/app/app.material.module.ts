@@ -2,7 +2,7 @@ import { NgModule } from '../../node_modules/@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '../../node_modules/@angular/material/form-field';
-import { MatInputModule } from '../../node_modules/@angular/material';
+import { MatInputModule, MatCardModule, MatSelectModule, MatOptionModule } from '../../node_modules/@angular/material';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,7 +14,10 @@ const materialModules = [
     MatInputModule,
     MatMenuModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatSelectModule,
+    MatOptionModule
 ];
 
 @NgModule({

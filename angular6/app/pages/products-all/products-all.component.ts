@@ -14,9 +14,11 @@ export class ProductsAllComponent implements OnInit {
     isLoaded: Boolean;
     currentLevel: number;
     currentList: Array<any>;
+    categoryList: Array<any>;
     lastCategoryID: any;
     lastGroupID: any;
     selectedItemName = 'Sve kategorije';
+    selectedCategory = {};
 
     constructor(
         public productService: ProductsService,
@@ -35,8 +37,8 @@ export class ProductsAllComponent implements OnInit {
         this.isLoaded = true;
     }
 
-    OnLevelChange(increment, id?, slug?) {
-        if (increment === 0) {
+    OnLevelChange(increment, item?) {
+        if (increment === 100) {
             this.currentLevel = 1;
         } else {
             this.currentLevel = this.currentLevel + increment;
@@ -46,22 +48,23 @@ export class ProductsAllComponent implements OnInit {
             this.selectedItemName = 'Sve kategorije';
         } else if ( this.currentLevel === 2 ) {
             let tempID = this.lastCategoryID;
-            if (id) {
-                tempID = id;
-                this.lastCategoryID = id;
+            if (item) {
+                tempID = item._id;
+                this.lastCategoryID = item._id;
             }
             this.getGroups(tempID);
             this.selectedItemName = 'Filtrirane grupe proizvoda';
+            this.selectedCategory = item;
         } else if ( this.currentLevel === 3 ) {
             let tempID = this.lastCategoryID;
-            if (id) {
-                tempID = id;
-                this.lastGroupID = id;
+            if (item) {
+                tempID = item._id;
+                this.lastGroupID = item._id;
             }
             this.getProducts(tempID);
             this.selectedItemName = 'Filtrirani proizvodi';
         } else if ( this.currentLevel === 4 ) {
-            this.goToProduct(slug);
+            this.goToProduct(item.slug);
         }
     }
 
@@ -69,6 +72,7 @@ export class ProductsAllComponent implements OnInit {
     getCategories() {
         this.categorytService.get().subscribe(response => {
             this.currentList = response.object;
+            this.categoryList = response.object;
             this.onLoadCompleted();
         });
     }
