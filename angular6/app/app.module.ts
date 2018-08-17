@@ -7,7 +7,6 @@ import { NgModule } from '@angular/core';
 
 /* 3rd party modules */
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-import { ToastrModule } from 'ngx-toastr';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AgmCoreModule } from '@agm/core';
 
@@ -41,7 +40,6 @@ import { AdminGuard } from './admin/admin.guard';
     CarouselModule,
     Ng2SearchPipeModule,
     AppMaterialModule,
-    ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDa6KMmeN1YNFuyxnH4v2jDdLQLxuiHQ1s'
     }),

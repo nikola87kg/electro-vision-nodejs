@@ -1,36 +1,28 @@
 <div class="navigation">
-    <button mat-button routerLink="/pocetna" routerLinkActive="nav-active">
-        <mat-icon>home</mat-icon>
-        Početna
-    </button>
-    <button mat-button routerLink="/kategorije" routerLinkActive="nav-active">
-        <mat-icon>layers</mat-icon>
-        Proizvodi
-    </button>
-    <button mat-button routerLink="/kontakt" routerLinkActive="nav-active">
-        <mat-icon>phone</mat-icon>
-        Kontakt
-    </button>
+    <ng-container *ngFor="let item of navItems">
+        <button
+            *ngIf="item.id * 170 + 100 < actualWidth"
+            mat-button
+            [routerLink]="item.link"
+            routerLinkActive="nav-active">
+            <mat-icon>{{item.icon}}</mat-icon>
+            {{item.name}}
+        </button>
+    </ng-container>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu" *ngIf="actualWidth <= 1100">
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu" class="menu">
-        <button mat-menu-item>
-            <mat-icon>assignment</mat-icon>
-            <span>Cenovnik</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>build</mat-icon>
-            <span>Servis</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>photo_library </mat-icon>
-            <span>Galerija</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>assignment_ind</mat-icon>
-            <span>O nama</span>
-        </button>
+        <ng-container *ngFor="let item of navItems">
+            <button
+                *ngIf="item.id * 170 + 100 >= actualWidth"
+                mat-menu-item
+                [routerLink]="item.link"
+                routerLinkActive="nav-active">
+                <mat-icon>{{item.icon}}</mat-icon>
+                <span>{{item.name}}</span>
+            </button>
+        </ng-container>
     </mat-menu>
 </div>

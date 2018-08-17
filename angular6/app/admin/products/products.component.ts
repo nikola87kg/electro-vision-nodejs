@@ -2,7 +2,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 /* 3rd party */
-import { ToastrService } from 'ngx-toastr';
 import {
     UploadOutput,
     UploadInput,
@@ -36,8 +35,7 @@ export class ProductsComponent implements OnInit {
         private productService: ProductsService,
         private groupService: GroupsService,
         private categoryService: CategoriesService,
-        private brandService: BrandsService,
-        private toastr: ToastrService
+        private brandService: BrandsService
     ) {
         this.files = []; // local uploading files array
         this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
@@ -174,10 +172,8 @@ export class ProductsComponent implements OnInit {
             (response) => {
                 this.closeDialog();
                 this.getProducts();
-                this.toastr.success(JSON.stringify(response.title));
             },
             (error) => {
-                this.toastr.error(JSON.stringify(error.title));
             }
         );
     }
@@ -192,11 +188,9 @@ export class ProductsComponent implements OnInit {
                 this.closeDialog();
                 this.getProducts();
                 response = data;
-                this.toastr.success(JSON.stringify(response.title));
             },
             (error) => {
                 response = error;
-                this.toastr.error(JSON.stringify(response.title));
             }
         );
     }
@@ -218,11 +212,9 @@ export class ProductsComponent implements OnInit {
                 this.startUpload(data);
                 this.getGroups();
                 response = data;
-                this.toastr.success(JSON.stringify(response.title));
                 },
                 (error) => {
                     response = error;
-                    this.toastr.error(JSON.stringify(response.title));
                 }
             );
     }
@@ -237,11 +229,9 @@ export class ProductsComponent implements OnInit {
                 this.productList.splice(index, 1);
                 this.closeDialog();
                 response = data;
-                this.toastr.success(JSON.stringify(response.title));
             },
             (error) => {
                 response = error;
-                this.toastr.error(JSON.stringify(response.title));
             }
         );
     }
@@ -300,3 +290,5 @@ export class ProductsComponent implements OnInit {
         });
     }
 }
+
+

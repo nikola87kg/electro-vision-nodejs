@@ -2,7 +2,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 /* 3rd party */
-import { ToastrService } from 'ngx-toastr';
 import {
     UploadOutput,
     UploadInput,
@@ -33,7 +32,6 @@ export class GroupsComponent implements OnInit {
     constructor(
         private groupService: GroupsService,
         private categoryService: CategoriesService,
-        private toastr: ToastrService
     ) {
         this.files = []; // local uploading files array
         this.uploadInput = new EventEmitter<UploadInput>();
@@ -165,11 +163,9 @@ export class GroupsComponent implements OnInit {
             this.closeDialog();
             this.getGroups();
             response = data;
-            this.toastr.success(JSON.stringify(response.title));
             },
             (error) => {
                 response = error;
-                this.toastr.error(JSON.stringify(response.title));
             }
         );
     }
@@ -184,11 +180,9 @@ export class GroupsComponent implements OnInit {
                 this.closeDialog();
                 this.getGroups();
                 response = data;
-                this.toastr.success(JSON.stringify(response.title));
             },
             (error) => {
                 response = error;
-                this.toastr.error(JSON.stringify(response.title));
             }
         );
     }
@@ -208,11 +202,9 @@ export class GroupsComponent implements OnInit {
                 this.startUpload(data);
                 this.getGroups();
                 response = data;
-                this.toastr.success(JSON.stringify(response.title));
             },
             (error) => {
                 response = error;
-                this.toastr.error(JSON.stringify(response.title));
             }
         );
     }
@@ -227,11 +219,9 @@ export class GroupsComponent implements OnInit {
                 this.groupList.splice(index, 1);
                 this.closeDialog();
                 response = data;
-                this.toastr.success(JSON.stringify(response.title));
             },
             (error) => {
                 response = error;
-                this.toastr.error(JSON.stringify(response.title));
             }
         );
     }
