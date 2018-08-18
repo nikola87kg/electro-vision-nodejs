@@ -1,23 +1,26 @@
 <!-- Page title  -->
 
-<div class=" col-sm-12">
-    <mat-toolbar>
-        Lista proizvoda
-
-        <button class="add-button" mat-raised-button color="primary" (click)="openDialog(false)">
-            <mat-icon>add</mat-icon>
-        </button>
-
-        <!-- Category filter -->
+<mat-toolbar class="row" >
+    <!-- Page title -->
+    <div class="col-sm-12 col-lg-6">
+            Lista proizvoda
+            <button class="add-button" mat-raised-button color="primary" (click)="openDialog(false)">
+                <mat-icon>add</mat-icon>
+                Dodaj proizvod
+            </button>
+    </div>
+    <!-- Filter -->
+    <div class="col-sm-12 col-lg-6">
         <form class="select-filter">
+            <!-- Category filter -->
             <mat-form-field>
                 <mat-select #categoryFilter placeholder="Kategorije">
                     <mat-option (click)="categoryFilter.value = '';
-                    getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                        getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
                         Sve kategorije
                     </mat-option>
                     <mat-option *ngFor="let cat of categoryList" [value]="cat._id" (click)="groupFilter.value = '';
-                            getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                                getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
                         {{cat.name}}
                     </mat-option>
                 </mat-select>
@@ -26,11 +29,11 @@
             <mat-form-field>
                 <mat-select #groupFilter placeholder="Grupe">
                     <mat-option (click)="groupFilter.value = '';
-                    getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                        getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
                         Sve grupe
                     </mat-option>
                     <mat-option *ngFor="let group of groupList" [value]="group._id" (click)="categoryFilter.value = '';
-                            getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                                getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
                         {{group.name}}
                     </mat-option>
                 </mat-select>
@@ -39,7 +42,7 @@
             <mat-form-field>
                 <mat-select #brandFilter placeholder="Brendovi">
                     <mat-option (click)="brandFilter.value = '';
-                    getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                        getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
                         Svi brendovi
                     </mat-option>
                     <mat-option *ngFor="let brand of brandList" [value]="brand._id" (click)=" getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
@@ -48,12 +51,11 @@
                 </mat-select>
             </mat-form-field>
         </form>
-    </mat-toolbar>
-</div>
+    </div>
+</mat-toolbar>
 
 <!-- Product  List -->
 <div class="table-wrapper">
-
     <table mat-table [dataSource]="productList" class="full-screen">
         <!-- Position Column Setup -->
         <ng-container matColumnDef="position">
