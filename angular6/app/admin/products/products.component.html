@@ -1,13 +1,13 @@
 <!-- Page title  -->
 
-<mat-toolbar class="row" >
+<mat-toolbar class="row">
     <!-- Page title -->
     <div class="col-sm-12 col-lg-6">
-            Lista proizvoda
-            <button class="add-button" mat-raised-button color="primary" (click)="openDialog(false)">
-                <mat-icon>add</mat-icon>
-                Dodaj proizvod
-            </button>
+        Lista proizvoda
+        <button class="add-button" mat-raised-button color="primary" (click)="openDialog(false)">
+            <mat-icon>add</mat-icon>
+            Dodaj proizvod
+        </button>
     </div>
     <!-- Filter -->
     <div class="col-sm-12 col-lg-6">
@@ -101,9 +101,19 @@
             <td mat-cell *matCellDef="let item"> {{ item.brand.name }} </td>
         </ng-container>
 
+        <!-- Slug Column Setup -->
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Slika </th>
+            <td mat-cell *matCellDef="let item, let i = index"
+                (click)="openImageDialog($event, i)">
+                <img *ngIf="item.image" src="{{item.image}}">
+                <img *ngIf="!item.image" src="./assets/default_images/default-product.jpg">
+            </td>
+        </ng-container>
+
         <!-- rows -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns;"> </tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
+        <tr mat-row *matRowDef="let row; let i = index;columns: displayedColumns;" (click)="openDialog(true, row, i)"> </tr>
     </table>
 </div>
 

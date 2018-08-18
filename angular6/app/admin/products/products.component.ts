@@ -57,7 +57,8 @@ export class ProductsComponent implements OnInit {
         'description',
         'category',
         'group',
-        'brand'
+        'brand',
+        'image'
     ];
 
     currentIndex: number;
@@ -148,7 +149,8 @@ export class ProductsComponent implements OnInit {
         this.clearForm();
     }
 
-    openImageDialog(index) {
+    openImageDialog(event, index) {
+        event.stopPropagation();
         this.imageDialogIsOpen = true;
         this.imageInDialog = this.productList[index].image;
         this.imageID = this.productList[index].id;

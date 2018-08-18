@@ -198,6 +198,12 @@ table.full-screen {
     width: calc(100% - 50px);
     min-width: 800px;
     margin: 20px 20px;
+    tr {
+        cursor: pointer;
+        &:nth-child(even) { background: rgb(250, 250, 250); }
+        &:hover { background: rgb(245, 245, 245); }
+        img { height: 20px; }
+    }
 }
 .add-button {
     margin-left: 10px !important;
