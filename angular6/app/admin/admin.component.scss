@@ -92,11 +92,6 @@ h2.page-title {
         height: 40px;
         text-align: right;
         padding-right: 20px;
-        span {
-            color: $primary-color;
-            font-weight: bold;
-            font-size: 18px;
-        }
         select {
             background: $third-color;
             color: white;
@@ -118,51 +113,13 @@ h2.page-title {
             &:active { background: green; }
         }
     }
-    .list {
-        .list-item {
-            border: 1px solid darkgray;
-            margin: 5px;
-            color: black;
-            h4 {
-                margin: 0;
-                padding: 10px;
-                font-size: 16px;
-                text-align: center;
-                width: 100%;
-                display: block;
-                cursor: pointer;
-                color: white;
-                background: $third-color;
-                &:hover { background: darken($third-color, 10); }
-            }
-            img {
-                margin: 10px;
-                display: inline-block;
-                vertical-align: top;
-                max-width: 100px;
-                max-height: 100px;
-            }
-            div.item-info {
-                display: inline-block;
-                width: calc(100% - 120px);
-                padding: 10px;
-                vertical-align: top;
-                .slug-line {
-                    color: lighten($primary-color, 10);
-                    font-size: 16px;
-                    font-weight: bold;
-                }
-                p {
-                    font-size: 16px;
-                    margin: 5px 0;
-                    font-style: italic;
-                    color: gray;
-                }
-            }
-        }
-    }
 }
 
+/* Table */
+table.full-screen {
+    width: calc(100% - 50px);
+    margin: 20px 20px;
+}
 /* Dialog */
 div.dialog-wrapper.fixed {
     position: fixed;
@@ -263,4 +220,18 @@ form.form-dialog {
             color: rgb(204, 212, 174);
         }
     }
+}
+
+.add-button {
+    margin-left: 10px !important;
+}
+
+.select-filter {
+    font-size: 14px;
+    float: right;
+}
+
+mat-form-field {
+    margin: 0 20px;
+    width: 100px;
 }

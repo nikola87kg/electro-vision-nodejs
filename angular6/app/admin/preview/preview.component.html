@@ -1,89 +1,96 @@
 <div class="row">
     <div class=" col-sm-12">
-        <h1 id="dashboard-title">KONTROLNA TABLA</h1>
+        <mat-toolbar>Kontrolna tabla</mat-toolbar>
     </div>
+
+
+
     <!-- Proizvodi -->
-    <div class=" col-sm-12 col-md-12 col-lg-6">
-        <div class="preview-panel products" routerLink="/admin/proizvodi">
-            <h3>
-                Proizvodi
-                <i class="fa fa-product-hunt" aria-hidden="true"></i>
-            </h3>
-            <table class="table preview-table">
-                <tr>
-                    <th> Naziv </th>
-                    <th> URL </th>
-                    <th> Opis </th>
-                </tr>
-                <tr *ngFor="let product of productList; let i = index">
-                    <td> {{product.name}} </td>
-                    <td> {{product.slug}} </td>
-                    <td> {{product.description}} </td>
-                </tr>
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="preview-panel mat-elevation-z8" routerLink="/admin/proizvodi">
+            <table mat-table [dataSource]="productList">
+                <!-- Position Column Setup -->
+                <ng-container matColumnDef="position">
+                    <th  mat-header-cell  *matHeaderCellDef> <b>{{ productList.length }}</b> </th>
+                    <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
+                </ng-container>
+
+                <!-- Name Column Setup -->
+                <ng-container matColumnDef="name">
+                    <th  mat-header-cell  *matHeaderCellDef> Proizvodi  </th>
+                    <td  mat-cell  *matCellDef="let item">  {{ item.name }}  </td>
+                </ng-container>
+
+                <!-- rows -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"> </tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
             </table>
         </div>
     </div>
 
     <!-- Brendovi -->
-    <div class=" col-sm-12 col-md-12 col-lg-6">
-        <div class="preview-panel brands" routerLink="/admin/brendovi">
-            <h3>
-                Brendovi
-                <i class="fa fa-telegram" aria-hidden="true"></i>
-            </h3>
-            <table class="table preview-table">
-                <tr>
-                    <th> Naziv </th>
-                    <th> URL </th>
-                    <th> Opis</th>
-                </tr>
-                <tr *ngFor="let brand of brandList; let i = index">
-                    <td> {{brand.name}} </td>
-                    <td> {{brand.slug}} </td>
-                    <td> {{brand.description}} </td>
-                </tr>
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="preview-panel mat-elevation-z8" routerLink="/admin/brendovi">
+            <table mat-table [dataSource]="brandList">
+                <!-- Position Column Setup -->
+                <ng-container matColumnDef="position">
+                    <th  mat-header-cell  *matHeaderCellDef> <b>{{ brandList.length }}</b> </th>
+                    <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
+                </ng-container>
+
+                <!-- Name Column Setup -->
+                <ng-container matColumnDef="name">
+                    <th  mat-header-cell  *matHeaderCellDef> Brendovi  </th>
+                    <td  mat-cell  *matCellDef="let item">  {{ item.name }}  </td>
+                </ng-container>
+
+                <!-- rows -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"> </tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
             </table>
         </div>
     </div>
     <!-- Kategorije -->
-    <div class=" col-sm-12 col-md-12 col-lg-6">
-        <div class="preview-panel categories" routerLink="/admin/kategorije">
-            <h3>
-                Kategorije
-                <i class="fa fa-folder" aria-hidden="true"></i>
-            </h3>
-            <table class="table preview-table">
-                <tr>
-                    <th> Naziv </th>
-                    <th> URL </th>
-                    <th> Opis</th>
-                </tr>
-                <tr *ngFor="let cat of categoryList; let i = index">
-                    <td> {{cat.name}} </td>
-                    <td> {{cat.slug}} </td>
-                    <td> {{cat.description}} </td>
-                </tr>
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="preview-panel mat-elevation-z8" routerLink="/admin/kategorije">
+            <table mat-table [dataSource]="categoryList">
+                <!-- Position Column Setup -->
+                <ng-container matColumnDef="position">
+                    <th  mat-header-cell  *matHeaderCellDef> <b>{{ categoryList.length }}</b> </th>
+                    <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
+                </ng-container>
+
+                <!-- Name Column Setup -->
+                <ng-container matColumnDef="name">
+                    <th  mat-header-cell  *matHeaderCellDef> Kategorije  </th>
+                    <td  mat-cell  *matCellDef="let item">  {{ item.name }}  </td>
+                </ng-container>
+
+                <!-- rows -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"> </tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
             </table>
         </div>
     </div>
     <!-- Potkategorije -->
-    <div class="col-sm-12 col-md-12 col-lg-6">
-        <div class="preview-panel groups" routerLink="/admin/grupe">
-            <h3>
-                Potkategorije
-                <i class="fa fa-users" aria-hidden="true"></i>
-            </h3>
-            <table class="table preview-table">
-                <tr>
-                    <th> Naziv </th>
-                    <th> URL </th>
-                    <th> Opis </th>
-                </tr>
-                <tr *ngFor="let group of groupList; let i = index">
-                    <td> {{group.name}} </td>
-                    <td> {{group.slug}} </td>
-                    <td> {{group.description}} </td>
-                </tr>
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="preview-panel mat-elevation-z8" routerLink="/admin/grupe">
+            <table mat-table [dataSource]="groupList">
+                <!-- Position Column Setup -->
+                <ng-container matColumnDef="position">
+                    <th  mat-header-cell  *matHeaderCellDef> <b>{{ groupList.length }}</b> </th>
+                    <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
+                </ng-container>
+
+                <!-- Name Column Setup -->
+                <ng-container matColumnDef="name">
+                    <th  mat-header-cell  *matHeaderCellDef> Potkategorije  </th>
+                    <td  mat-cell  *matCellDef="let item">  {{ item.name }}  </td>
+                </ng-container>
+
+                <!-- rows -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"> </tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
             </table>
         </div>
     </div>

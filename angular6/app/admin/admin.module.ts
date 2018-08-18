@@ -9,6 +9,7 @@ import { NgUploaderModule } from 'ngx-uploader';
 
 /* App modules */
 import { AdminRoutingModule } from './admin-routing.module';
+import { AdminMaterialModule } from './admin.material.module';
 
 /* App compontents */
 import { AdminComponent } from './admin.component';
@@ -24,7 +25,8 @@ import { PreviewComponent } from './preview/preview.component';
     FormsModule,
     HttpClientModule,
     NgUploaderModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    AdminMaterialModule
   ],
   declarations: [
     AdminComponent,

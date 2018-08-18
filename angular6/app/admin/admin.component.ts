@@ -10,7 +10,7 @@ export class AdminComponent implements OnInit {
 
   constructor() { }
 
-  wideMenu = localStorage.getItem('sidebarOpen') || 'open';
+  wideMenu = localStorage.getItem('sidebarOpen') || 'closed';
 
   togleMenu() {
     const sidebar = localStorage.getItem('sidebarOpen');

@@ -3,8 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ProductsService } from '../../_services/products.service';
 import { GlobalService } from '../../_services/global.service';
-import { FormControl } from '../../../../node_modules/@angular/forms';
-import { Observable } from '../../../../node_modules/rxjs';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 declare var $: any;

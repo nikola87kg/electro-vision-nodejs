@@ -18,8 +18,7 @@ import { CategoriesService } from '../../_services/categories.service';
 
 @Component({
     selector: 'px-products',
-    templateUrl: './products.component.html',
-    styleUrls: ['./products.component.scss']
+    templateUrl: './products.component.html'
 })
 export class ProductsComponent implements OnInit {
     /* Photo Uploader */
@@ -52,6 +51,14 @@ export class ProductsComponent implements OnInit {
         brand: { _id: '', name: '' },
         image: ''
     };
+    displayedColumns: string[] = [
+        'position',
+        'name',
+        'description',
+        'category',
+        'group',
+        'brand'
+    ];
 
     currentIndex: number;
     productList = [];

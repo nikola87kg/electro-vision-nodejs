@@ -34,34 +34,5 @@
             </mat-autocomplete>
         </mat-form-field>
     </form>
-    <!-- <div class="searchbox">
-        <i class="fa fa-search" (click)="showResults()"></i>
-        <i class="fa fa-times" (click)="clearSearch(); hideResults()"></i>
-        <input
-            class="search-field"
-            [(ngModel)]="searchInput"
-            placeholder="Pretraga proizvoda..."
-            #search
-            (keyup.enter)="goToProducts()"
-            (keyup.escape)="hideResults()"
-            (keyup.backspace)="showResults()"
-            (keypress)="showResults()"
-            (focus)="showResults()">
-        <div class="search-results" *ngIf="showResult" >
-            <p  *ngFor="let result of resultsSorted | filter: searchInput; let i = index"
-                (click)="goToProduct(result.slug); hideResults()">
-                <span >
-                    {{result.name}}
-                </span>
-            </p>
-            <p class="all-products"  routerLink="/lista-proizvoda">
-                <span>
-                    Vidi sve proizvode...
-                </span>
-            </p>
-        </div> -->
-    <!-- </div> -->
 
 </header>
-
-<div class="invisible-area" *ngIf="showResult" (click)="showResult = false; searchInput=''"></div>
