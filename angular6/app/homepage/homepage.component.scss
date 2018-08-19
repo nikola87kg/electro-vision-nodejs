@@ -62,8 +62,8 @@ carousel h3 {
 .sidebar {
     padding-left: 50px;
     ul.list {
-        $category-color: $primary-color;
-        $brand-color: $third-color;
+        $category-color: $accent-color;
+        $brand-color: $primary-color;
         margin: 45px 20px;
         padding-right: 20px;
         li {
@@ -85,8 +85,8 @@ carousel h3 {
             }
             &.headline {
                 padding: 7px 5px;
-                color: $third-color;
-                border-bottom: 2px solid $third-color;
+                color: $primary-color;
+                border-bottom: 2px solid $primary-color;
                 transform: scale(1.03);
                 transition: 0.1s;
                 &:hover {
@@ -114,10 +114,10 @@ carousel h3 {
     h4.breaking-news {
         padding: 10px;
         text-transform: uppercase;
-        color: $primary-color;
+        color: $accent-color;
         letter-spacing: 1px;
         text-align: left;
-        border-top: 2px solid $primary-color;
+        border-top: 2px solid $accent-color;
     }
     .up-down {
         animation: updown 1s linear infinite, blinker 1s linear infinite;
@@ -158,8 +158,8 @@ carousel h3 {
         }
         h5 {
             font-weight: bold;
-            border-bottom: 2px solid  $third-color;
-            color: $third-color;
+            border-bottom: 2px solid  $primary-color;
+            color: $primary-color;
             margin-top: 20px;
             font-size: 15px;
             padding-bottom: 5px;
@@ -179,7 +179,7 @@ carousel h3 {
 /* Animations */
 @keyframes blinker {
     50% {
-        color: $primary-color;
+        color: $accent-color;
     }
 }
 

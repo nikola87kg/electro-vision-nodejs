@@ -1,7 +1,7 @@
 <nav id="admin-navigator"
     [ngClass]="{ 'text-centered': wideMenu !== 'open' }"
     [ngStyle]="{'text-align': wideMenu ? 'left' : 'center'}">
-    <div class="admin-menu" [ngStyle]="{ 'width': wideMenu === 'open' ? '200px' : '30px' }">
+    <div class="admin-menu" *ngIf="!smallScreen()" [ngStyle]="{ 'width': wideMenu === 'open' ? '200px' : '30px' }">
         <span *ngIf="wideMenu === 'open' ">Admin panel</span>
         <i *ngIf=" wideMenu === 'open' " (click)="togleMenu()" class="fa fa-angle-double-left float-right"></i>
         <i *ngIf=" wideMenu === 'closed'" (click)="togleMenu()" class="fa fa-angle-double-right"></i>

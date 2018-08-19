@@ -4,13 +4,13 @@ footer {
   padding: 10px;
   text-align: center;
   font-size: 14px;
-  background: $third-color;
+  background: $primary-color;
   color: white;
   animation: footerBackground 4s linear infinite;
 }
 
 @keyframes footerBackground {
   50% {
-    background: darken($third-color, 10);
+    background: darken($primary-color, 10);
   }
 }

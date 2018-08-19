@@ -12,12 +12,12 @@
     padding: 10px 20px;
     h1 {
         padding: 10px;
-        border-bottom: 2px solid $primary-color;
+        border-bottom: 2px solid $accent-color;
         font-size: 30px;
-        color: $primary-color;
+        color: $accent-color;
     }
     h5 {
-        color: $third-color;
+        color: $primary-color;
         padding: 10px;
         span {
             cursor: pointer;
@@ -74,12 +74,12 @@
         margin-left: 10px;
         font-size: 25px;
         margin-right: 10px;
-        color: $third-color;
+        color: $primary-color;
         width: 250px;
         max-width: 90%;
         display: inline-block;
         padding-bottom: 5px;
-        border-bottom: 2px solid $third-color;
+        border-bottom: 2px solid $primary-color;
     }
     .product-single {
         border-right: 1px solid lightgray;

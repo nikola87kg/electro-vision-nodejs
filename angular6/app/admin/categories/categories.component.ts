@@ -15,8 +15,7 @@ import { CategoriesService } from '../../_services/categories.service';
 
 @Component({
     selector: 'px-categories',
-    templateUrl: './categories.component.html',
-    styleUrls: ['./categories.component.scss']
+    templateUrl: './categories.component.html'
 })
 export class CategoriesComponent implements OnInit {
     /* Photo Uploader */

@@ -3,13 +3,13 @@
 h1#dashboard-title {
     text-align: center;
     margin: 10px 20px;
-    color: $primary-color;
+    color: $accent-color;
     padding: 10px 20px;
-    border-bottom: 2px solid $primary-color;
+    border-bottom: 2px solid $accent-color;
 }
 
 .preview-panel {
-    margin: 20px;
+    margin: 5px;
     padding: 20px;
     cursor: pointer;
     text-align: center;
@@ -26,10 +26,10 @@ table {
     }
     th {
         text-align: left;
-        color: #dc3545;
+        color: $primary-color;
         font-size: 16px;
         b {
-          background: #dc3545;
+          background: $primary-color;
           font-weight: normal;
           color: white;
           padding: 5px;

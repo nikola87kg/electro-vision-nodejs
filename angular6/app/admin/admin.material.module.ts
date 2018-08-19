@@ -1,12 +1,19 @@
-import { NgModule } from '../../../node_modules/@angular/core';
+import { NgModule } from '@angular/core';
+import { MatPaginatorIntlSerb } from './admin.material.translations';
 import {
     MatTableModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-    MatFormFieldModule
-} from '../../../node_modules/@angular/material';
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonToggleModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatPaginatorIntl
+} from '@angular/material';
 
 const adminMaterialModules = [
     MatTableModule,
@@ -14,11 +21,19 @@ const adminMaterialModules = [
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatButtonToggleModule,
+    MatInputModule,
+    MatSortModule,
+    MatPaginatorModule
 ];
 
 @NgModule({
     imports: [...adminMaterialModules],
-    exports: [...adminMaterialModules]
+    exports: [...adminMaterialModules],
+    providers: [
+        { provide: MatPaginatorIntl, useClass: MatPaginatorIntlSerb }
+    ]
 })
 export class AdminMaterialModule { }

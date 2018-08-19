@@ -16,8 +16,7 @@ import { CategoriesService } from '../../_services/categories.service';
 
 @Component({
     selector: 'px-groups',
-    templateUrl: './groups.component.html',
-    styleUrls: ['./groups.component.scss']
+    templateUrl: './groups.component.html'
 })
 export class GroupsComponent implements OnInit {
     /* Photo Uploader */

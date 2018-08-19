@@ -22,8 +22,7 @@ import {
 /* Decorator */
 @Component({
     selector: 'px-brands',
-    templateUrl: './brands.component.html',
-    styleUrls: ['./brands.component.scss']
+    templateUrl: './brands.component.html'
 })
 
 /* Class */

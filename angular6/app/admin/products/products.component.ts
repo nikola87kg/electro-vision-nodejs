@@ -1,5 +1,5 @@
 /* Angular */
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 
 /* 3rd party */
 import {
@@ -15,6 +15,7 @@ import { ProductsService } from '../../_services/products.service';
 import { GroupsService } from '../../_services/groups.service';
 import { BrandsService } from '../../_services/brands.service';
 import { CategoriesService } from '../../_services/categories.service';
+import { MatSort, MatTableDataSource, PageEvent, MatPaginator } from '@angular/material';
 
 @Component({
     selector: 'px-products',
@@ -51,54 +52,51 @@ export class ProductsComponent implements OnInit {
         brand: { _id: '', name: '' },
         image: ''
     };
+
     displayedColumns: string[] = [
         'position',
+        'image',
         'name',
-        'description',
         'category',
         'group',
-        'brand',
-        'image'
+        'brand'
     ];
 
+    actualWidth = window.innerWidth;
     currentIndex: number;
     productList = [];
+    dataSource;
+
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     filteredList = [];
     brandList = [];
     groupList = [];
     categoryList = [];
 
-    dialogIsOpen = false;
-    imageDialogIsOpen = false;
+    isAddDialogOpen = false;
+    isImageDialogOpen = false;
     imageInDialog = '';
     imageID = '';
     imageindex = 0;
-    dialogIsEditing = false;
+    isDialogEditing = false;
     dialogTitle;
 
     baseUrl: String = 'http://localhost:3000/api';
 
+
     /* Upload images */
     onUploadOutput(output: UploadOutput): void {
         if (output.type === 'allAddedToQueue') {
-        } else if (
-            output.type === 'addedToQueue' &&
-            typeof output.file !== 'undefined'
-        ) {
+        } else if ( output.type === 'addedToQueue' && typeof output.file !== 'undefined'  ) {
             this.files.push(output.file);
-        } else if (
-            output.type === 'uploading' &&
-            typeof output.file !== 'undefined'
-        ) {
+        } else if ( output.type === 'uploading' && typeof output.file !== 'undefined'  ) {
             const index = this.files.findIndex(
-                file =>
-                    typeof output.file !== 'undefined' &&
-                    file.id === output.file.id
+                file => typeof output.file !== 'undefined' && file.id === output.file.id
             );
             this.files[index] = output.file;
-        } else if (output.type === 'removed') {
-            this.files = this.files.filter(
+        } else if (output.type === 'removed') { this.files = this.files.filter(
                 (file: UploadFile) => file !== output.file
             );
         }
@@ -128,8 +126,8 @@ export class ProductsComponent implements OnInit {
     /* Dialog  */
     openDialog(editing, singleProduct?, index?) {
         if (editing) {
-            this.dialogIsOpen = true;
-            this.dialogIsEditing = true;
+            this.isAddDialogOpen = true;
+            this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje proizvoda';
             this.product = Object.assign({}, singleProduct);
             if (index) {
@@ -137,21 +135,21 @@ export class ProductsComponent implements OnInit {
             }
         }
         if (!editing) {
-            this.dialogIsOpen = true;
-            this.dialogIsEditing = false;
+            this.isAddDialogOpen = true;
+            this.isDialogEditing = false;
             this.dialogTitle = 'Dodavanje proizvoda';
             this.clearForm();
         }
     }
 
-    closeDialog() {
-        this.dialogIsOpen = false;
+    closeDialog(event) {
+        event.stopPropagation();
+        this.isAddDialogOpen = false;
         this.clearForm();
     }
 
     openImageDialog(event, index) {
-        event.stopPropagation();
-        this.imageDialogIsOpen = true;
+        this.isImageDialogOpen = true;
         this.imageInDialog = this.productList[index].image;
         this.imageID = this.productList[index].id;
         this.imageindex = index;
@@ -159,7 +157,7 @@ export class ProductsComponent implements OnInit {
     }
 
     closeImageDialog() {
-        this.imageDialogIsOpen = false;
+        this.isImageDialogOpen = false;
     }
 
     clearForm() {
@@ -176,10 +174,10 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Add new product */
-    postProduct(product) {
+    postProduct(product, event) {
         this.productService.post(product).subscribe(
             (response) => {
-                this.closeDialog();
+                this.closeDialog(event);
                 this.getProducts();
             },
             (error) => {
@@ -188,13 +186,13 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Update product */
-    putProduct(product) {
+    putProduct(product, event) {
         let response: any = {
             title: ''
         };
         this.productService.put(product._id, product).subscribe(
             data => {
-                this.closeDialog();
+                this.closeDialog(event);
                 this.getProducts();
                 response = data;
             },
@@ -229,14 +227,14 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Delete product */
-    deleteProduct(id, index) {
+    deleteProduct(id, index, event) {
         let response: any = {
             title: ''
         };
         this.productService.delete(id).subscribe(
             (data) => {
                 this.productList.splice(index, 1);
-                this.closeDialog();
+                this.closeDialog(event);
                 response = data;
             },
             (error) => {
@@ -274,6 +272,9 @@ export class ProductsComponent implements OnInit {
                 } else {
                     this.productList = response.object;
                 }
+                this.dataSource = new MatTableDataSource(this.productList);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
             }
         );
     }
@@ -298,6 +299,15 @@ export class ProductsComponent implements OnInit {
             this.categoryList = response.object;
         });
     }
+
+    /* Screens */
+    public smallScreen() {
+        if (this.actualWidth < 768) {
+            return true;
+        }
+        return false;
+    }
 }
+
 
 

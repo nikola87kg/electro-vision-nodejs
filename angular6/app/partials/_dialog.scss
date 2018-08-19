@@ -1,0 +1,67 @@
+@import "angular6/app/partials/_variables.scss";
+
+div.dialog-wrapper.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.651);
+    z-index: 999;
+}
+
+form.form-dialog {
+    text-align: center;
+    width: 350px;
+    max-width: 100%;
+    margin: 50px auto 0;
+    box-shadow: 2px 2px 20px 2px gray;
+    border-radius: 7px;
+    background: white;
+    border: 1px solid gray;
+    mat-form-field {
+        width: 80%;
+    }
+}
+
+.dialog-header {
+    padding: 10px;
+    background: $light-color;
+    border-bottom: 2px solid $primary-color;
+    color: $dark-color;
+    border-radius: 5px 5px 0 0;
+    height: 50px;
+    .dialog-header-title {
+        font-size: 20px;
+        user-select: none;
+    }
+    button.cancel-x {
+        float: right;
+        padding: 0;
+        color: black;
+        &:hover { color: rgb(212, 153, 64); transform: scale(1.1) }
+    }
+}
+
+.dialog-footer {
+    padding: 10px;
+    background: $light-color;
+    height: 60px;
+    border-top: 2px solid $primary-color;
+    border-radius: 0 0 5px 5px;
+}
+
+
+mat-button-toggle-group {
+    background: white;
+    mat-button-toggle {
+        width: 100px;
+    }
+    mat-button-toggle:hover {
+        background: #f1f1f1;
+    }
+    .delete-item { color: $accent-color; }
+    .cancel-item { color: $warn-color; }
+    .save-item   { color: $primary-color; }
+    .update-item { color: $primary-color; }
+}

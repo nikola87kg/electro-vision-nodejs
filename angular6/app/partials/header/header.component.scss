@@ -9,7 +9,7 @@ header {
     padding: 5px 40px;
     font-size: 20px;
     background: white;
-    border-bottom: 2px solid $primary-color;
+    border-bottom: 2px solid $accent-color;
     top: 0;
     left: 0;
     right: 0;
@@ -24,8 +24,8 @@ a.logo {
     font-size: 50px;
     text-decoration: none;
     margin-left: 20px;
-    span:first-of-type { color: $secondary-color; }
-    span:last-of-type  { color: $primary-color; }
+    span:first-of-type { color: $dark-color; }
+    span:last-of-type  { color: $accent-color; }
 }
 
 form.searchbox {

@@ -12,7 +12,7 @@
         font-style: italic;
         line-height: 150px;
         font-size: 3rem;
-        text-shadow: 1px 1px $primary-color, -1px -1px $primary-color;
+        text-shadow: 1px 1px $accent-color, -1px -1px $accent-color;
     }
 }
 
@@ -29,7 +29,7 @@
         overflow: hidden;
         cursor: pointer;
         border: 1px solid #e4e4e4;
-        color: $secondary-color;
+        color: $dark-color;
         h3 {
             font-size: 15px;
             padding: 5px 15px;

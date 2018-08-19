@@ -10,7 +10,7 @@ agm-map {
     text-align: center;
     h3 {
         margin: 20px;
-        color: $third-color;
+        color: $primary-color;
         padding: 10px;
         border-bottom: 2px solid gray;
         display: inline-block;
@@ -31,7 +31,7 @@ agm-map {
         }
         span:last-child {
             font-weight: bold;
-            color: $primary-color;
+            color: $accent-color;
         }
     }
 }
