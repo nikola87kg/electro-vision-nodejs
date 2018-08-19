@@ -149,6 +149,7 @@ export class ProductsComponent implements OnInit {
     }
 
     openImageDialog(event, index) {
+        event.stopPropagation();
         this.isImageDialogOpen = true;
         this.imageInDialog = this.productList[index].image;
         this.imageID = this.productList[index].id;
