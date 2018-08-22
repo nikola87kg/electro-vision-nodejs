@@ -1,5 +1,5 @@
 /* Angular */
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 
 /* 3rd party */
 import {
@@ -12,6 +12,7 @@ import {
 
 /* Services */
 import { CategoriesService } from '../../_services/categories.service';
+import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
     selector: 'px-categories',
@@ -25,6 +26,7 @@ export class CategoriesComponent implements OnInit {
     uploadInput: EventEmitter<UploadInput>;
     humanizeBytes: Function;
     dragOver: boolean;
+    actualWidth = window.innerWidth;
 
     /* Constructor */
     constructor(
@@ -43,16 +45,27 @@ export class CategoriesComponent implements OnInit {
         image: ''
     };
 
+    displayedColumns: string[] = [
+        'position',
+        'image',
+        'name',
+        'created'
+    ];
+
+    dataSource;
     categoryList = [];
     currentIndex: number;
 
-    dialogIsOpen = false;
-    imageDialogIsOpen = false;
+    isAddDialogOpen = false;
+    isImageDialogOpen = false;
     imageInDialog = '';
     imageID = '';
     imageindex = 0;
-    dialogIsEditing = false;
+    isDialogEditing = false;
     dialogTitle;
+
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     baseUrl: String = 'http://localhost:3000/api';
 
@@ -102,8 +115,8 @@ export class CategoriesComponent implements OnInit {
     /* Dialog  */
     openDialog(editing, singleCategory?, index?) {
         if (editing) {
-            this.dialogIsOpen = true;
-            this.dialogIsEditing = true;
+            this.isAddDialogOpen = true;
+            this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje kategorije';
             this.category = Object.assign({}, singleCategory);
             if (index) {
@@ -111,20 +124,21 @@ export class CategoriesComponent implements OnInit {
             }
         }
         if (!editing) {
-            this.dialogIsOpen = true;
-            this.dialogIsEditing = false;
+            this.isAddDialogOpen = true;
+            this.isDialogEditing = false;
             this.dialogTitle = 'Dodavanje kategorije';
             this.clearForm();
         }
     }
 
-    closeDialog() {
-        this.dialogIsOpen = false;
+    closeDialog(event) {
+        event.stopPropagation();
+        this.isAddDialogOpen = false;
         this.clearForm();
     }
 
     openImageDialog(index) {
-        this.imageDialogIsOpen = true;
+        this.isImageDialogOpen = true;
         this.imageInDialog = this.categoryList[index].image;
         this.imageID = this.categoryList[index].id;
         this.imageindex = index;
@@ -132,7 +146,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     closeImageDialog() {
-        this.imageDialogIsOpen = false;
+        this.isImageDialogOpen = false;
     }
 
     clearForm() {
@@ -144,13 +158,13 @@ export class CategoriesComponent implements OnInit {
         };
     }
     /* Add new category */
-    postCategory(category) {
+    postCategory(category, event) {
         let response: any = {
             title: ''
         };
         this.categoryService.post(category).subscribe(
             (data) => {
-                this.closeDialog();
+                this.closeDialog(event);
                 this.getCategories();
                 response = data;
             },
@@ -161,13 +175,13 @@ export class CategoriesComponent implements OnInit {
     }
 
     /* Update category */
-    putCategory(category) {
+    putCategory(category, event) {
         let response: any = {
             title: ''
         };
         this.categoryService.put(category._id, category).subscribe(
             (data) => {
-                this.closeDialog();
+                this.closeDialog(event);
                 this.getCategories();
                 response = data;
             },
@@ -200,14 +214,14 @@ export class CategoriesComponent implements OnInit {
     }
 
     /* Delete category */
-    deleteCategory(id, index) {
+    deleteCategory(id, index, event) {
         let response: any = {
             title: ''
         };
         this.categoryService.delete(id).subscribe(
             (data) => {
                 this.categoryList.splice(index, 1);
-                this.closeDialog();
+                this.closeDialog(event);
                 response = data;
             },
             (error) => {
@@ -220,6 +234,16 @@ export class CategoriesComponent implements OnInit {
     getCategories() {
         this.categoryService.get().subscribe(response => {
             this.categoryList = response.object;
+            this.dataSource = new MatTableDataSource(this.categoryList);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
         });
+    }
+    /* Screens */
+    public smallScreen() {
+        if (this.actualWidth < 768) {
+            return true;
+        }
+        return false;
     }
 }

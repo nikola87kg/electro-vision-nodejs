@@ -1,97 +1,166 @@
-<!-- Page title  -->
-<h2 class="page-title"> ElectroVision - Potkategorije proizvoda </h2>
+<!-- TOOLBAR  -->
 
-<!-- Group  List -->
-<div class="table-wrapper">
-    <div class="headline">
-        Ukupno rezultata:
-        <span>{{groupList.length || 0}}</span>
-        <select #categoryFilter (change)="getGroups(categoryFilter.value)" class="form-control inline-element">
-          <option selected value="">Sve kategorije</option>
-          <option *ngFor="let cat of categoryList" value="{{cat._id}}">{{cat.name}}</option>
-        </select>
-        <button (click)="openDialog(false)" class="btn btn-plus" title="Dodaj novu potkategoriju">
-            <i class="fa fa-plus mr5"></i> Dodaj novu potkategoriju
+<mat-toolbar class="row">
+    <!-- Page title -->
+    <div class="col-sm-12 col-lg-6">
+        Lista potkategorija
+        <button class="add-button" mat-raised-button color="primary" (click)="openDialog(false)">
+            <mat-icon>add</mat-icon>
+            <span class="button-title">Dodaj potkategoriju</span>
         </button>
     </div>
-    <div class="list row">
-        <div class="col-md-12 col-lg-6" *ngFor="let group of groupList; let i = index">
-            <div class="list-item">
-                <h4 class="trim" (click)="openDialog(true, group, i)">
-                    {{group.name}}
-                </h4>
-                <img (click)="openImageDialog(i)" *ngIf="group.image" src="{{group.image}}" alt="{{group.image}}">
-                <img (click)="openImageDialog(i)" *ngIf="!group.image" src="./assets/default_images/default-product.jpg">
-                <div class="item-info">
-                    <span class="slug-line trim"> grupa/{{group.slug}} </span>
-                    <p class="trim"> Kategorija: {{group.category.name}}</p>
-                    <p class="trim-block-3"> Opis: {{group.description}}</p>
-                </div>
-            </div>
-        </div>
+    <!-- Filter -->
+    <div class="col-sm-12 col-lg-6">
+        <form class="select-filter">
+            <!-- Category filter -->
+            <mat-form-field>
+                <mat-select #categoryFilter placeholder="Kategorije">
+                    <mat-option (click)="categoryFilter.value = '';
+                            getGroups(categoryFilter.value)">
+                        Sve kategorije
+                    </mat-option>
+                    <mat-option *ngFor="let cat of categoryList" [value]="cat._id" (click)="groupFilter.value = '';
+                    getGroups(categoryFilter.value)">
+                        {{cat.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
     </div>
+</mat-toolbar>
+
+<!-- TABLE -->
+<div class="table-wrapper">
+    <table mat-table matSort [dataSource]="dataSource" class="full-screen">
+        <!-- Position Column Setup -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>
+                <b>{{ groupList.length || 0 }}</b>
+            </th>
+            <td mat-cell *matCellDef="let i = index">
+                {{ i + 1 }}
+            </td>
+        </ng-container>
+
+        <!-- Image Column Setup -->
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Slika </th>
+            <td mat-cell *matCellDef="let item, let i = index" (click)="openImageDialog($event, i)">
+                <img *ngIf="item.image" src="{{item.image}}">
+                <img *ngIf="!item.image" src="./assets/default_images/default-product.jpg">
+            </td>
+        </ng-container>
+
+        <!-- Name Column Setup -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv </th>
+            <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
+        </ng-container>
+
+        <!-- Slug Column Setup -->
+        <ng-container matColumnDef="slug">
+            <th mat-header-cell *matHeaderCellDef> Slug </th>
+            <td mat-cell *matCellDef="let item"> {{ item.slug }} </td>
+        </ng-container>
+
+        <!-- Description Column Setup -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Opis </th>
+            <td mat-cell *matCellDef="let item">
+                <span style="white-space: pre-wrap;">{{ item.description }} </span>
+            </td>
+        </ng-container>
+
+        <!-- Category Column Setup -->
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Kategorija </th>
+            <td mat-cell *matCellDef="let item"> {{ item.category.name }} </td>
+        </ng-container>
+
+        <!-- Created At Column Steup -->
+        <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum kreiranja </th>
+            <td mat-cell *matCellDef="let item">
+                <span>{{ item.createdAt | date: 'dd. MM. yyyy' }} </span>
+            </td>
+        </ng-container>
+
+        <!-- rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;"> </tr>
+        <tr mat-row *matRowDef="let row; let i = index;columns: displayedColumns;" (click)="openDialog(true, row, i)">
+        </tr>
+    </table>
 </div>
 
-<!-- ADD GROUP DIALOG -->
-<div class="fixed dialog-wrapper" *ngIf="dialogIsOpen">
-    <form class="form-dialog" #groups="ngForm">
-      <!-- header -->
-      <div class="dialog-header">
-        <span class="dialog-header-title"> {{dialogTitle}} </span>
-        <button type="button" class="cancel-x btn btn-link" (click)="closeDialog()">
-          <i class="fa fa-times "></i>
-        </button>
-      </div>
-      <br>
-      <!-- Group name -->
-      <label for="">Grupa
-        <input [(ngModel)]="group.name" autofocus placeholder="Super kamera" name="name" type="text" required>
-      </label>
-      <!-- Group link -->
-      <label for="">Hiperlink
-        <input [(ngModel)]="group.slug" placeholder="kamere-i-alarmi" name="slug" type="text" required>
-      </label>
-      <!-- Category name -->
-      <label for="">Kategorija
-        <select [(ngModel)]="group.category._id" name="category" type="text" required>
-          <option disabled value="">Izaberi kategoriju</option>
-          <option *ngFor="let category of categoryList" value="{{category._id}}">{{category.name}}</option>
-        </select>
-      </label>
-      <!-- Group description -->
-      <label for="">Opis
-        <input [(ngModel)]="group.description" placeholder="Opis potkategorije" name="description" type="text">
-      </label>
-      <br>
-      <br>
-      <!-- footer -->
-      <div class="dialog-footer">
-        <button type="button" (click)="deleteGroup(group._id, currentIndex)" class="btn  btn-danger" *ngIf="dialogIsEditing">
-          <i class="fa fa-trash"></i>
-          Briši
-        </button>
-        <button type="button" (click)="closeDialog()" class="btn  btn-info">
-          <i class="fa fa-ban"></i>
-          Odustani
-        </button>
-        <button type="submit" [disabled]="!groups.valid" class="btn btn-success" (click)="postGroup(group)" *ngIf="!dialogIsEditing">
-          <i class="fa fa-check"></i>
-          Snimi
-        </button>
-        <button type="submit" [disabled]="!groups.valid" class="btn btn-success" (click)="putGroup(group)" *ngIf="dialogIsEditing">
-          <i class="fa fa-check"></i>
-          Ažuriraj
-        </button>
-      </div>
-    </form>
-  </div>
+<mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" [showFirstLastButtons]="smallScreen() ? false : true">
+</mat-paginator>
 
-<!-- ADD IMAGE DIALOG -->
-<div class="fixed dialog-wrapper" *ngIf="imageDialogIsOpen">
+<!-- ADD/EDIT DIALOG -->
+<div class="fixed dialog-wrapper" *ngIf="isAddDialogOpen" (click)="isAddDialogOpen = false">
+
+    <form class="form-dialog" #groups="ngForm" (click)="$event.stopPropagation()">
+        <!-- header -->
+        <div class="dialog-header">
+            <span class="dialog-header-title"> {{dialogTitle}} </span>
+            <button type="button" class="cancel-x btn btn-link" (click)="closeDialog($event)">
+                <i class="fa fa-times "></i>
+            </button>
+        </div>
+        <br>
+        <!-- Name -->
+        <mat-form-field>
+            <input matInput [(ngModel)]="group.name" placeholder="Naziv potkategorije" name="name" type="text" autocomplete="off" required>
+        </mat-form-field>
+
+        <!-- Slug -->
+        <mat-form-field>
+            <input matInput [(ngModel)]="group.slug" placeholder="Link ka potkategoriji" name="slug" type="text" autocomplete="off" required>
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field>
+            <textarea matInput [(ngModel)]="group.description" placeholder="Opis potkategorije" name="description" type="text" autocomplete="off"
+                required></textarea>
+        </mat-form-field>
+
+        <!-- Category -->
+        <mat-form-field>
+            <mat-select [(ngModel)]="group.category._id" name="category" placeholder="Kategorija" required>
+                <mat-option *ngFor="let cat of categoryList" [value]="cat._id">
+                    {{cat.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+        <br>
+        <!-- dialog footer -->
+        <div class="dialog-footer">
+            <mat-button-toggle-group #group="matButtonToggleGroup">
+                <mat-button-toggle class="delete-item" (click)="deleteGroup(group._id, currentIndex, $event)" *ngIf="isDialogEditing">
+                    Obriši
+                </mat-button-toggle>
+                <mat-button-toggle class="cancel-item" (click)="closeDialog($event)">
+                    Odustani
+                </mat-button-toggle>
+                <mat-button-toggle class="save-item" [disabled]="!groups.form.valid" (click)="startUpload(group.slug); postGroup(group, $event)"
+                    *ngIf="!isDialogEditing">
+                    Sačuvaj
+                </mat-button-toggle>
+                <mat-button-toggle class="update-item" [disabled]="!groups.form.valid" (click)="putGroup(group, $event)" *ngIf="isDialogEditing">
+                    Ažuriraj
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+    </form>
+</div>
+
+<!-- IMAGE DIALOG -->
+<div class="fixed dialog-wrapper" *ngIf="isImageDialogOpen">
     <form class="form-dialog image-dialog" #image="ngForm">
         <!-- header -->
         <div class="dialog-header">
-            <span class="dialog-header-title"> Postavi sliku potkategorije </span>
+            <span class="dialog-header-title"> Postavi sliku </span>
             <!-- x -->
             <button type="button" class="cancel-x btn btn-link" (click)="closeImageDialog()">
                 <i class="fa fa-times "></i>
@@ -106,29 +175,35 @@
                 <hr>
             </div>
             <span class="new-image-title">
-                <span *ngIf="!imageholder.files[0]"> Učitaj novu sliku </span>
-                <span *ngIf="imageholder.files[0]">
+                <button *ngIf="!imageholder.files[0]" mat-raised-button color="primary">
+                    Učitaj novu sliku
+                </button>
+                <button *ngIf="imageholder.files[0]" mat-raised-button color="primary">
                     <b>{{imageholder.files[0]?.name}} </b>
-                    <span *ngIf="imageholder.files[0].size < 1000000">({{imageholder.files[0]?.size / 1000 | number:'1.0-0'}} KB)</span>
-                    <span *ngIf="imageholder.files[0].size > 1000000">({{imageholder.files[0]?.size / 1000000 | number:'1.1-1'}} MB)</span>
-                </span>
+                    <span *ngIf="imageholder.files[0].size < 1000000">
+                        ({{imageholder.files[0]?.size / 1000 | number:'1.0-0'}} KB)
+                    </span>
+                    <span *ngIf="imageholder.files[0].size > 1000000">
+                        ({{imageholder.files[0]?.size / 1000000 | number:'1.1-1'}} MB)
+                    </span>
+                </button>
             </span>
+
             <input id="image-loader" name="image" #imageholder type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
                 style="display:none">
         </label>
         <hr>
 
-        <!-- footer -->
+        <!-- dialog footer -->
         <div class="dialog-footer">
-            <button type="button" (click)="closeImageDialog()" class="btn  btn-info">
-                <i class="fa fa-ban"></i>
-                Odustani
-            </button>
-            <button type="submit" class="btn btn-success" (click)="postImage()">
-                <i class="fa fa-check"></i>
-                Snimi
-            </button>
+            <mat-button-toggle-group #group="matButtonToggleGroup">
+                <mat-button-toggle class="cancel-item" (click)="closeImageDialog()">
+                    Odustani
+                </mat-button-toggle>
+                <mat-button-toggle class="save-item" (click)="postImage()">
+                    Sačuvaj
+                </mat-button-toggle>
+            </mat-button-toggle-group>
         </div>
     </form>
 </div>
-

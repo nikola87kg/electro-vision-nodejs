@@ -19,6 +19,12 @@
                     <td  mat-cell  *matCellDef="let item">  {{ item.name }}  </td>
                 </ng-container>
 
+                <!-- Created Column Setup -->
+                <ng-container matColumnDef="created">
+                    <th  mat-header-cell  *matHeaderCellDef> Datum  </th>
+                    <td  mat-cell  *matCellDef="let item">  {{ item.createdAt  | date:  'dd. MM. yyyy.' }}  </td>
+                </ng-container>
+
                 <!-- rows -->
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"> </tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
@@ -42,6 +48,12 @@
                     <td  mat-cell  *matCellDef="let item">  {{ item.name }}  </td>
                 </ng-container>
 
+                <!-- Created Column Setup -->
+                <ng-container matColumnDef="created">
+                        <th  mat-header-cell  *matHeaderCellDef> Datum  </th>
+                        <td  mat-cell  *matCellDef="let item">  {{ item.createdAt | date:  'dd. MM. yyyy.'}}  </td>
+                    </ng-container>
+
                 <!-- rows -->
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"> </tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
@@ -62,6 +74,12 @@
                 <ng-container matColumnDef="name">
                     <th  mat-header-cell  *matHeaderCellDef> Kategorije  </th>
                     <td  mat-cell  *matCellDef="let item">  {{ item.name }}  </td>
+                </ng-container>
+
+                <!-- Created Column Setup -->
+                <ng-container matColumnDef="created">
+                    <th  mat-header-cell  *matHeaderCellDef> Datum  </th>
+                    <td  mat-cell  *matCellDef="let item">  {{ item.createdAt  | date:  'dd. MM. yyyy.' }}  </td>
                 </ng-container>
 
                 <!-- rows -->
@@ -85,6 +103,12 @@
                     <th  mat-header-cell  *matHeaderCellDef> Potkategorije  </th>
                     <td  mat-cell  *matCellDef="let item">  {{ item.name }}  </td>
                 </ng-container>
+
+                <!-- Created Column Setup -->
+                <ng-container matColumnDef="created">
+                        <th  mat-header-cell  *matHeaderCellDef> Datum </th>
+                        <td  mat-cell  *matCellDef="let item">  {{ item.createdAt  | date:  'dd. MM. yyyy.' }}  </td>
+                    </ng-container>
 
                 <!-- rows -->
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"> </tr>

@@ -59,7 +59,8 @@ export class ProductsComponent implements OnInit {
         'name',
         'category',
         'group',
-        'brand'
+        'brand',
+        'created'
     ];
 
     actualWidth = window.innerWidth;
@@ -180,25 +181,16 @@ export class ProductsComponent implements OnInit {
             (response) => {
                 this.closeDialog(event);
                 this.getProducts();
-            },
-            (error) => {
             }
         );
     }
 
     /* Update product */
     putProduct(product, event) {
-        let response: any = {
-            title: ''
-        };
         this.productService.put(product._id, product).subscribe(
             data => {
                 this.closeDialog(event);
                 this.getProducts();
-                response = data;
-            },
-            (error) => {
-                response = error;
             }
         );
     }

@@ -2,7 +2,8 @@
 import {
     Component,
     OnInit,
-    EventEmitter
+    EventEmitter,
+    ViewChild
 } from '@angular/core';
 
 /* 3rd party */
@@ -18,6 +19,7 @@ import {
 import {
     BrandsService
 } from '../../_services/brands.service';
+import { MatSort, MatPaginator, MatTableDataSource } from '../../../../node_modules/@angular/material';
 
 /* Decorator */
 @Component({
@@ -34,6 +36,7 @@ export class BrandsComponent implements OnInit {
     uploadInput: EventEmitter<UploadInput>;
     humanizeBytes: Function;
     dragOver: boolean;
+    actualWidth = window.innerWidth;
 
     /* Constructor */
     constructor(
@@ -52,16 +55,27 @@ export class BrandsComponent implements OnInit {
         image: ''
     };
 
+    displayedColumns: string[] = [
+        'position',
+        'image',
+        'name',
+        'created'
+    ];
+
     brandList = [];
     currentIndex: number;
+    dataSource;
 
-    dialogIsOpen = false;
-    imageDialogIsOpen = false;
+    isAddDialogOpen = false;
+    isImageDialogOpen = false;
     imageInDialog = '';
     imageID = '';
     imageindex = 0;
-    dialogIsEditing = false;
+    isDialogEditing = false;
     dialogTitle;
+
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     baseUrl: String = 'http://localhost:3000/api';
 
@@ -93,9 +107,9 @@ export class BrandsComponent implements OnInit {
     startUpload(response): void {
         const imageData: UploadInput = {
             type: 'uploadAll',
-            url: this.baseUrl + '/brands/images/' + response.object._id,
+            url: this.baseUrl + '/brands/images/' + response.id,
             method: 'POST',
-            data: { id: response.object._id }
+            data: { id: response.id }
         };
         this.uploadInput.emit(imageData);
         setTimeout(() => {
@@ -111,8 +125,8 @@ export class BrandsComponent implements OnInit {
     /* Dialog  */
     openDialog(editing, singleBrand?, index?) {
         if (editing) {
-            this.dialogIsOpen = true;
-            this.dialogIsEditing = true;
+            this.isAddDialogOpen = true;
+            this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje brenda';
             this.brand = Object.assign({}, singleBrand);
             if (index) {
@@ -120,20 +134,21 @@ export class BrandsComponent implements OnInit {
             }
         }
         if (!editing) {
-            this.dialogIsOpen = true;
-            this.dialogIsEditing = false;
+            this.isAddDialogOpen = true;
+            this.isDialogEditing = false;
             this.dialogTitle = 'Dodavanje brenda';
             this.clearForm();
         }
     }
 
-    closeDialog() {
-        this.dialogIsOpen = false;
+    closeDialog(event) {
+        event.stopPropagation();
+        this.isAddDialogOpen = false;
         this.clearForm();
     }
 
     openImageDialog(index) {
-        this.imageDialogIsOpen = true;
+        this.isImageDialogOpen = true;
         this.imageInDialog = this.brandList[index].image;
         this.imageID = this.brandList[index].id;
         this.imageindex = index;
@@ -141,7 +156,7 @@ export class BrandsComponent implements OnInit {
     }
 
     closeImageDialog() {
-        this.imageDialogIsOpen = false;
+        this.isImageDialogOpen = false;
     }
 
     clearForm() {
@@ -154,35 +169,21 @@ export class BrandsComponent implements OnInit {
     }
 
     /* Add new brand */
-    postBrand(brand) {
-        let response: any = {
-            title: ''
-        };
+    postBrand(brand, event) {
         this.brandService.post(brand).subscribe(
-            (data) => {
-                this.closeDialog();
+            (response) => {
+                this.closeDialog(event);
                 this.getBrands();
-                response = data;
-            },
-            (error) => {
-                response = error;
             }
         );
     }
 
     /* Update brand */
-    putBrand(brand) {
-        let response: any = {
-            title: ''
-        };
+    putBrand(brand, event) {
         this.brandService.put(brand._id, brand).subscribe(
             (data) => {
-                this.closeDialog();
+                this.closeDialog(event);
                 this.getBrands();
-                response = data;
-            },
-            (error) => {
-                response = error;
             }
         );
     }
@@ -210,14 +211,14 @@ export class BrandsComponent implements OnInit {
     }
 
     /* Delete Brand */
-    deleteBrand(id, index) {
+    deleteBrand(id, index, event) {
         let response: any = {
             title: ''
         };
         this.brandService.delete(id).subscribe(
             (data) => {
                 this.brandList.splice(index, 1);
-                this.closeDialog();
+                this.closeDialog(event);
                 response = data;
             },
             (error) => {
@@ -230,6 +231,16 @@ export class BrandsComponent implements OnInit {
     getBrands() {
         this.brandService.get().subscribe(response => {
             this.brandList = response.object;
+            this.dataSource = new MatTableDataSource(this.brandList);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
         });
+    }
+    /* Screens */
+    public smallScreen() {
+        if (this.actualWidth < 768) {
+            return true;
+        }
+        return false;
     }
 }

@@ -125,6 +125,7 @@ mat-form-field {
 mat-toolbar {
     height: auto !important;
     padding: 5px 20px  !important;
+    min-height: 70px;
     @media screen and (max-width: 768px) {
         padding: 5px  !important;
     }
@@ -136,4 +137,32 @@ mat-toolbar {
 
 mat-button-toggle {
     border-right: 1px solid #e7e7e7 !important;
+}
+
+mat-paginator {
+    padding-right: 5%;
+}
+
+.mat-column-position {
+    width: 100px;
+}
+
+.mat-column-image {
+    width: 100px;
+}
+
+.mat-column-created {
+    width: 150px;
+}
+
+.mat-column-category {
+    width: 250px;
+}
+
+.mat-column-group {
+    width: 250px;
+}
+
+.mat-column-brand {
+    width: 250px;
 }

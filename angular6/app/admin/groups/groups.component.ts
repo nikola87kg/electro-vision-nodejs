@@ -1,5 +1,5 @@
 /* Angular */
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 
 /* 3rd party */
 import {
@@ -13,6 +13,7 @@ import {
 /* Services */
 import { GroupsService } from '../../_services/groups.service';
 import { CategoriesService } from '../../_services/categories.service';
+import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
     selector: 'px-groups',
@@ -46,18 +47,32 @@ export class GroupsComponent implements OnInit {
         image: ''
     };
 
+
+    displayedColumns: string[] = [
+        'position',
+        'image',
+        'name',
+        'category',
+        'created'
+    ];
+
+    actualWidth = window.innerWidth;
     groupList = [];
     currentIndex: number;
+    dataSource;
+
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     filteredList = [];
     categoryList = [];
 
-    dialogIsOpen = false;
-    imageDialogIsOpen = false;
+    isAddDialogOpen = false;
+    isImageDialogOpen = false;
     imageInDialog = '';
     imageID = '';
     imageindex = 0;
-    dialogIsEditing = false;
+    isDialogEditing = false;
     dialogTitle;
 
     baseUrl: String = 'http://localhost:3000/api';
@@ -109,8 +124,8 @@ export class GroupsComponent implements OnInit {
     /* Dialog  */
     openDialog(editing, singleGroup?, index?) {
         if (editing) {
-            this.dialogIsOpen = true;
-            this.dialogIsEditing = true;
+            this.isAddDialogOpen = true;
+            this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje potkategorije';
             this.group = Object.assign({}, singleGroup);
             if (index) {
@@ -118,20 +133,21 @@ export class GroupsComponent implements OnInit {
             }
         }
         if (!editing) {
-            this.dialogIsOpen = true;
-            this.dialogIsEditing = false;
+            this.isAddDialogOpen = true;
+            this.isDialogEditing = false;
             this.dialogTitle = 'Dodavanje potkategorije';
             this.clearForm();
         }
     }
 
-    closeDialog() {
-        this.dialogIsOpen = false;
+    closeDialog(event) {
+        event.stopPropagation();
+        this.isAddDialogOpen = false;
         this.clearForm();
     }
 
     openImageDialog(index) {
-        this.imageDialogIsOpen = true;
+        this.isImageDialogOpen = true;
         this.imageInDialog = this.groupList[index].image;
         this.imageID = this.groupList[index].id;
         this.imageindex = index;
@@ -139,7 +155,7 @@ export class GroupsComponent implements OnInit {
     }
 
     closeImageDialog() {
-        this.imageDialogIsOpen = false;
+        this.isImageDialogOpen = false;
     }
 
     clearForm() {
@@ -153,35 +169,23 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Add new group */
-    postGroup(group) {
-        let response: any = {
-            title: ''
-        };
+    postGroup(group, event) {
         this.groupService.post(group).subscribe(
-            (data) => {
-            this.closeDialog();
+            (response) => {
+            this.closeDialog(event);
             this.getGroups();
-            response = data;
-            },
-            (error) => {
-                response = error;
             }
         );
     }
 
     /* Update group */
-    putGroup(group) {
-        let response: any = {
-            title: ''
-        };
+    putGroup(group, event) {
         this.groupService.put(group._id, group).subscribe(
             (data) => {
-                this.closeDialog();
+                this.closeDialog(event);
                 this.getGroups();
-                response = data;
             },
             (error) => {
-                response = error;
             }
         );
     }
@@ -209,14 +213,14 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Delete group */
-    deleteGroup(id, index) {
+    deleteGroup(id, index, event) {
         let response: any = {
             title: ''
         };
         this.groupService.delete(id).subscribe(
             (data) => {
                 this.groupList.splice(index, 1);
-                this.closeDialog();
+                this.closeDialog(event);
                 response = data;
             },
             (error) => {
@@ -235,6 +239,9 @@ export class GroupsComponent implements OnInit {
             } else {
                 this.groupList = response.object;
             }
+            this.dataSource = new MatTableDataSource(this.groupList);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
         });
     }
 
@@ -243,5 +250,13 @@ export class GroupsComponent implements OnInit {
         this.categoryService.get().subscribe(response => {
             this.categoryList = response.object;
         });
+    }
+
+    /* Screens */
+    public smallScreen() {
+        if (this.actualWidth < 768) {
+            return true;
+        }
+        return false;
     }
 }
