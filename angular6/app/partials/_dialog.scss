@@ -22,6 +22,9 @@ form.form-dialog {
     mat-form-field {
         width: 80%;
     }
+    &.image-dialog {
+        width: 600px;
+    }
 }
 
 .dialog-header {
@@ -64,4 +67,16 @@ mat-button-toggle-group {
     .cancel-item { color: $warn-color; }
     .save-item   { color: $primary-color; }
     .update-item { color: $primary-color; }
+}
+
+/* Image upload */
+.image-preview {
+    width: 90%;
+    text-align: center;
+    img {
+        margin-bottom : 20px;
+        max-width: 100%;
+        box-shadow: 1px 1px 20px 1px gray;
+        cursor: pointer;
+    }
 }

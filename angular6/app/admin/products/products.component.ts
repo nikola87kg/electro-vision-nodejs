@@ -1,34 +1,18 @@
 /* Angular */
-import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
-
-/* 3rd party */
-import {
-    UploadOutput,
-    UploadInput,
-    UploadFile,
-    humanizeBytes,
-    UploaderOptions
-} from 'ngx-uploader';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
 import { ProductsService } from '../../_services/products.service';
 import { GroupsService } from '../../_services/groups.service';
 import { BrandsService } from '../../_services/brands.service';
 import { CategoriesService } from '../../_services/categories.service';
-import { MatSort, MatTableDataSource, PageEvent, MatPaginator } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 
 @Component({
     selector: 'px-products',
     templateUrl: './products.component.html'
 })
 export class ProductsComponent implements OnInit {
-    /* Photo Uploader */
-    options: UploaderOptions;
-    formData: FormData;
-    files: UploadFile[];
-    uploadInput: EventEmitter<UploadInput>;
-    humanizeBytes: Function;
-    dragOver: boolean;
 
     /* Constructor */
     constructor(
@@ -37,9 +21,6 @@ export class ProductsComponent implements OnInit {
         private categoryService: CategoriesService,
         private brandService: BrandsService
     ) {
-        this.files = []; // local uploading files array
-        this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
-        this.humanizeBytes = humanizeBytes;
     }
 
     /* Declarations */
@@ -77,44 +58,19 @@ export class ProductsComponent implements OnInit {
     categoryList = [];
 
     isAddDialogOpen = false;
-    isImageDialogOpen = false;
-    imageInDialog = '';
-    imageID = '';
-    imageindex = 0;
     isDialogEditing = false;
     dialogTitle;
 
+    imageInDialog = '';
+    isImageDialogOpen = false;
+    imageFile;
+    imagePreview;
+    imageID;
+    imageindex = 0;
+
     baseUrl: String = 'http://localhost:3000/api';
+    // url: this.baseUrl + '/products/images/{{id}},
 
-
-    /* Upload images */
-    onUploadOutput(output: UploadOutput): void {
-        if (output.type === 'allAddedToQueue') {
-        } else if ( output.type === 'addedToQueue' && typeof output.file !== 'undefined'  ) {
-            this.files.push(output.file);
-        } else if ( output.type === 'uploading' && typeof output.file !== 'undefined'  ) {
-            const index = this.files.findIndex(
-                file => typeof output.file !== 'undefined' && file.id === output.file.id
-            );
-            this.files[index] = output.file;
-        } else if (output.type === 'removed') { this.files = this.files.filter(
-                (file: UploadFile) => file !== output.file
-            );
-        }
-    }
-
-    startUpload(obj): void {
-        const imageData: UploadInput = {
-            type: 'uploadAll',
-            url: this.baseUrl + '/products/images/' + obj.id,
-            method: 'POST',
-            data: { id: obj.id }
-        };
-        this.uploadInput.emit(imageData);
-        setTimeout(() => {
-            this.getProducts();
-        }, 0);
-    }
 
     /* INIT */
     ngOnInit() {
@@ -151,10 +107,12 @@ export class ProductsComponent implements OnInit {
 
     openImageDialog(event, index) {
         event.stopPropagation();
+        this.imageID = this.productList[index]._id;
+        console.log(1, this.imageID);
+
+        this.imageindex = index;
         this.isImageDialogOpen = true;
         this.imageInDialog = this.productList[index].image;
-        this.imageID = this.productList[index].id;
-        this.imageindex = index;
         this.dialogTitle = 'Dodavanje slike';
     }
 
@@ -172,7 +130,6 @@ export class ProductsComponent implements OnInit {
             brand: { _id: '', name: '' },
             image: ''
         };
-        this.files = [];
     }
 
     /* Add new product */
@@ -193,30 +150,6 @@ export class ProductsComponent implements OnInit {
                 this.getProducts();
             }
         );
-    }
-
-    /* Update image */
-    postImage() {
-        let response: any = {
-            title: ''
-        };
-        const total = this.files.length - 1;
-        const image = this.files[total].name || 'no-image';
-        const thisProduct = this.productList[this.imageindex];
-        thisProduct.image = image;
-        this.productService
-            .put(thisProduct._id, thisProduct)
-            .subscribe(
-                (data) => {
-                this.closeImageDialog();
-                this.startUpload(data);
-                this.getGroups();
-                response = data;
-                },
-                (error) => {
-                    response = error;
-                }
-            );
     }
 
     /* Delete product */
@@ -300,6 +233,34 @@ export class ProductsComponent implements OnInit {
         }
         return false;
     }
+
+    /* Image upload */
+
+    onImagePicked(event: Event) {
+        const file = (event.target as HTMLInputElement).files[0];
+        this.imageFile = file;
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.imagePreview = reader.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    postImage() {
+        const filename = this.imageFile.name || 'no-image';
+        const thisProduct = this.productList[this.imageindex];
+        thisProduct.image = filename;
+        this.productService.put(thisProduct._id, thisProduct).subscribe(
+            (response) => {
+                this.productService.postImage(this.imageID, this.imageFile).subscribe(
+                    (response2) => {
+                        this.closeImageDialog();
+                        this.getProducts();
+                    }
+                );
+            });
+    }
+
 }
 
 

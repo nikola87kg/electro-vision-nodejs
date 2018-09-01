@@ -37,4 +37,9 @@ export class ProductsService {
     delete(id) {
         return this.http.delete<{title, success, data}>(this.baseUrl + '/products/' + id);
     }
+
+    /* POST Product Image */
+    postImage(id, file) {
+        return this.http.post<{title, success, data}>(this.baseUrl + '/products/images/' + id, file);
+    }
 }

@@ -193,9 +193,6 @@ export class CategoriesComponent implements OnInit {
 
     /* Update image */
     postImage() {
-        let response: any = {
-            title: ''
-        };
         const total = this.files.length - 1;
         const image = this.files[total].name || 'no-image';
         const thisCategory = this.categoryList[this.imageindex];
@@ -205,10 +202,6 @@ export class CategoriesComponent implements OnInit {
                 this.closeImageDialog();
                 this.startUpload(data);
                 this.getCategories();
-                response = data;
-            },
-            (error) => {
-                response = error;
             }
         );
     }
