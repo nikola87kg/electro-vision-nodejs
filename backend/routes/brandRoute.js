@@ -2,10 +2,13 @@
 var express = require("express");
 var router = express.Router();
 
+// Middleware
+const extractFile = require("../middleware/fileUpload");
+
 // Controllers
 const BrandController = require("../controllers/brandController")
 
-router.post("/images/:id", BrandController.storeBrandImage);
+router.post("/images/:id", extractFile, BrandController.storeBrandImage);
 router.post("/", BrandController.createBrand);
 
 router.get("/:slug", BrandController.getOneBrand);

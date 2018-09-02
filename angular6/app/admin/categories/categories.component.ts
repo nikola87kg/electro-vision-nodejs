@@ -1,14 +1,5 @@
 /* Angular */
-import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
-
-/* 3rd party */
-import {
-    UploadOutput,
-    UploadInput,
-    UploadFile,
-    humanizeBytes,
-    UploaderOptions
-} from 'ngx-uploader';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
 import { CategoriesService } from '../../_services/categories.service';
@@ -19,23 +10,11 @@ import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
     templateUrl: './categories.component.html'
 })
 export class CategoriesComponent implements OnInit {
-    /* Photo Uploader */
-    options: UploaderOptions;
-    formData: FormData;
-    files: UploadFile[];
-    uploadInput: EventEmitter<UploadInput>;
-    humanizeBytes: Function;
-    dragOver: boolean;
-    actualWidth = window.innerWidth;
 
     /* Constructor */
     constructor(
         private categoryService: CategoriesService
-    ) {
-        this.files = []; // local uploading files array
-        this.uploadInput = new EventEmitter<UploadInput>();
-        this.humanizeBytes = humanizeBytes;
-    }
+    ) {}
 
     /* Declarations */
     category = {
@@ -52,60 +31,25 @@ export class CategoriesComponent implements OnInit {
         'created'
     ];
 
-    dataSource;
+    actualWidth = window.innerWidth;
     categoryList = [];
     currentIndex: number;
+    dataSource;
 
-    isAddDialogOpen = false;
-    isImageDialogOpen = false;
-    imageInDialog = '';
-    imageID = '';
-    imageindex = 0;
-    isDialogEditing = false;
+    isAddDialogOpen: boolean;
+    isDialogEditing: boolean;
+    isImageDialogOpen: boolean;
     dialogTitle;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    imageFile: File;
+    imagePreview;
+    imageID;
+    imageindex: number;
 
     baseUrl: String = 'http://localhost:3000/api';
 
-    /* Upload images */
-    onUploadOutput(output: UploadOutput): void {
-        if (output.type === 'allAddedToQueue') {
-        } else if (
-            output.type === 'addedToQueue' &&
-            typeof output.file !== 'undefined'
-        ) {
-            this.files.push(output.file);
-        } else if (
-            output.type === 'uploading' &&
-            typeof output.file !== 'undefined'
-        ) {
-            const index = this.files.findIndex(
-                file =>
-                    typeof output.file !== 'undefined' &&
-                    file.id === output.file.id
-            );
-            this.files[index] = output.file;
-        } else if (output.type === 'removed') {
-            this.files = this.files.filter(
-                (file: UploadFile) => file !== output.file
-            );
-        }
-    }
-
-    startUpload(obj): void {
-        const imageData: UploadInput = {
-            type: 'uploadAll',
-            url: this.baseUrl + '/categories/images/' + obj.id,
-            method: 'POST',
-            data: { id: obj.id }
-        };
-        this.uploadInput.emit(imageData);
-        setTimeout(() => {
-            this.getCategories();
-        }, 0);
-    }
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     /* INIT */
     ngOnInit() {
@@ -137,10 +81,10 @@ export class CategoriesComponent implements OnInit {
         this.clearForm();
     }
 
-    openImageDialog(index) {
+    openImageDialog(event, index) {
+        event.stopPropagation();
         this.isImageDialogOpen = true;
-        this.imageInDialog = this.categoryList[index].image;
-        this.imageID = this.categoryList[index].id;
+        this.imageID = this.categoryList[index]._id;
         this.imageindex = index;
         this.dialogTitle = 'Dodavanje slike';
     }
@@ -159,48 +103,21 @@ export class CategoriesComponent implements OnInit {
     }
     /* Add new category */
     postCategory(category, event) {
-        let response: any = {
-            title: ''
-        };
         this.categoryService.post(category).subscribe(
-            (data) => {
+            (response) => {
                 this.closeDialog(event);
                 this.getCategories();
-                response = data;
             },
             (error) => {
-                response = error;
             }
         );
     }
 
     /* Update category */
     putCategory(category, event) {
-        let response: any = {
-            title: ''
-        };
         this.categoryService.put(category._id, category).subscribe(
-            (data) => {
+            (response) => {
                 this.closeDialog(event);
-                this.getCategories();
-                response = data;
-            },
-            (error) => {
-                response = error;
-            }
-        );
-    }
-
-    /* Update image */
-    postImage() {
-        const total = this.files.length - 1;
-        const image = this.files[total].name || 'no-image';
-        const thisCategory = this.categoryList[this.imageindex];
-        thisCategory.image = image;
-        this.categoryService.put(thisCategory._id, thisCategory).subscribe(
-            (data) => {
-                this.closeImageDialog();
-                this.startUpload(data);
                 this.getCategories();
             }
         );
@@ -208,17 +125,10 @@ export class CategoriesComponent implements OnInit {
 
     /* Delete category */
     deleteCategory(id, index, event) {
-        let response: any = {
-            title: ''
-        };
         this.categoryService.delete(id).subscribe(
-            (data) => {
+            (response) => {
                 this.categoryList.splice(index, 1);
                 this.closeDialog(event);
-                response = data;
-            },
-            (error) => {
-                response = error;
             }
         );
     }
@@ -238,5 +148,37 @@ export class CategoriesComponent implements OnInit {
             return true;
         }
         return false;
+    }
+
+    /* Image upload */
+
+    onImagePicked(event: Event) {
+        const file = (event.target as HTMLInputElement).files[0];
+        this.imageFile = file;
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.imagePreview = reader.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    postImage() {
+        const formData = new FormData();
+        const filename = this.imageFile.name ;
+        formData.append('image', this.imageFile, filename);
+
+        const thisCategory = this.categoryList[this.imageindex];
+        const groupId = thisCategory._id;
+        thisCategory.image = filename;
+
+        this.categoryService.put(groupId, thisCategory).subscribe(
+            (response) => {
+                this.categoryService.postImage(this.imageID, formData).subscribe(
+                    (response2) => {
+                        this.closeImageDialog();
+                        this.getCategories();
+                    }
+                );
+            });
     }
 }

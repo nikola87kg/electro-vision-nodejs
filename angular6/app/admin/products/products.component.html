@@ -71,8 +71,8 @@
         <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef> Slika </th>
             <td mat-cell *matCellDef="let item, let i = index" (click)="openImageDialog($event, i)">
-                <img *ngIf="item.image" src="{{item.image}}">
-                <img *ngIf="!item.image" src="./assets/default_images/default-product.jpg">
+                <img *ngIf="item.image" [src]="item.image" [alt]="item.image">
+                <img *ngIf="!item.image" src="./assets/uploads/ev.jpeg">
             </td>
         </ng-container>
 
@@ -211,7 +211,7 @@
                     Odustani
                 </mat-button-toggle>
                 <mat-button-toggle class="save-item" [disabled]="!products.form.valid"
-                    (click)="startUpload(product.slug); postProduct(product, $event)"
+                    (click)="postProduct(product, $event)"
                     *ngIf="!isDialogEditing">
                     Sačuvaj
                 </mat-button-toggle>

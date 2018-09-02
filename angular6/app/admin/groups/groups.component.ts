@@ -1,14 +1,5 @@
 /* Angular */
-import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
-
-/* 3rd party */
-import {
-    UploadOutput,
-    UploadInput,
-    UploadFile,
-    humanizeBytes,
-    UploaderOptions
-} from 'ngx-uploader';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
 import { GroupsService } from '../../_services/groups.service';
@@ -19,34 +10,23 @@ import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
     selector: 'px-groups',
     templateUrl: './groups.component.html'
 })
+
 export class GroupsComponent implements OnInit {
-    /* Photo Uploader */
-    options: UploaderOptions;
-    formData: FormData;
-    files: UploadFile[];
-    uploadInput: EventEmitter<UploadInput>;
-    humanizeBytes: Function;
-    dragOver: boolean;
 
     /* Constructor */
     constructor(
         private groupService: GroupsService,
         private categoryService: CategoriesService,
-    ) {
-        this.files = []; // local uploading files array
-        this.uploadInput = new EventEmitter<UploadInput>();
-        this.humanizeBytes = humanizeBytes;
-    }
+    ) {}
 
     /* Declarations */
-    group = {
+    subcategory = {
         name: '',
         slug: '',
         description: '',
         category: { _id: '', name: '' },
         image: ''
     };
-
 
     displayedColumns: string[] = [
         'position',
@@ -61,59 +41,23 @@ export class GroupsComponent implements OnInit {
     currentIndex: number;
     dataSource;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-
     filteredList = [];
     categoryList = [];
 
-    isAddDialogOpen = false;
-    isImageDialogOpen = false;
-    imageInDialog = '';
-    imageID = '';
-    imageindex = 0;
-    isDialogEditing = false;
+    isAddDialogOpen: boolean;
+    isDialogEditing: boolean;
+    isImageDialogOpen: boolean;
     dialogTitle;
+
+    imageFile: File;
+    imagePreview;
+    imageID;
+    imageindex: number;
 
     baseUrl: String = 'http://localhost:3000/api';
 
-    /* Upload images */
-    onUploadOutput(output: UploadOutput): void {
-        if (output.type === 'allAddedToQueue') {
-        } else if (
-            output.type === 'addedToQueue' &&
-            typeof output.file !== 'undefined'
-        ) {
-            this.files.push(output.file);
-        } else if (
-            output.type === 'uploading' &&
-            typeof output.file !== 'undefined'
-        ) {
-            const index = this.files.findIndex(
-                file =>
-                    typeof output.file !== 'undefined' &&
-                    file.id === output.file.id
-            );
-            this.files[index] = output.file;
-        } else if (output.type === 'removed') {
-            this.files = this.files.filter(
-                (file: UploadFile) => file !== output.file
-            );
-        }
-    }
-
-    startUpload(obj): void {
-        const imageData: UploadInput = {
-            type: 'uploadAll',
-            url: this.baseUrl + '/groups/images/' + obj.id,
-            method: 'POST',
-            data: { id: obj.id }
-        };
-        this.uploadInput.emit(imageData);
-        setTimeout(() => {
-            this.getGroups();
-        }, 0);
-    }
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     /* INIT */
     ngOnInit() {
@@ -127,7 +71,7 @@ export class GroupsComponent implements OnInit {
             this.isAddDialogOpen = true;
             this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje potkategorije';
-            this.group = Object.assign({}, singleGroup);
+            this.subcategory = Object.assign({}, singleGroup);
             if (index) {
                 this.currentIndex = index;
             }
@@ -146,10 +90,10 @@ export class GroupsComponent implements OnInit {
         this.clearForm();
     }
 
-    openImageDialog(index) {
+    openImageDialog(event, index) {
+        event.stopPropagation();
         this.isImageDialogOpen = true;
-        this.imageInDialog = this.groupList[index].image;
-        this.imageID = this.groupList[index].id;
+        this.imageID = this.groupList[index]._id;
         this.imageindex = index;
         this.dialogTitle = 'Dodavanje slike';
     }
@@ -159,7 +103,7 @@ export class GroupsComponent implements OnInit {
     }
 
     clearForm() {
-        this.group = {
+        this.subcategory = {
             name: '',
             slug: '',
             category: { _id: '', name: '' },
@@ -181,50 +125,19 @@ export class GroupsComponent implements OnInit {
     /* Update group */
     putGroup(group, event) {
         this.groupService.put(group._id, group).subscribe(
-            (data) => {
+            (response) => {
                 this.closeDialog(event);
                 this.getGroups();
-            },
-            (error) => {
-            }
-        );
-    }
-
-    /* Update image */
-    postImage() {
-        let response: any = {
-            title: ''
-        };
-        const total = this.files.length - 1;
-        const image = this.files[total].name || 'no-image';
-        const thisGroup = this.groupList[this.imageindex];
-        thisGroup.image = image;
-        this.groupService.put(thisGroup._id, thisGroup).subscribe(
-            (data) => {
-                this.closeImageDialog();
-                this.startUpload(data);
-                this.getGroups();
-                response = data;
-            },
-            (error) => {
-                response = error;
             }
         );
     }
 
     /* Delete group */
     deleteGroup(id, index, event) {
-        let response: any = {
-            title: ''
-        };
         this.groupService.delete(id).subscribe(
-            (data) => {
+            (response) => {
                 this.groupList.splice(index, 1);
                 this.closeDialog(event);
-                response = data;
-            },
-            (error) => {
-                response = error;
             }
         );
     }
@@ -258,5 +171,36 @@ export class GroupsComponent implements OnInit {
             return true;
         }
         return false;
+    }
+    /* Image upload */
+
+    onImagePicked(event: Event) {
+        const file = (event.target as HTMLInputElement).files[0];
+        this.imageFile = file;
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.imagePreview = reader.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    postImage() {
+        const formData = new FormData();
+        const filename = this.imageFile.name ;
+        formData.append('image', this.imageFile, filename);
+
+        const thisGroup = this.groupList[this.imageindex];
+        const groupId = thisGroup._id;
+        thisGroup.image = filename;
+
+        this.groupService.put(groupId, thisGroup).subscribe(
+            (response) => {
+                this.groupService.postImage(this.imageID, formData).subscribe(
+                    (response2) => {
+                        this.closeImageDialog();
+                        this.getGroups();
+                    }
+                );
+            });
     }
 }

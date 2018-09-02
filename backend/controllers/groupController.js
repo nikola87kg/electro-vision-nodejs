@@ -7,41 +7,8 @@ var Group = require("../models/groupModel");
 
 /* UPLOAD IMAGE */
 exports.storeGroupImage = function(req, res) {
-    /* storage settings */
-    var storeFile = multer.diskStorage({
-        destination: function(req, file, callback) {
-            let folderDest =
-                "./dist/electro-vision/assets/uploads/groups/" + req.params.id + "/";
-                if (!fs.existsSync(folderDest)) {
-                    fs.mkdir(folderDest, (error) => { console.log(error) });
-                }
-                callback(null, folderDest);
-        },
-        filename: function(req, file, callback) {
-            callback(null, file.originalname);
-        }
-    });
-    /* upload settings */
-    var uploadFile = multer({ storage: storeFile }).single("file");
-    /* backup settings */
-    ncp.limit = 16;
-    var originalFolder = './dist/electro-vision/assets/uploads';
-    var backupFolder = './backup';
-    /* upload image */
-    uploadFile(req, res, function(err) {
-        if (err) {
-            return res.status(501).json({ error: err });
-        }
-        ncp(originalFolder, backupFolder, function(err) {
-            if (err) {
-                return console.error(err);
-            }
-        });
-        res.status(200).json({
-            path: req.file.path,
-            image: req.file.originalname,
-            uploadName: req.file.filename
-        });
+    res.status(200).json({
+        image: req.file.originalname
     });
 }
 
@@ -52,7 +19,7 @@ exports.createGroup = function(req, res, next) {
         description: req.body.description,
         slug: req.body.slug,
         category: req.body.category,
-        image: "./assets/uploads/groups/default.jpg"
+        image: "./assets/uploads/ev.jpeg"
     });
     groupNew.save()
         .then( group => {
@@ -97,17 +64,19 @@ exports.getOneGroup = function(req, res, next) {
 
 /* UPDATE ONE */
 exports.updateGroup = function(req, res, next) {
-    let imagePath =  req.body.image;
-    if (req.body.image.split( '/' ).length < 2) {
-        imagePath = "./assets/uploads/groups/" + req.params.id +  "/" +  req.body.image;
-    };
-    var groupUpdated = ({
+    const url = req.protocol + "://" + req.get("host");
+
+    let imagePath = req.body.image;
+    if(req.body.image.split('/').length < 2) {
+        imagePath = url + "/uploads/" +  req.body.image;
+    }
+    var groupUpdated = {
         name: req.body.name,
         slug: req.body.slug,
         category: req.body.category,
         description: req.body.description,
         image: imagePath
-    });
+    };
     Group.findOneAndUpdate({ _id: req.params.id }, { $set: groupUpdated})
         .then( group => {
             res.status(200).json({ object: group })
@@ -121,10 +90,10 @@ exports.updateGroup = function(req, res, next) {
 exports.deleteGroup = function(req, res, next) {
     Group.findOneAndRemove( {  _id: req.params.id } )
         .then( group => {
-            let folderDest = "./dist/electro-vision/assets/uploads/groups/" + req.params.id + "/";
-            if (fs.existsSync(folderDest)) {
-                fs.remove(folderDest).then( console.log('deleted Group') );
-            }
+            // let folderDest = "./dist/electro-vision/assets/uploads/groups/" + req.params.id + "/";
+            // if (fs.existsSync(folderDest)) {
+            //     fs.remove(folderDest).then( console.log('deleted Group') );
+            // }
             res.status(200).json({ object: group })
         })
         .catch( error => {

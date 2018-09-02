@@ -7,41 +7,8 @@ var Category = require("../models/categoryModel");
 
 /* UPLOAD IMAGE */
 exports.storeCategoryImage = function(req, res) {
-    /* storage settings */
-    var storeFile = multer.diskStorage({
-        destination: function(req, file, callback) {
-            let folderDest =
-                "./dist/electro-vision/assets/uploads/categories/" + req.params.id + "/";
-                if (!fs.existsSync(folderDest)) {
-                    fs.mkdir(folderDest, (error) => { console.log(error) });
-                }
-                callback(null, folderDest);
-        },
-        filename: function(req, file, callback) {
-            callback(null, file.originalname);
-        }
-    });
-    /* upload settings */
-    var uploadFile = multer({ storage: storeFile }).single("file");
-    /* backup settings */
-    ncp.limit = 16;
-    var originalFolder = './dist/electro-vision/assets/uploads';
-    var backupFolder = './backup';
-    /* upload image */
-    uploadFile(req, res, function(err) {
-        if (err) {
-            return res.status(501).json({ error: err });
-        }
-        ncp(originalFolder, backupFolder, function(err) {
-            if (err) {
-                return console.error(err);
-            }
-        });
-        res.status(200).json({
-            path: req.file.path,
-            image: req.file.originalname,
-            uploadName: req.file.filename
-        });
+    res.status(200).json({
+        image: req.file.originalname
     });
 }
 
@@ -51,7 +18,7 @@ exports.createCategory = function(req, res, next) {
         name: req.body.name,
         description: req.body.description,
         slug: req.body.slug,
-        image: "./assets/uploads/categories/default.jpg"
+        image: "./assets/uploads/ev.jpeg"
     });
     categoryNew.save()
         .then( category => {
@@ -94,16 +61,18 @@ exports.getOneCategory = function(req, res, next) {
 
 /* UPDATE ONE */
 exports.updateCategory = function(req, res, next) {
-    let imagePath =  req.body.image;
-    if (req.body.image.split( '/' ).length < 2) {
-        imagePath = "./assets/uploads/categories/" + req.params.id +  "/" +  req.body.image;
-    };
-    var categoryUpdated = ({
+    const url = req.protocol + "://" + req.get("host");
+
+    let imagePath = req.body.image;
+    if(req.body.image.split('/').length < 2) {
+        imagePath = url + "/uploads/" +  req.body.image;
+    }
+    var categoryUpdated = {
         name: req.body.name,
         slug: req.body.slug,
         description: req.body.description,
         image: imagePath
-    });
+    };
     Category.findOneAndUpdate({ _id: req.params.id }, { $set: categoryUpdated})
         .then( category => {
             res.status(200).json({ object: category })
@@ -117,10 +86,10 @@ exports.updateCategory = function(req, res, next) {
 exports.deleteCategory = function(req, res, next) {
     Category.findOneAndRemove( {  _id: req.params.id } )
         .then( category => {
-            let folderDest = "./dist/electro-vision/assets/uploads/categories/" + req.params.id + "/";
-            if (fs.existsSync(folderDest)) {
-                fs.remove(folderDest).then( console.log('deleted Category') );
-            }
+            // let folderDest = "./dist/electro-vision/assets/uploads/categories/" + req.params.id + "/";
+            // if (fs.existsSync(folderDest)) {
+            //     fs.remove(folderDest).then( console.log('deleted Category') );
+            // }
             res.status(200).json({ object: category })
         })
         .catch( error => {

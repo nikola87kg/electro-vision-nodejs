@@ -37,4 +37,8 @@ export class BrandsService {
     delete(id) {
         return this.http.delete(this.baseUrl + '/brands/' + id);
     }
+    /* POST Brand Image */
+    postImage(id, file) {
+        return this.http.post<any>(this.baseUrl + '/brands/images/' + id, file);
+    }
 }

@@ -37,4 +37,9 @@ export class CategoriesService {
     delete(id) {
         return this.http.delete(this.baseUrl + '/categories/' + id);
     }
+
+    /* POST Category Image */
+    postImage(id, file) {
+        return this.http.post<any>(this.baseUrl + '/categories/images/' + id, file);
+    }
 }

@@ -2,11 +2,14 @@
 var express = require("express");
 var router = express.Router();
 
+// Middleware
+const extractFile = require("../middleware/fileUpload");
+
 // Controllers
 const CategoryController = require("../controllers/categoryController")
 
 
-router.post("/images/:id", CategoryController.storeCategoryImage);
+router.post("/images/:id", extractFile, CategoryController.storeCategoryImage);
 router.post("/", CategoryController.createCategory);
 
 router.get("/:slug", CategoryController.getOneCategory);

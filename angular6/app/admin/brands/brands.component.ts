@@ -1,24 +1,10 @@
 /* Angular */
-import {
-    Component,
-    OnInit,
-    EventEmitter,
-    ViewChild
-} from '@angular/core';
-
-/* 3rd party */
-import {
-    UploadOutput,
-    UploadInput,
-    UploadFile,
-    humanizeBytes,
-    UploaderOptions
-} from 'ngx-uploader';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
-import {
-    BrandsService
-} from '../../_services/brands.service';
+import { BrandsService } from '../../_services/brands.service';
+
+/* Material */
 import { MatSort, MatPaginator, MatTableDataSource } from '../../../../node_modules/@angular/material';
 
 /* Decorator */
@@ -27,25 +13,12 @@ import { MatSort, MatPaginator, MatTableDataSource } from '../../../../node_modu
     templateUrl: './brands.component.html'
 })
 
-/* Class */
 export class BrandsComponent implements OnInit {
-    /* Photo Uploader */
-    options: UploaderOptions;
-    formData: FormData;
-    files: UploadFile[];
-    uploadInput: EventEmitter<UploadInput>;
-    humanizeBytes: Function;
-    dragOver: boolean;
-    actualWidth = window.innerWidth;
 
     /* Constructor */
     constructor(
         private brandService: BrandsService
-    ) {
-        this.files = []; // local uploading files array
-        this.uploadInput = new EventEmitter<UploadInput>();
-        this.humanizeBytes = humanizeBytes;
-    }
+    ) {}
 
     /* Declarations */
     brand = {
@@ -62,60 +35,26 @@ export class BrandsComponent implements OnInit {
         'created'
     ];
 
+    actualWidth = window.innerWidth;
     brandList = [];
     currentIndex: number;
     dataSource;
 
-    isAddDialogOpen = false;
-    isImageDialogOpen = false;
-    imageInDialog = '';
-    imageID = '';
-    imageindex = 0;
-    isDialogEditing = false;
-    dialogTitle;
+    isAddDialogOpen: boolean;
+    isImageDialogOpen: boolean;
+    isDialogEditing: boolean;
+    dialogTitle: string;
+
+    imageFile: File;
+    imagePreview;
+    imageID;
+    imageindex: number;
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     baseUrl: String = 'http://localhost:3000/api';
 
-    /* Upload images */
-    onUploadOutput(output: UploadOutput): void {
-        if (output.type === 'allAddedToQueue') {
-        } else if (
-            output.type === 'addedToQueue' &&
-            typeof output.file !== 'undefined'
-        ) {
-            this.files.push(output.file);
-        } else if (
-            output.type === 'uploading' &&
-            typeof output.file !== 'undefined'
-        ) {
-            const index = this.files.findIndex(
-                file =>
-                    typeof output.file !== 'undefined' &&
-                    file.id === output.file.id
-            );
-            this.files[index] = output.file;
-        } else if (output.type === 'removed') {
-            this.files = this.files.filter(
-                (file: UploadFile) => file !== output.file
-            );
-        }
-    }
-
-    startUpload(response): void {
-        const imageData: UploadInput = {
-            type: 'uploadAll',
-            url: this.baseUrl + '/brands/images/' + response.id,
-            method: 'POST',
-            data: { id: response.id }
-        };
-        this.uploadInput.emit(imageData);
-        setTimeout(() => {
-            this.getBrands();
-        }, 0);
-    }
 
     /* INIT */
     ngOnInit() {
@@ -147,10 +86,10 @@ export class BrandsComponent implements OnInit {
         this.clearForm();
     }
 
-    openImageDialog(index) {
+    openImageDialog(event, index) {
+        event.stopPropagation();
         this.isImageDialogOpen = true;
-        this.imageInDialog = this.brandList[index].image;
-        this.imageID = this.brandList[index].id;
+        this.imageID = this.brandList[index]._id;
         this.imageindex = index;
         this.dialogTitle = 'Dodavanje slike';
     }
@@ -188,28 +127,6 @@ export class BrandsComponent implements OnInit {
         );
     }
 
-    /* Update image */
-    postImage() {
-        let response: any = {
-            title: ''
-        };
-        const total = this.files.length - 1;
-        const image = this.files[total].name || 'no-image';
-        const thisBrand = this.brandList[this.imageindex];
-        thisBrand.image = image;
-        this.brandService.put(thisBrand._id, thisBrand).subscribe(
-            (data) => {
-                this.closeImageDialog();
-                this.startUpload(data);
-                this.getBrands();
-                response = data;
-            },
-            (error) => {
-                response = error;
-            }
-        );
-    }
-
     /* Delete Brand */
     deleteBrand(id, index, event) {
         let response: any = {
@@ -236,11 +153,44 @@ export class BrandsComponent implements OnInit {
             this.dataSource.paginator = this.paginator;
         });
     }
+
     /* Screens */
     public smallScreen() {
         if (this.actualWidth < 768) {
             return true;
         }
         return false;
+    }
+
+    /* Image upload */
+
+    onImagePicked(event: Event) {
+        const file = (event.target as HTMLInputElement).files[0];
+        this.imageFile = file;
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.imagePreview = reader.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    postImage() {
+        const formData = new FormData();
+        const filename = this.imageFile.name ;
+        formData.append('image', this.imageFile, filename);
+
+        const thisBrand = this.brandList[this.imageindex];
+        const brandId = thisBrand._id;
+        thisBrand.image = filename;
+
+        this.brandService.put(brandId, thisBrand).subscribe(
+            (response) => {
+                this.brandService.postImage(this.imageID, formData).subscribe(
+                    (response2) => {
+                        this.closeImageDialog();
+                        this.getBrands();
+                    }
+                );
+            });
     }
 }

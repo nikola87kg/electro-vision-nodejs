@@ -2,7 +2,7 @@
   "name": "electro-vision",
   "version": "0.0.0",
   "scripts": {
-    "angular": "ng build --watch",
+    "angular": "ng serve",
     "node": "nodemon --inspect server.js",
     "mongo": "md mongo-db & \"C:/Program Files/MongoDb/Server/3.6/bin/mongod.exe\" --dbpath mongo-db"
   },

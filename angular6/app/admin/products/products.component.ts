@@ -6,12 +6,15 @@ import { ProductsService } from '../../_services/products.service';
 import { GroupsService } from '../../_services/groups.service';
 import { BrandsService } from '../../_services/brands.service';
 import { CategoriesService } from '../../_services/categories.service';
+
+/* Material */
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 
 @Component({
     selector: 'px-products',
     templateUrl: './products.component.html'
 })
+
 export class ProductsComponent implements OnInit {
 
     /* Constructor */
@@ -20,8 +23,7 @@ export class ProductsComponent implements OnInit {
         private groupService: GroupsService,
         private categoryService: CategoriesService,
         private brandService: BrandsService
-    ) {
-    }
+    ) { }
 
     /* Declarations */
     product = {
@@ -49,28 +51,26 @@ export class ProductsComponent implements OnInit {
     productList = [];
     dataSource;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-
     filteredList = [];
     brandList = [];
     groupList = [];
     categoryList = [];
 
-    isAddDialogOpen = false;
-    isDialogEditing = false;
+    isAddDialogOpen: boolean;
+    isDialogEditing: boolean;
+    isImageDialogOpen: boolean;
     dialogTitle;
 
-    imageInDialog = '';
-    isImageDialogOpen = false;
-    imageFile;
+    imageFile: File;
     imagePreview;
     imageID;
-    imageindex = 0;
+    imageindex: number;
 
     baseUrl: String = 'http://localhost:3000/api';
     // url: this.baseUrl + '/products/images/{{id}},
 
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     /* INIT */
     ngOnInit() {
@@ -108,11 +108,9 @@ export class ProductsComponent implements OnInit {
     openImageDialog(event, index) {
         event.stopPropagation();
         this.imageID = this.productList[index]._id;
-        console.log(1, this.imageID);
 
         this.imageindex = index;
         this.isImageDialogOpen = true;
-        this.imageInDialog = this.productList[index].image;
         this.dialogTitle = 'Dodavanje slike';
     }
 
@@ -145,7 +143,7 @@ export class ProductsComponent implements OnInit {
     /* Update product */
     putProduct(product, event) {
         this.productService.put(product._id, product).subscribe(
-            data => {
+            (response) => {
                 this.closeDialog(event);
                 this.getProducts();
             }
@@ -201,6 +199,7 @@ export class ProductsComponent implements OnInit {
                 this.dataSource = new MatTableDataSource(this.productList);
                 this.dataSource.sort = this.sort;
                 this.dataSource.paginator = this.paginator;
+
             }
         );
     }
@@ -247,12 +246,17 @@ export class ProductsComponent implements OnInit {
     }
 
     postImage() {
-        const filename = this.imageFile.name || 'no-image';
+        const formData = new FormData();
+        const filename = this.imageFile.name ;
+        formData.append('image', this.imageFile, filename);
+
         const thisProduct = this.productList[this.imageindex];
+        const productId = thisProduct._id;
         thisProduct.image = filename;
-        this.productService.put(thisProduct._id, thisProduct).subscribe(
+
+        this.productService.put(productId, thisProduct).subscribe(
             (response) => {
-                this.productService.postImage(this.imageID, this.imageFile).subscribe(
+                this.productService.postImage(this.imageID, formData).subscribe(
                     (response2) => {
                         this.closeImageDialog();
                         this.getProducts();

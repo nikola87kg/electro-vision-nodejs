@@ -40,6 +40,6 @@ export class ProductsService {
 
     /* POST Product Image */
     postImage(id, file) {
-        return this.http.post<{title, success, data}>(this.baseUrl + '/products/images/' + id, file);
+        return this.http.post<any>(this.baseUrl + '/products/images/' + id, file);
     }
 }

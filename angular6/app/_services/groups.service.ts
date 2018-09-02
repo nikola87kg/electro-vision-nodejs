@@ -37,4 +37,9 @@ export class GroupsService {
     delete(id) {
         return this.http.delete(this.baseUrl + '/groups/' + id);
     }
+
+    /* POST Group Image */
+    postImage(id, file) {
+        return this.http.post<any>(this.baseUrl + '/groups/images/' + id, file);
+    }
 }

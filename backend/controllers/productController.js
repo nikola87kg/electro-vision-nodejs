@@ -7,41 +7,8 @@ var Product = require("../models/productModel");
 
 /* UPLOAD IMAGE */
 exports.storeProductImage = function(req, res) {
-    /* storage settings */
-    var storeFile = multer.diskStorage({
-        destination: function(req, file, callback) {
-            let folderDest =
-                "./dist/electro-vision/assets/uploads/products/" + req.params.id + "/";
-                if (!fs.existsSync(folderDest)) {
-                    fs.mkdir(folderDest, (error) => { console.log(error) });
-                }
-                callback(null, folderDest);
-        },
-        filename: function(req, file, callback) {
-            callback(null, file.originalname);
-        }
-    });
-    /* upload settings */
-    var uploadFile = multer({ storage: storeFile }).single("file");
-    /* backup settings */
-    ncp.limit = 16;
-    var originalFolder = './dist/electro-vision/assets/uploads';
-    var backupFolder = './backup';
-    /* upload image */
-    uploadFile(req, res, function(err) {
-        if (err) {
-            return res.status(501).json({ error: err });
-        }
-        ncp(originalFolder, backupFolder, function(err) {
-            if (err) {
-                return console.error(err);
-            }
-        });
-        res.status(200).json({
-            path: req.file.path,
-            image: req.file.originalname,
-            uploadName: req.file.filename
-        });
+    res.status(200).json({
+        image: req.file.originalname
     });
 }
 
@@ -54,7 +21,7 @@ exports.createProduct = function(req, res, next) {
         group: req.body.group,
         category: req.body.category,
         brand: req.body.brand,
-        image: "./assets/uploads/products/default.jpg"
+        image: "./assets/uploads/ev.jpeg"
     });
     productNew.save()
         .then( product => {
@@ -103,11 +70,13 @@ exports.getOneProduct = function(req, res, next) {
 
 /* UPDATE ONE */
 exports.updateProduct = function(req, res, next) {
-    let imagePath =  req.body.image;
-    if (req.body.image.split( '/' ).length < 2) {
-        imagePath = "./assets/uploads/products/" + req.params.id +  "/" +  req.body.image;
-    };
-    var productUpdated = ({
+    const url = req.protocol + "://" + req.get("host");
+
+    let imagePath = req.body.image;
+    if(req.body.image.split('/').length < 2) {
+        imagePath = url + "/uploads/" +  req.body.image;
+    }
+    var productUpdated = {
         name: req.body.name,
         slug: req.body.slug,
         category: req.body.category,
@@ -115,7 +84,7 @@ exports.updateProduct = function(req, res, next) {
         group: req.body.group,
         description: req.body.description,
         image: imagePath
-    });
+    };
     Product.findOneAndUpdate({ _id: req.params.id }, { $set: productUpdated})
         .then( product => {
             res.status(200).json({ object: product })
@@ -129,10 +98,10 @@ exports.updateProduct = function(req, res, next) {
 exports.deleteProduct = function(req, res, next) {
     Product.findOneAndRemove( {  _id: req.params.id } )
         .then( product => {
-            let folderDest = "./dist/electro-vision/assets/uploads/products/" + req.params.id + "/";
-            if (fs.existsSync(folderDest)) {
-                fs.remove(folderDest).then( console.log('deleted Product') );
-            }
+            // let folderDest = "./uploads/" + req.params.id + "/";
+            // if (fs.existsSync(folderDest)) {
+            //     fs.remove(folderDest).then( console.log('deleted Product') );
+            // }
             res.status(200).json({ object: product })
         })
         .catch( error => {

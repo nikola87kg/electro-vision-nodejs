@@ -1,4 +1,5 @@
 import { Injectable, HostListener } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +14,9 @@ export class GlobalService {
     onResize(event) {
         this.actualWidth = event.target.innerWidth;
     }
+
+    // const windowSize = new BehaviorSubject('wide');
+
     /* Screens */
     public bigScreen() {
         if (this.actualWidth > 1028) {
