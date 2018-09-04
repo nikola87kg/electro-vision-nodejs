@@ -18,6 +18,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { BrandsComponent } from './brands/brands.component';
 import { GroupsComponent } from './groups/groups.component';
 import { PreviewComponent } from './preview/preview.component';
+import { SnackbarComponent } from './snackbar/snackbar.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,11 @@ import { PreviewComponent } from './preview/preview.component';
     CategoriesComponent,
     BrandsComponent,
     GroupsComponent,
-    PreviewComponent
+    PreviewComponent,
+    SnackbarComponent
+  ],
+  entryComponents: [
+    SnackbarComponent
   ]
 })
 export class AdminModule { }

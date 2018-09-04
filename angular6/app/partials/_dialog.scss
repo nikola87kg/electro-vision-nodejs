@@ -71,11 +71,11 @@ mat-button-toggle-group {
 
 /* Image upload */
 .image-preview {
-    width: 90%;
+    width: 100%;
     text-align: center;
     img {
         margin-bottom : 20px;
-        max-width: 100%;
+        max-width: 90%;
         box-shadow: 1px 1px 20px 1px gray;
         cursor: pointer;
     }

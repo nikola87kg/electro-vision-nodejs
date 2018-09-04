@@ -128,13 +128,16 @@ export class BrandsComponent implements OnInit {
     }
 
     /* Delete Brand */
-    deleteBrand(id, index, event) {
+    deleteBrand(id, event) {
         let response: any = {
             title: ''
         };
         this.brandService.delete(id).subscribe(
             (data) => {
-                this.brandList.splice(index, 1);
+                this.brandList.splice(this.currentIndex, 1);
+                this.dataSource = new MatTableDataSource(this.brandList);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
                 this.closeDialog(event);
                 response = data;
             },

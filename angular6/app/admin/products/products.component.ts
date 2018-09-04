@@ -8,7 +8,8 @@ import { BrandsService } from '../../_services/brands.service';
 import { CategoriesService } from '../../_services/categories.service';
 
 /* Material */
-import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
     selector: 'px-products',
@@ -22,7 +23,8 @@ export class ProductsComponent implements OnInit {
         private productService: ProductsService,
         private groupService: GroupsService,
         private categoryService: CategoriesService,
-        private brandService: BrandsService
+        private brandService: BrandsService,
+        public snackBar: MatSnackBar
     ) { }
 
     /* Declarations */
@@ -101,14 +103,15 @@ export class ProductsComponent implements OnInit {
 
     closeDialog(event) {
         event.stopPropagation();
-        this.isAddDialogOpen = false;
+    this.isAddDialogOpen = false;
         this.clearForm();
     }
 
     openImageDialog(event, index) {
         event.stopPropagation();
+        this.imageFile = null;
+        this.imagePreview = null;
         this.imageID = this.productList[index]._id;
-
         this.imageindex = index;
         this.isImageDialogOpen = true;
         this.dialogTitle = 'Dodavanje slike';
@@ -136,6 +139,10 @@ export class ProductsComponent implements OnInit {
             (response) => {
                 this.closeDialog(event);
                 this.getProducts();
+                this.openSnackBar({
+                    action: 'create',
+                    type: 'product'
+                });
             }
         );
     }
@@ -146,23 +153,27 @@ export class ProductsComponent implements OnInit {
             (response) => {
                 this.closeDialog(event);
                 this.getProducts();
+                this.openSnackBar({
+                    action: 'update',
+                    type: 'product'
+                });
             }
         );
     }
 
     /* Delete product */
-    deleteProduct(id, index, event) {
-        let response: any = {
-            title: ''
-        };
+    deleteProduct(id, event) {
         this.productService.delete(id).subscribe(
-            (data) => {
-                this.productList.splice(index, 1);
+            (response) => {
+                this.productList.splice(this.currentIndex, 1);
+                this.dataSource = new MatTableDataSource(this.productList);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
                 this.closeDialog(event);
-                response = data;
-            },
-            (error) => {
-                response = error;
+                this.openSnackBar({
+                    action: 'delete',
+                    type: 'product'
+                });
             }
         );
     }
@@ -260,12 +271,20 @@ export class ProductsComponent implements OnInit {
                     (response2) => {
                         this.closeImageDialog();
                         this.getProducts();
+                        this.openSnackBar({
+                            action: 'update2',
+                            type: 'image'
+                        });
                     }
                 );
             });
     }
 
+    openSnackBar(object) {
+      this.snackBar.openFromComponent(SnackbarComponent, {
+        duration: 2000,
+        data: object,
+      });
+    }
 }
-
-
 

@@ -124,10 +124,13 @@ export class CategoriesComponent implements OnInit {
     }
 
     /* Delete category */
-    deleteCategory(id, index, event) {
+    deleteCategory(id, event) {
         this.categoryService.delete(id).subscribe(
             (response) => {
-                this.categoryList.splice(index, 1);
+                this.categoryList.splice(this.currentIndex, 1);
+                this.dataSource = new MatTableDataSource(this.categoryList);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
                 this.closeDialog(event);
             }
         );

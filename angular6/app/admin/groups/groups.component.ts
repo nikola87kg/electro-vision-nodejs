@@ -4,7 +4,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 /* Services */
 import { GroupsService } from '../../_services/groups.service';
 import { CategoriesService } from '../../_services/categories.service';
-import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+
+/* Material */
+import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
     selector: 'px-groups',
@@ -17,6 +20,7 @@ export class GroupsComponent implements OnInit {
     constructor(
         private groupService: GroupsService,
         private categoryService: CategoriesService,
+        public snackBar: MatSnackBar
     ) {}
 
     /* Declarations */
@@ -118,6 +122,10 @@ export class GroupsComponent implements OnInit {
             (response) => {
             this.closeDialog(event);
             this.getGroups();
+            this.openSnackBar({
+                action: 'create2',
+                type: 'group'
+            });
             }
         );
     }
@@ -128,16 +136,27 @@ export class GroupsComponent implements OnInit {
             (response) => {
                 this.closeDialog(event);
                 this.getGroups();
+                this.openSnackBar({
+                    action: 'update2',
+                    type: 'group'
+                });
             }
         );
     }
 
     /* Delete group */
-    deleteGroup(id, index, event) {
+    deleteGroup(id, event) {
         this.groupService.delete(id).subscribe(
             (response) => {
-                this.groupList.splice(index, 1);
+                this.groupList.splice(this.currentIndex, 1);
+                this.dataSource = new MatTableDataSource(this.groupList);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
                 this.closeDialog(event);
+                this.openSnackBar({
+                    action: 'delete2',
+                    type: 'group'
+                });
             }
         );
     }
@@ -199,8 +218,19 @@ export class GroupsComponent implements OnInit {
                     (response2) => {
                         this.closeImageDialog();
                         this.getGroups();
+                        this.openSnackBar({
+                            action: 'update2',
+                            type: 'image'
+                        });
                     }
                 );
             });
+    }
+
+    openSnackBar(object) {
+      this.snackBar.openFromComponent(SnackbarComponent, {
+        duration: 2000,
+        data: object,
+      });
     }
 }

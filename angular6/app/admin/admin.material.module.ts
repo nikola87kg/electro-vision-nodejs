@@ -12,7 +12,8 @@ import {
     MatButtonToggleModule,
     MatSortModule,
     MatPaginatorModule,
-    MatPaginatorIntl
+    MatPaginatorIntl,
+    MatSnackBarModule
 } from '@angular/material';
 
 const adminMaterialModules = [
@@ -26,7 +27,8 @@ const adminMaterialModules = [
     MatButtonToggleModule,
     MatInputModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
 ];
 
 @NgModule({

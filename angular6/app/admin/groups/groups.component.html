@@ -137,7 +137,7 @@
         <!-- dialog footer -->
         <div class="dialog-footer">
             <mat-button-toggle-group #group="matButtonToggleGroup">
-                <mat-button-toggle class="delete-item" (click)="deleteGroup(subcategory._id, currentIndex, $event)" *ngIf="isDialogEditing">
+                <mat-button-toggle class="delete-item" (click)="deleteGroup(subcategory._id, $event)" *ngIf="isDialogEditing">
                     Obriši
                 </mat-button-toggle>
                 <mat-button-toggle class="cancel-item" (click)="closeDialog($event)">
