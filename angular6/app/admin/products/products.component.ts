@@ -12,6 +12,9 @@ import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { GlobalService } from '../../_services/global.service';
 
+/* Interfaces */
+import { ProductModel, ProductColumns, BrandModel, GroupModel, CategoryModel } from '../admin.interfaces';
+
 @Component({
     selector: 'px-products',
     templateUrl: './products.component.html'
@@ -29,36 +32,17 @@ export class ProductsComponent implements OnInit {
         public global: GlobalService
     ) { }
 
-    /* Declarations */
-    product = {
-        name: '',
-        slug: '',
-        description: '',
-        category: { _id: '', name: '' },
-        group: { _id: '', name: '' },
-        brand: { _id: '', name: '' },
-        image: ''
-    };
-
-    displayedColumns: string[] = [
-        'position',
-        'image',
-        'name',
-        'category',
-        'group',
-        'brand',
-        'created'
-    ];
+    product: ProductModel;
+    displayedColumns = ProductColumns;
 
     windowSize;
     currentIndex: number;
-    productList = [];
+    productList: Array<ProductModel> ;
     dataSource;
 
-    filteredList = [];
-    brandList = [];
-    groupList = [];
-    categoryList = [];
+    brandList: Array<BrandModel>;
+    groupList: Array<GroupModel>;
+    categoryList: Array<CategoryModel>;
 
     isAddDialogOpen: boolean;
     isDialogEditing: boolean;
@@ -69,9 +53,6 @@ export class ProductsComponent implements OnInit {
     imagePreview;
     imageID;
     imageindex: number;
-
-    baseUrl: String = 'http://localhost:3000/api';
-    // url: this.baseUrl + '/products/images/{{id}},
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -128,13 +109,15 @@ export class ProductsComponent implements OnInit {
 
     clearForm() {
         this.product = {
+            _id: '',
             name: '',
             slug: '',
             description: '',
             category: { _id: '', name: '' },
             group: { _id: '', name: '' },
             brand: { _id: '', name: '' },
-            image: ''
+            image: '',
+            createdAt: null
         };
     }
 

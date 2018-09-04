@@ -7,6 +7,9 @@ import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular
 import { GlobalService } from '../../_services/global.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 
+/* Interfaces */
+import { CategoryModel, CategoryColumns } from '../admin.interfaces';
+
 @Component({
     selector: 'px-categories',
     templateUrl: './categories.component.html'
@@ -20,23 +23,11 @@ export class CategoriesComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) {}
 
-    /* Declarations */
-    category = {
-        name: '',
-        slug: '',
-        description: '',
-        image: ''
-    };
+    category: CategoryModel;
+    displayedColumns = CategoryColumns;
 
-    displayedColumns: string[] = [
-        'position',
-        'image',
-        'name',
-        'created'
-    ];
-
-    windowSize;
-    categoryList = [];
+    windowSize: string;
+    categoryList: Array<CategoryModel>;
     currentIndex: number;
     dataSource;
 
@@ -49,8 +40,6 @@ export class CategoriesComponent implements OnInit {
     imagePreview;
     imageID;
     imageindex: number;
-
-    baseUrl: String = 'http://localhost:3000/api';
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -102,10 +91,12 @@ export class CategoriesComponent implements OnInit {
 
     clearForm() {
         this.category = {
+            _id: '',
             name: '',
             slug: '',
             description: '',
-            image: ''
+            image: '',
+            createdAt: null
         };
     }
     /* Add new category */

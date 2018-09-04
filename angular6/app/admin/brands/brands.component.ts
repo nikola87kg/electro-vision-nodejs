@@ -9,6 +9,9 @@ import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '../../..
 import { GlobalService } from '../../_services/global.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 
+/* Interfaces */
+import { BrandModel, BrandColumns } from '../admin.interfaces';
+
 /* Decorator */
 @Component({
     selector: 'px-brands',
@@ -24,23 +27,11 @@ export class BrandsComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) {}
 
-    /* Declarations */
-    brand = {
-        name: '',
-        slug: '',
-        description: '',
-        image: ''
-    };
-
-    displayedColumns: string[] = [
-        'position',
-        'image',
-        'name',
-        'created'
-    ];
+    brand: BrandModel;
+    displayedColumns = BrandColumns;
 
     windowSize;
-    brandList = [];
+    brandList: Array<BrandModel>;
     currentIndex: number;
     dataSource;
 
@@ -56,9 +47,6 @@ export class BrandsComponent implements OnInit {
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
-
-    baseUrl: String = 'http://localhost:3000/api';
-
 
     /* INIT */
     ngOnInit() {
@@ -107,10 +95,12 @@ export class BrandsComponent implements OnInit {
 
     clearForm() {
         this.brand = {
+            _id: '',
             name: '',
             slug: '',
             description: '',
-            image: ''
+            image: '',
+            createdAt: null
         };
     }
 

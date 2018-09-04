@@ -10,6 +10,9 @@ import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { GlobalService } from '../../_services/global.service';
 
+/* Interfaces */
+import { GroupModel, GroupColumns, CategoryModel } from '../admin.interfaces';
+
 @Component({
     selector: 'px-groups',
     templateUrl: './groups.component.html'
@@ -25,30 +28,15 @@ export class GroupsComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) {}
 
-    /* Declarations */
-    subcategory = {
-        name: '',
-        slug: '',
-        description: '',
-        category: { _id: '', name: '' },
-        image: ''
-    };
-
-    displayedColumns: string[] = [
-        'position',
-        'image',
-        'name',
-        'category',
-        'created'
-    ];
+    subcategory: GroupModel;
+    displayedColumns = GroupColumns;
 
     windowSize;
-    groupList = [];
+    groupList: Array<GroupModel>;
+    categoryList: Array<CategoryModel>;
     currentIndex: number;
     dataSource;
 
-    filteredList = [];
-    categoryList = [];
 
     isAddDialogOpen: boolean;
     isDialogEditing: boolean;
@@ -59,8 +47,6 @@ export class GroupsComponent implements OnInit {
     imagePreview;
     imageID;
     imageindex: number;
-
-    baseUrl: String = 'http://localhost:3000/api';
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -113,11 +99,13 @@ export class GroupsComponent implements OnInit {
 
     clearForm() {
         this.subcategory = {
+            _id: '',
             name: '',
             slug: '',
-            category: { _id: '', name: '' },
             description: '',
-            image: ''
+            image: '',
+            category: { _id: '', name: '' },
+            createdAt: null
         };
     }
 
