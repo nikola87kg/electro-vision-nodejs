@@ -4,15 +4,14 @@
 .group-background {
     background: url("../../../assets/baner/banner-page.png") no-repeat top center fixed;
     background-size: cover;
-    height: 200px;
+    line-height: 170px;
     text-align: center;
     vertical-align: middle;
     h1 {
         color: white;
-        font-style: italic;
-        line-height: 150px;
-        font-size: 3rem;
-        text-shadow: 1px 1px $accent-color, -1px -1px $accent-color;
+        font-style: normal;
+        line-height: 170px;
+        font-size: 45px;
     }
 }
 
