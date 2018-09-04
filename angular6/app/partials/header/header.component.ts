@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ProductsService } from '../../_services/products.service';
@@ -26,8 +26,23 @@ export class HeaderComponent implements OnInit {
     searchInput = new FormControl();
     options = [];
     filteredOptions: Observable<any[]>;
+    windowSize = null;
+
+    @HostListener('window:resize', ['$event']) onResize(event) {
+        const innerWidth = event.target.innerWidth;
+        if (innerWidth > 1028) {
+            this.windowSize = 'large';
+        } else if (innerWidth > 768) {
+            this.windowSize = 'medium';
+        } else {
+            this.windowSize = 'small';
+        }
+        this.global.windowSize.next(this.windowSize);
+    }
 
     ngOnInit() {
+        this.checkWidth();
+        this.global.windowSize.next(this.windowSize);
         this.getAllProuducts();
         setTimeout(() => {
             this.filteredOptions = this.searchInput.valueChanges.pipe(
@@ -56,5 +71,17 @@ export class HeaderComponent implements OnInit {
     goToProduct(slug) {
         this.showResult = false;
         this.router.navigate(['/proizvod/' + slug]);
+    }
+
+    checkWidth() {
+        const innerWidth = window.innerWidth;
+        if (innerWidth > 1028) {
+            this.windowSize = 'large';
+        } else if (innerWidth > 768) {
+            this.windowSize = 'medium';
+        } else {
+            this.windowSize = 'small';
+        }
+        this.global.windowSize.next(this.windowSize);
     }
 }

@@ -72,17 +72,6 @@ carousel h3 {
             color: gray;
             vertical-align: middle;
             text-align: left;
-            div.thumb-wrapper {
-                display: inline-block;
-                height: 50px;
-                width: 100px;
-                padding: 0;
-                vertical-align: middle;
-                text-align: left;
-                height: 50px;
-                width: 50px;
-                border: 1px solid lightgray;
-            }
             &.headline {
                 padding: 7px 5px;
                 color: $primary-color;
@@ -100,6 +89,9 @@ carousel h3 {
                 &:hover {
                     color: $category-color;
                     border-bottom: 1px solid $category-color;
+                }
+                .small-text-category {
+                    font-size: 14px;
                 }
             }
         }

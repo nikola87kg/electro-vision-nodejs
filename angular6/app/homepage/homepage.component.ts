@@ -18,7 +18,7 @@ export class HomepageComponent implements OnInit {
     brandList = [];
     categoryList = [];
     navItemsVisible = false;
-    actualWidth = window.innerWidth;
+    windowSize;
     isLoaded = false;
 
     constructor(
@@ -27,21 +27,6 @@ export class HomepageComponent implements OnInit {
         private productService: ProductsService,
         public global: GlobalService,
         private router: Router) {}
-
-    /* Screens */
-    public bigScreen() {
-        if (this.actualWidth > 1028) {
-            return true;
-        }
-        return false;
-    }
-
-    public smallScreen() {
-        if (this.actualWidth < 768) {
-            return true;
-        }
-        return false;
-    }
 
     /* INIT */
     onLoad() {
@@ -55,6 +40,9 @@ export class HomepageComponent implements OnInit {
         setTimeout(() => {
             this.onLoad();
         }, 1);
+        this.global.windowSize.subscribe(
+            (result => this.windowSize = result)
+        )
     }
 
     /* Get products + filter */

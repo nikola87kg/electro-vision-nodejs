@@ -3,7 +3,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
 import { CategoriesService } from '../../_services/categories.service';
-import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { GlobalService } from '../../_services/global.service';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
     selector: 'px-categories',
@@ -13,7 +15,9 @@ export class CategoriesComponent implements OnInit {
 
     /* Constructor */
     constructor(
-        private categoryService: CategoriesService
+        private categoryService: CategoriesService,
+        public global: GlobalService,
+        public snackBar: MatSnackBar,
     ) {}
 
     /* Declarations */
@@ -31,7 +35,7 @@ export class CategoriesComponent implements OnInit {
         'created'
     ];
 
-    actualWidth = window.innerWidth;
+    windowSize;
     categoryList = [];
     currentIndex: number;
     dataSource;
@@ -53,6 +57,9 @@ export class CategoriesComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
+        this.global.windowSize.subscribe(
+            (result => this.windowSize = result)
+        );
         this.getCategories();
     }
 
@@ -107,10 +114,11 @@ export class CategoriesComponent implements OnInit {
             (response) => {
                 this.closeDialog(event);
                 this.getCategories();
-            },
-            (error) => {
-            }
-        );
+                this.openSnackBar({
+                    action: 'create2',
+                    type: 'category'
+                });
+            });
     }
 
     /* Update category */
@@ -119,6 +127,10 @@ export class CategoriesComponent implements OnInit {
             (response) => {
                 this.closeDialog(event);
                 this.getCategories();
+                this.openSnackBar({
+                    action: 'update2',
+                    type: 'category'
+                });
             }
         );
     }
@@ -132,6 +144,10 @@ export class CategoriesComponent implements OnInit {
                 this.dataSource.sort = this.sort;
                 this.dataSource.paginator = this.paginator;
                 this.closeDialog(event);
+                this.openSnackBar({
+                    action: 'delete2',
+                    type: 'category'
+                });
             }
         );
     }
@@ -144,13 +160,6 @@ export class CategoriesComponent implements OnInit {
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
         });
-    }
-    /* Screens */
-    public smallScreen() {
-        if (this.actualWidth < 768) {
-            return true;
-        }
-        return false;
     }
 
     /* Image upload */
@@ -180,8 +189,20 @@ export class CategoriesComponent implements OnInit {
                     (response2) => {
                         this.closeImageDialog();
                         this.getCategories();
+                        this.openSnackBar({
+                            action: 'update2',
+                            type: 'image'
+                        });
                     }
                 );
             });
+    }
+
+    /* Snackbar */
+    openSnackBar(object) {
+      this.snackBar.openFromComponent(SnackbarComponent, {
+        duration: 2000,
+        data: object,
+      });
     }
 }

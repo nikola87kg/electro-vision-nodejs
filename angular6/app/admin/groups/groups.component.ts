@@ -8,6 +8,7 @@ import { CategoriesService } from '../../_services/categories.service';
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { GlobalService } from '../../_services/global.service';
 
 @Component({
     selector: 'px-groups',
@@ -20,7 +21,8 @@ export class GroupsComponent implements OnInit {
     constructor(
         private groupService: GroupsService,
         private categoryService: CategoriesService,
-        public snackBar: MatSnackBar
+        public global: GlobalService,
+        public snackBar: MatSnackBar,
     ) {}
 
     /* Declarations */
@@ -40,7 +42,7 @@ export class GroupsComponent implements OnInit {
         'created'
     ];
 
-    actualWidth = window.innerWidth;
+    windowSize;
     groupList = [];
     currentIndex: number;
     dataSource;
@@ -65,6 +67,9 @@ export class GroupsComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
+        this.global.windowSize.subscribe(
+            (result => this.windowSize = result)
+        );
         this.getGroups();
         this.getCategories();
     }
@@ -184,13 +189,6 @@ export class GroupsComponent implements OnInit {
         });
     }
 
-    /* Screens */
-    public smallScreen() {
-        if (this.actualWidth < 768) {
-            return true;
-        }
-        return false;
-    }
     /* Image upload */
 
     onImagePicked(event: Event) {
@@ -227,10 +225,11 @@ export class GroupsComponent implements OnInit {
             });
     }
 
+    /* Snackbar */
     openSnackBar(object) {
-      this.snackBar.openFromComponent(SnackbarComponent, {
-        duration: 2000,
-        data: object,
-      });
-    }
+        this.snackBar.openFromComponent(SnackbarComponent, {
+          duration: 2000,
+          data: object,
+        });
+      }
 }

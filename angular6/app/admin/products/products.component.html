@@ -135,7 +135,7 @@
     #paginator
     [pageSize] = "10"
     [pageSizeOptions] =  "[5, 10, 20, 50]"
-    [showFirstLastButtons] = "smallScreen() ? false : true">
+    [showFirstLastButtons] = " windowSize !== 'small' ">
 </mat-paginator>
 
 <!-- ADD/EDIT DIALOG -->
@@ -251,7 +251,7 @@
                 (click)="filePicker.click()">
                 <span *ngIf="imageFile">
                     {{ imageFile.name }}
-                    ({{ imageFile.size / 1000 | number:'1.0-0'  }} MB)
+                    ({{ imageFile.size / 1000 | number:'1.0-0' }} kb)
                 </span>
                 <span *ngIf="!imageFile">Izaberi fotografiju</span>
             </button>

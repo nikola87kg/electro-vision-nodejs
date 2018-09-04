@@ -6,10 +6,10 @@
 
     <!-- 1. LOGO  -->
     <a class="logo" routerLink="/">
-        <span *ngIf="!global.smallScreen()">Electro</span>
-        <span *ngIf="!global.smallScreen()">Vision</span>
-        <span *ngIf="global.smallScreen()">E</span>
-        <span *ngIf="global.smallScreen()">V</span>
+        <span *ngIf=" windowSize !== 'small' ">Electro</span>
+        <span *ngIf=" windowSize !== 'small' ">Vision</span>
+        <span *ngIf=" windowSize === 'small' ">E</span>
+        <span *ngIf=" windowSize === 'small' ">V</span>
     </a>
 
     <!-- 2. SEARCH -->

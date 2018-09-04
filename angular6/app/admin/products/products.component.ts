@@ -10,6 +10,7 @@ import { CategoriesService } from '../../_services/categories.service';
 /* Material */
 import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { GlobalService } from '../../_services/global.service';
 
 @Component({
     selector: 'px-products',
@@ -24,7 +25,8 @@ export class ProductsComponent implements OnInit {
         private groupService: GroupsService,
         private categoryService: CategoriesService,
         private brandService: BrandsService,
-        public snackBar: MatSnackBar
+        public snackBar: MatSnackBar,
+        public global: GlobalService
     ) { }
 
     /* Declarations */
@@ -48,7 +50,7 @@ export class ProductsComponent implements OnInit {
         'created'
     ];
 
-    actualWidth = window.innerWidth;
+    windowSize;
     currentIndex: number;
     productList = [];
     dataSource;
@@ -76,6 +78,9 @@ export class ProductsComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
+        this.global.windowSize.subscribe(
+            (result => this.windowSize = result)
+        );
         this.getGroups();
         this.getBrands();
         this.getProducts();
@@ -236,14 +241,6 @@ export class ProductsComponent implements OnInit {
         });
     }
 
-    /* Screens */
-    public smallScreen() {
-        if (this.actualWidth < 768) {
-            return true;
-        }
-        return false;
-    }
-
     /* Image upload */
 
     onImagePicked(event: Event) {
@@ -280,6 +277,7 @@ export class ProductsComponent implements OnInit {
             });
     }
 
+    /* Snackbar */
     openSnackBar(object) {
       this.snackBar.openFromComponent(SnackbarComponent, {
         duration: 2000,

@@ -1,4 +1,5 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GlobalService } from '../../_services/global.service';
 
 @Component({
     selector: 'px-navigation-menu',
@@ -7,7 +8,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 })
 export class NavigationMenuComponent implements OnInit {
     navItemsVisible = false;
-    actualWidth = window.innerWidth;
+    windowSize;
 
     navItems = [
         { id: 1, name: 'Početna', link: '/pocetna', icon: 'home' },
@@ -19,32 +20,13 @@ export class NavigationMenuComponent implements OnInit {
         { id: 7, name: 'O nama', link: '/o-nama', icon: 'assignment_ind' }
     ];
 
-    constructor() {}
+    constructor( public global: GlobalService ) {}
 
-    @HostListener('window:resize', ['$event'])
-    onResize(event) {
-        this.actualWidth = event.target.innerWidth;
-    }
 
     ngOnInit() {
-        if (this.actualWidth > 768) {
-            this.navItemsVisible = true;
-        }
-    }
-
-    /* Screens */
-    public bigScreen() {
-        if (this.actualWidth > 1028) {
-            return true;
-        }
-        return false;
-    }
-
-    public smallScreen() {
-        if (this.actualWidth < 768) {
-            return true;
-        }
-        return false;
+        this.global.windowSize.subscribe(
+            (result => this.windowSize = result)
+        );
     }
 
     /* Toggle Lists */

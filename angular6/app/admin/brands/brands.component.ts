@@ -5,7 +5,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BrandsService } from '../../_services/brands.service';
 
 /* Material */
-import { MatSort, MatPaginator, MatTableDataSource } from '../../../../node_modules/@angular/material';
+import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '../../../../node_modules/@angular/material';
+import { GlobalService } from '../../_services/global.service';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 /* Decorator */
 @Component({
@@ -17,7 +19,9 @@ export class BrandsComponent implements OnInit {
 
     /* Constructor */
     constructor(
-        private brandService: BrandsService
+        private brandService: BrandsService,
+        public global: GlobalService,
+        public snackBar: MatSnackBar,
     ) {}
 
     /* Declarations */
@@ -35,7 +39,7 @@ export class BrandsComponent implements OnInit {
         'created'
     ];
 
-    actualWidth = window.innerWidth;
+    windowSize;
     brandList = [];
     currentIndex: number;
     dataSource;
@@ -58,6 +62,9 @@ export class BrandsComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
+        this.global.windowSize.subscribe(
+            (result => this.windowSize = result)
+        );
         this.getBrands();
     }
 
@@ -113,6 +120,10 @@ export class BrandsComponent implements OnInit {
             (response) => {
                 this.closeDialog(event);
                 this.getBrands();
+                this.openSnackBar({
+                    action: 'create',
+                    type: 'brand'
+                });
             }
         );
     }
@@ -123,15 +134,16 @@ export class BrandsComponent implements OnInit {
             (data) => {
                 this.closeDialog(event);
                 this.getBrands();
+                this.openSnackBar({
+                    action: 'update',
+                    type: 'brand'
+                });
             }
         );
     }
 
     /* Delete Brand */
     deleteBrand(id, event) {
-        let response: any = {
-            title: ''
-        };
         this.brandService.delete(id).subscribe(
             (data) => {
                 this.brandList.splice(this.currentIndex, 1);
@@ -139,10 +151,10 @@ export class BrandsComponent implements OnInit {
                 this.dataSource.sort = this.sort;
                 this.dataSource.paginator = this.paginator;
                 this.closeDialog(event);
-                response = data;
-            },
-            (error) => {
-                response = error;
+                this.openSnackBar({
+                    action: 'delete',
+                    type: 'brand'
+                });
             }
         );
     }
@@ -155,14 +167,6 @@ export class BrandsComponent implements OnInit {
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
         });
-    }
-
-    /* Screens */
-    public smallScreen() {
-        if (this.actualWidth < 768) {
-            return true;
-        }
-        return false;
     }
 
     /* Image upload */
@@ -192,8 +196,20 @@ export class BrandsComponent implements OnInit {
                     (response2) => {
                         this.closeImageDialog();
                         this.getBrands();
+                        this.openSnackBar({
+                            action: 'update2',
+                            type: 'image'
+                        });
                     }
                 );
             });
+    }
+
+    /* Snackbar */
+    openSnackBar(object) {
+      this.snackBar.openFromComponent(SnackbarComponent, {
+        duration: 2000,
+        data: object,
+      });
     }
 }
