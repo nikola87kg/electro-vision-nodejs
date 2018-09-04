@@ -2,8 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-/* RxJs */
-import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ import { Observable } from 'rxjs';
 export class CategoriesService {
     constructor(private http: HttpClient) {}
 
-    baseUrl = 'http://localhost:3000/api';
+    baseUrl = environment.baseUrl;
 
     /* GET categories */
     get() {

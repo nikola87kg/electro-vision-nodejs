@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { GlobalService } from '../../_services/global.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { GlobalService } from '../../_services/global.service';
 })
 export class NavigationMenuComponent implements OnInit {
     navItemsVisible = false;
-    windowSize;
+    actualWidth;
 
     navItems = [
         { id: 1, name: 'Početna', link: '/pocetna', icon: 'home' },
@@ -20,13 +20,14 @@ export class NavigationMenuComponent implements OnInit {
         { id: 7, name: 'O nama', link: '/o-nama', icon: 'assignment_ind' }
     ];
 
+    @HostListener('window:resize', ['$event']) onResize(event) {
+        this.actualWidth = event.target.innerWidth;
+    }
+
     constructor( public global: GlobalService ) {}
 
 
     ngOnInit() {
-        this.global.windowSize.subscribe(
-            (result => this.windowSize = result)
-        );
     }
 
     /* Toggle Lists */
