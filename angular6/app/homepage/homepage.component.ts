@@ -48,7 +48,9 @@ export class HomepageComponent implements OnInit {
     /* Get products + filter */
     getProducts() {
         this.productService.get().subscribe(response => {
-            this.productList = response.object;
+            this.productList = response.object.filter(
+                item => item.vip === true
+            );
         });
     }
 
