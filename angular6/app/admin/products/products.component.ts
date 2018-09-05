@@ -111,6 +111,7 @@ export class ProductsComponent implements OnInit {
         this.product = {
             _id: '',
             name: '',
+            vip: false,
             slug: '',
             description: '',
             category: { _id: '', name: '' },

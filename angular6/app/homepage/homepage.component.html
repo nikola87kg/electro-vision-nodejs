@@ -67,23 +67,23 @@
                 </h4>
                 <!-- list -->
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 top-product-box"
-                         *ngFor="let prod of productList; let i = index"
-                         (click)="goToProduct(prod.slug)">
-                        <div style="margin-bottom: 10px;">
-                            <div class="col-sm-12 image">
-                                <img *ngIf="prod.image" src="{{prod.image}}">
-                                <img *ngIf="!prod.image" src=".\assets\default_images\default-product.jpg">
-                            </div>
-                            <div class="col-sm-12">
-                                <h5> {{prod.name}} </h5>
-                                <h6> Proizvođač: {{prod.brand.name}} </h6>
-                                <h6> Grupa: {{prod.group.name}} </h6>
-                                <h6> Kategorija: {{prod.category.name}} </h6>
-                                <!-- <p> "{{prod.description}}" </p> -->
+                    <ng-container *ngFor="let prod of productList | slice:0:3; let i = index ">
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 top-product-box"
+                                (click)="goToProduct(prod.slug)"  *ngIf="prod.vip">
+                            <div style="margin-bottom: 10px;">
+                                <div class="col-sm-12 image">
+                                    <img *ngIf="prod.image" src="{{prod.image}}">
+                                    <img *ngIf="!prod.image" src=".\assets\default_images\default-product.jpg">
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5> {{prod.name}} </h5>
+                                    <h6> Proizvođač: {{prod.brand.name}} </h6>
+                                    <h6> Grupa: {{prod.group.name}} </h6>
+                                    <h6> Kategorija: {{prod.category.name}} </h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </ng-container>
                 </div>
             </div>
 

@@ -16,6 +16,7 @@ exports.storeProductImage = function(req, res) {
 exports.createProduct = function(req, res, next) {
     var productNew = new Product({
         name: req.body.name,
+        vip: req.body.vip,
         description: req.body.description,
         slug: req.body.slug,
         group: req.body.group,
@@ -78,6 +79,7 @@ exports.updateProduct = function(req, res, next) {
     }
     var productUpdated = {
         name: req.body.name,
+        vip: req.body.vip,
         slug: req.body.slug,
         category: req.body.category,
         brand: req.body.brand,

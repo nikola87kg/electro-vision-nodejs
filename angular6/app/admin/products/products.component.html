@@ -88,6 +88,14 @@
             <td mat-cell *matCellDef="let item"> {{ item.slug }} </td>
         </ng-container>
 
+        <!-- Slug Column Setup -->
+        <ng-container matColumnDef="vip">
+            <th mat-header-cell *matHeaderCellDef> VIP </th>
+            <td mat-cell *matCellDef="let item"> 
+                {{ item.vip ? 'Da' : 'Ne' }}
+            </td>
+        </ng-container>
+
         <!-- Description Column Setup -->
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef> Opis </th>
@@ -197,6 +205,11 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
+
+        <!-- Vip -->
+        <mat-checkbox [(ngModel)]="product.vip" color="primary" name="vip" >
+            VIP proizvod
+        </mat-checkbox>
 
         <br>
         <br>

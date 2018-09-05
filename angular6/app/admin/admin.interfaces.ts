@@ -2,6 +2,7 @@
 
 export interface ProductModel {
     _id: string;
+    vip: boolean;
     name: string;
     slug: string;
     description: string;
@@ -16,6 +17,7 @@ export const ProductColumns = [
     'position',
     'image',
     'name',
+    'vip',
     'category',
     'group',
     'brand',

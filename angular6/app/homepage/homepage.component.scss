@@ -133,8 +133,8 @@ carousel h3 {
             text-align: center;
             overflow: hidden;
             &:hover img {
-                transform: scale(1.1) ;
-                filter: grayscale(1);
+                transform: scale(1.03) ;
+                filter: grayscale(0.5);
                 transition: 0.3s ease-out;
             }
         }
@@ -144,7 +144,6 @@ carousel h3 {
             max-width: 250px;
             max-height: 250px;
             margin-top: 10px;
-            height: 100%;
             max-width: 250px;
             max-height: 130px;
         }

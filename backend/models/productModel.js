@@ -10,6 +10,7 @@ var Schema = mongoose.Schema;
 /* Creates a schema */
 var productSchema = new Schema({
     name:           {type: String, required: true, index: true},
+    vip:            {type: Boolean, default: false},
     description:    {type: String},
     slug:           {type: String, required: true, trim: true},
     category:       {type: Schema.Types.ObjectId, ref: 'Category', required: true},
