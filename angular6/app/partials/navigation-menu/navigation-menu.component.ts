@@ -8,7 +8,7 @@ import { GlobalService } from '../../_services/global.service';
 })
 export class NavigationMenuComponent implements OnInit {
     navItemsVisible = false;
-    actualWidth;
+    actualWidth = window.innerWidth;
 
     navItems = [
         { id: 1, name: 'Početna', link: '/pocetna', icon: 'home' },

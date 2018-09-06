@@ -11,6 +11,7 @@ import { CategoriesService } from '../../_services/categories.service';
 import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { GlobalService } from '../../_services/global.service';
+import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
 
 /* Interfaces */
 import { ProductModel, ProductColumns, BrandModel, GroupModel, CategoryModel } from '../admin.interfaces';
@@ -66,6 +67,7 @@ export class ProductsComponent implements OnInit {
         this.getBrands();
         this.getProducts();
         this.getCategories();
+
     }
 
     /* Dialog  */
@@ -122,8 +124,17 @@ export class ProductsComponent implements OnInit {
         };
     }
 
+    fixSlug(text: string) {
+        const options = { maintainCase: false,separator: '-' };
+        const mySlug = slugify.createSlug(options);
+        const slug = mySlug(text);
+        return slug;
+    }
+
     /* Add new product */
     postProduct(product, event) {
+        const fixedSlug = this.fixSlug(product.slug);
+        product.slug = fixedSlug;
         this.productService.post(product).subscribe(
             (response) => {
                 this.closeDialog(event);
@@ -138,6 +149,8 @@ export class ProductsComponent implements OnInit {
 
     /* Update product */
     putProduct(product, event) {
+        const fixedSlug = this.fixSlug(product.slug);
+        product.slug = fixedSlug;
         this.productService.put(product._id, product).subscribe(
             (response) => {
                 this.closeDialog(event);

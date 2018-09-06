@@ -51,7 +51,9 @@
               },
               "angular6/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/speakingurl/speakingurl.min.js"
+            ]
           },
           "configurations": {
             "production": {

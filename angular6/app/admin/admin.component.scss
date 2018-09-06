@@ -39,15 +39,19 @@ nav {
         &:focus {
             outline: none;
         }
+        &:hover {
+            color: rgb(165, 165, 165);
+            text-decoration: none;
+        }
         &.active {
             outline: none;
             background: white;
             color: $primary-color;
             font-weight: bold;
-        }
-        &:hover {
-            font-weight: bold;
-            text-decoration: none;
+            &:hover {
+                background: rgb(165, 165, 165);
+                color: $primary-color;
+            }
         }
         i {
             display: inline-block;
@@ -114,7 +118,7 @@ table.full-screen {
 
 mat-form-field {
     margin: 0 20px;
-    width: 100px;
+    width: 150px;
     @media screen and (max-width: 768px) {
         margin: 0 5px;
         width: 85px;
