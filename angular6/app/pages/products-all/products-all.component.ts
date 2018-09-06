@@ -15,8 +15,8 @@ export class ProductsAllComponent implements OnInit {
     currentLevel: number;
     currentList: Array<any>;
     categoryList: Array<any>;
-    lastCategoryID: any;
-    lastGroupID: any;
+    lastCategory: any;
+    lastGroup: any;
     selectedItemName = 'Sve kategorije';
     selectedCategory = {};
 
@@ -44,22 +44,27 @@ export class ProductsAllComponent implements OnInit {
             this.currentLevel = this.currentLevel + increment;
         }
         if ( this.currentLevel === 1 ) {
+            /* CategoryList */
             this.getCategories();
             this.selectedItemName = 'Sve kategorije';
         } else if ( this.currentLevel === 2 ) {
-            let tempID = this.lastCategoryID;
+            /* GroupList */
+            let tempID = this.lastCategory ? this.lastCategory._id : null;
+            this.selectedItemName = 'Filtrirane grupe proizvoda';
             if (item) {
                 tempID = item._id;
-                this.lastCategoryID = item._id;
+                this.lastCategory = item;
+                this.selectedCategory = item;
+            } else {
+                this.selectedCategory = this.lastCategory;
             }
             this.getGroups(tempID);
-            this.selectedItemName = 'Filtrirane grupe proizvoda';
-            this.selectedCategory = item;
         } else if ( this.currentLevel === 3 ) {
-            let tempID = this.lastCategoryID;
+            /* ProductList */
+            let tempID = this.lastCategory._id;
             if (item) {
                 tempID = item._id;
-                this.lastGroupID = item._id;
+                this.lastGroup = item;
             }
             this.getProducts(tempID);
             this.selectedItemName = 'Filtrirani proizvodi';
@@ -80,9 +85,18 @@ export class ProductsAllComponent implements OnInit {
     /* Get groups by Category */
     getGroups(categoryId) {
         this.groupService.get().subscribe(response => {
-            this.currentList = response.object.filter(
-                group => group.category._id === categoryId
-            );
+            // this.currentList = response.object.filter(
+            //     group => group.category._id === categoryId
+            // );
+            this.currentList = [];
+            let responseArray = [];
+            responseArray = response.object;
+            responseArray.forEach( (group) => {
+                if (group.category._id === categoryId) {
+                    this.currentList.push(group);
+                }
+            });
+
         });
     }
 

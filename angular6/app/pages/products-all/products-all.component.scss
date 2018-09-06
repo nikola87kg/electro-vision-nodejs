@@ -67,9 +67,14 @@
 mat-card {
     display: inline-block;
     width: 300px;
-    max-width: 90%;
+    height: 400px;
     margin: 15px;
+    text-align: center;
     cursor: pointer;
+    img {
+        width: 250px;
+        height: 250px;
+    }
 }
 
 mat-card-actions {
