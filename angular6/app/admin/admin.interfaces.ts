@@ -88,3 +88,4 @@ export interface PricelistModel {
 }
 
 export const PricelistColumns = [ 'position', 'name', 'description', 'price', 'created' ];
+

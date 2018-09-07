@@ -36,14 +36,8 @@ export class PricelistAdminComponent implements OnInit {
     dataSource;
 
     isAddDialogOpen: boolean;
-    isImageDialogOpen: boolean;
     isDialogEditing: boolean;
     dialogTitle: string;
-
-    imageFile: File;
-    imagePreview;
-    imageID;
-    imageindex: number;
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -79,18 +73,6 @@ export class PricelistAdminComponent implements OnInit {
         event.stopPropagation();
         this.isAddDialogOpen = false;
         this.clearForm();
-    }
-
-    openImageDialog(event, index) {
-        event.stopPropagation();
-        this.isImageDialogOpen = true;
-        this.imageID = this.pricelistList[index]._id;
-        this.imageindex = index;
-        this.dialogTitle = 'Dodavanje slike';
-    }
-
-    closeImageDialog() {
-        this.isImageDialogOpen = false;
     }
 
     clearForm() {

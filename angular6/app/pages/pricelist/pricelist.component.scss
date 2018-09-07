@@ -1,1 +1,15 @@
 @import "angular6/app/partials/_variables.scss";
+
+.full-screen {
+    width: calc(100% - 100px);
+    margin: 20px 50px;
+    font-size: 26px;
+}
+
+.mat-column-price {
+    color: $primary-color;
+}
+
+.mat-cell {
+    font-size: 20px;
+}

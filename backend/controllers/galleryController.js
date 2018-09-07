@@ -3,7 +3,7 @@ var ncp = require("ncp").ncp; // copy files
 const multer = require("multer"); // image uplaoder
 
 // Model
-var Gallery = require("../models/galleryModel");
+var Gallery = require("../models/GalleryModel");
 
 /* UPLOAD IMAGE */
 exports.storeGalleryImage = function(req, res) {
@@ -41,21 +41,6 @@ exports.getAllGalleries = (req, res, next) => {
         .catch( error => {
             res.status(500).json({ object: error });
         });
-}
-
-/* GET BY SLUG */
-exports.getOneGallery = function(req, res, next) {
-    Gallery.findOne({ slug: req.params.slug })
-        .then( gallery => {
-            if(gallery) {
-                res.status(200).json({ object: gallery })
-            } else {
-                res.status(404).json();
-            }
-        })
-        .catch( error => {
-            res.status(500).json({ object: error });
-        })
 }
 
 /* UPDATE ONE */

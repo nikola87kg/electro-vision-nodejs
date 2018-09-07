@@ -11,7 +11,6 @@ const GalleryController = require("../controllers/galleryController")
 router.post("/images/:id", extractFile, GalleryController.storeGalleryImage);
 router.post("/", GalleryController.createGallery);
 
-router.get("/:slug", GalleryController.getOneGallery);
 router.get("/", GalleryController.getAllGalleries);
 
 router.put("/:id", GalleryController.updateGallery);
