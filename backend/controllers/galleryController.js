@@ -62,9 +62,9 @@ exports.getOneGallery = function(req, res, next) {
 exports.updateGallery = function(req, res, next) {
     const url = req.protocol + "://" + req.get("host");
 
-    let imagePath = req.body.image;
-    if(req.body.image.split('/').length < 2) {
-        imagePath = url + "/uploads/" +  req.body.image;
+    let imagePath = req.body.imagePath;
+    if(req.body.imagePath.split('/').length < 2) {
+        imagePath = url + "/uploads/" +  req.body.imagePath;
     }
     var galleryUpdated = {
         name: req.body.name,
