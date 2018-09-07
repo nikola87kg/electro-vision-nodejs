@@ -28,8 +28,7 @@ import { NavigationMenuComponent } from './partials/navigation-menu/navigation-m
 import { ProductsAllComponent } from './pages/products-all/products-all.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { AdminGuard } from './admin/admin.guard';
-import { MatPaginatorIntl } from '../../node_modules/@angular/material';
-import { MatPaginatorIntlSerb } from './admin/admin.material.translations';
+import { GalleryComponent } from './pages/gallery/gallery.component';
 
     @NgModule({
     imports: [
@@ -58,7 +57,8 @@ import { MatPaginatorIntlSerb } from './admin/admin.material.translations';
         BrandRollerComponent,
         NavigationMenuComponent,
         ProductsAllComponent,
-        ContactComponent
+        ContactComponent,
+        GalleryComponent
     ],
     providers: [
         AdminGuard,

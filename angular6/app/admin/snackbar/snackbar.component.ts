@@ -60,6 +60,9 @@ export class SnackbarComponent implements OnInit {
       case 'image':
       this.typeWord = 'Slika';
         break;
+      case 'gallery':
+      this.typeWord = 'Slika galerije';
+        break;
       default:
       this.typeWord = 'Podatak';
     }

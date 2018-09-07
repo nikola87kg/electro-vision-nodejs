@@ -64,3 +64,15 @@ export interface CategoryModel {
 }
 
 export const CategoryColumns = [ 'position', 'image', 'name', 'created' ];
+
+/* Gallery */
+
+export interface GalleryModel {
+    _id: string;
+    name: string;
+    description: string;
+    imagePath: string;
+    createdAt: Date;
+}
+
+export const GalleryColumns = [ 'position', 'image', 'name', 'description', 'created' ];

@@ -42,7 +42,7 @@ export class HomepageComponent implements OnInit {
         }, 1);
         this.global.windowSize.subscribe(
             (result => this.windowSize = result)
-        )
+        );
     }
 
     /* Get products + filter */

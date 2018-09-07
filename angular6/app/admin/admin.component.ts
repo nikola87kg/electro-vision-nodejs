@@ -14,7 +14,6 @@ export class AdminComponent implements OnInit {
 
     constructor( public global: GlobalService ) {}
 
-    
     ngOnInit() {
         this.checkWidth();
         this.global.windowSize.next(this.windowSize);

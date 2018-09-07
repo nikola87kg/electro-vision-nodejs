@@ -38,6 +38,9 @@ app.use("/api/groups", groupRoute);
 const productRoute = require("./routes/productRoute");
 app.use("/api/products", productRoute);
 
+const galleryRoute = require("./routes/galleryRoute");
+app.use("/api/gallery", galleryRoute);
+
 // app.get("*", (req, res) => {
 //     res.sendFile(path.join(__dirname, "dist/electro-vision/index.html"));
 // });

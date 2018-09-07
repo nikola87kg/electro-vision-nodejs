@@ -1,0 +1,35 @@
+
+<!-- Navigation -->
+<px-navigation-menu></px-navigation-menu>
+
+<!-- Gallery -->
+<div class="gallery-wrapper">
+
+    <!-- Headline -->
+    <h1>Galerija slika</h1>
+    <br>
+    <!-- Images -->
+    <div
+        class="image-frame"
+        *ngFor="let image of imagesArray; let i = index"
+        (click)="onSelectImage(i)">
+        <img [src]="image.imagePath" class="gallery-image" >
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="gallery-modal" *ngIf="isGalleryModalOpen" (click)="OnCloseGallery()">
+    <!-- Previous -->
+    <div class="left">
+        <mat-icon  (click)="onPreviousImage($event)">chevron_left</mat-icon>
+    </div>
+    <!-- Image -->
+    <div class="selected-image">
+        <img  [src]="selectedImagePath" >
+    </div>
+    <!-- Next -->
+    <div class="right">
+        <mat-icon (click)="onNextImage($event)">chevron_right</mat-icon>
+    </div>
+</div>

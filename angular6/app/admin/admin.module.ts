@@ -16,6 +16,7 @@ import { AdminComponent } from './admin.component';
 import { ProductsComponent } from './products/products.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { BrandsComponent } from './brands/brands.component';
+import { GalleryAdminComponent } from './gallery/gallery-admin.component';
 import { GroupsComponent } from './groups/groups.component';
 import { PreviewComponent } from './preview/preview.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
@@ -35,6 +36,7 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
     CategoriesComponent,
     BrandsComponent,
     GroupsComponent,
+    GalleryAdminComponent,
     PreviewComponent,
     SnackbarComponent
   ],
