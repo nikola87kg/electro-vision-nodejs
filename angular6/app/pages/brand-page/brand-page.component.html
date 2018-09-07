@@ -20,7 +20,7 @@
                     [ngStyle]="{'background': 'url(' + product.image + ') center/cover no-repeat '}"
                     (click)="goToProduct(product.slug)">
                     <h3 [innerHtml]="product.name"></h3>
-                    <img class="corner-logo" src="{{brand.image}}">
+                    <!-- <img class="corner-logo" src="{{brand.image}}"> -->
                 </div>
                 <p class="no-results" *ngIf="productList.length === 0">
                     Nema ubačenih proizvoda za ovaj brend

@@ -10,12 +10,14 @@ import { BrandsComponent } from './brands/brands.component';
 import { GroupsComponent } from './groups/groups.component';
 import { PreviewComponent } from './preview/preview.component';
 import { GalleryAdminComponent } from './gallery/gallery-admin.component';
+import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
 
 const routes: Routes = [
   { path: '',  component: AdminComponent, children: [
     { path: 'pregled',  component: PreviewComponent },
     { path: 'proizvodi',  component: ProductsComponent },
     { path: 'galerija',  component: GalleryAdminComponent },
+    { path: 'cenovnik',  component: PricelistAdminComponent },
     { path: 'kategorije',  component: CategoriesComponent },
     { path: 'brendovi',  component: BrandsComponent },
     { path: 'grupe',  component: GroupsComponent },

@@ -20,6 +20,7 @@ import { GalleryAdminComponent } from './gallery/gallery-admin.component';
 import { GroupsComponent } from './groups/groups.component';
 import { PreviewComponent } from './preview/preview.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
+import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
     BrandsComponent,
     GroupsComponent,
     GalleryAdminComponent,
+    PricelistAdminComponent,
     PreviewComponent,
     SnackbarComponent
   ],

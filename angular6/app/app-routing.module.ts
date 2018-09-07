@@ -9,6 +9,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { PricelistComponent } from './pages/pricelist/pricelist.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { ProductsAllComponent } from './pages/products-all/products-all.component';
 
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'pocetna',              component: HomepageComponent },
     { path: 'kontakt',              component: ContactComponent },
     { path: 'galerija',             component: GalleryComponent },
+    { path: 'cenovnik',             component: PricelistComponent },
     { path: 'proizvod/:slug',       component: ProductPageComponent },
     { path: 'brend/:slug',          component: BrandPageComponent },
     { path: 'potkategorija/:slug',  component: GroupPageComponent },

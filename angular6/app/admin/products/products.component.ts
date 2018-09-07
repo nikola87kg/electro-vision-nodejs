@@ -125,7 +125,7 @@ export class ProductsComponent implements OnInit {
     }
 
     fixSlug(text: string) {
-        const options = { maintainCase: false,separator: '-' };
+        const options = { maintainCase: false, separator: '-' };
         const mySlug = slugify.createSlug(options);
         const slug = mySlug(text);
         return slug;

@@ -76,3 +76,15 @@ export interface GalleryModel {
 }
 
 export const GalleryColumns = [ 'position', 'image', 'name', 'description', 'created' ];
+
+/* Pricelist */
+
+export interface PricelistModel {
+    _id: string;
+    name: string;
+    description: string;
+    price: string;
+    createdAt: Date;
+}
+
+export const PricelistColumns = [ 'position', 'name', 'description', 'price', 'created' ];

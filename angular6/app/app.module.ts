@@ -29,6 +29,7 @@ import { ProductsAllComponent } from './pages/products-all/products-all.componen
 import { ContactComponent } from './pages/contact/contact.component';
 import { AdminGuard } from './admin/admin.guard';
 import { GalleryComponent } from './pages/gallery/gallery.component';
+import { PricelistComponent } from './pages/pricelist/pricelist.component';
 
     @NgModule({
     imports: [
@@ -58,7 +59,8 @@ import { GalleryComponent } from './pages/gallery/gallery.component';
         NavigationMenuComponent,
         ProductsAllComponent,
         ContactComponent,
-        GalleryComponent
+        GalleryComponent,
+        PricelistComponent
     ],
     providers: [
         AdminGuard,
