@@ -85,17 +85,17 @@ export class ProductsAllComponent implements OnInit {
     /* Get groups by Category */
     getGroups(categoryId) {
         this.groupService.get().subscribe(response => {
-            // this.currentList = response.object.filter(
-            //     group => group.category._id === categoryId
-            // );
-            this.currentList = [];
-            let responseArray = [];
-            responseArray = response.object;
-            responseArray.forEach( (group) => {
-                if (group.category._id === categoryId) {
-                    this.currentList.push(group);
-                }
-            });
+            this.currentList = response.object.filter(
+                group => group.category._id === categoryId
+            );
+            // this.currentList = [];
+            // let responseArray = [];
+            // responseArray = response.object;
+            // responseArray.forEach( (group) => {
+            //     if (group.category._id === categoryId) {
+            //         this.currentList.push(group);
+            //     }
+            // });
 
         });
     }

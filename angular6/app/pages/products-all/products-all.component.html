@@ -48,10 +48,7 @@
 
     <!-- Category Dropdown -->
 <mat-form-field *ngIf="currentLevel === 2 ">
-    <mat-select
-        placeholder="Promeni kategoriju"
-        [(ngModel)]="selectedCategory._id"
-        name="selectedSategory">
+    <mat-select placeholder="Promeni kategoriju">
         <mat-option  [value]="category._id"
         *ngFor="let category of categoryList"
         (click)="OnLevelChange(0, category)">
