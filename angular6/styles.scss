@@ -67,6 +67,11 @@ select {
     width: 200px;
 }
 
+.no-content {
+    padding: 20px;
+    color: $warn-color;
+}
+
 .middle-dot {
     font-size: 33px;
     vertical-align: middle;

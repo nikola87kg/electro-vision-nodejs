@@ -75,8 +75,12 @@ export class HomepageComponent implements OnInit {
     goToProduct(slug) {
         this.router.navigate(['/proizvod/' + slug]);
     }
-    goToCategory(slug) {
-        this.router.navigate(['/kategorija/' + slug]);
+    goToCategory(id?) {
+        if (id) {
+            this.router.navigate(['/kategorije']);
+        } else {
+            this.router.navigate(['/kategorije']);
+        }
     }
 
 }

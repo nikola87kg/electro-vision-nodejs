@@ -90,9 +90,9 @@
 
         <!-- VIP Column Setup -->
         <ng-container matColumnDef="vip">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> VIP </th>
-            <td mat-cell *matCellDef="let item" [style.color]=" item.vip ? 'green' : 'red' "> 
-                {{ item.vip ? '✔' : '✖' }}
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Naslovna </th>
+            <td mat-cell *matCellDef="let item" [style.color]=" item.vip ? 'green' : 'red' ">
+                {{ item.vip ? ' ✔' : ' ✖' }}
             </td>
         </ng-container>
 
@@ -168,7 +168,7 @@
         <!-- Slug -->
         <mat-form-field>
             <input
-                matInput [(ngModel)]="product.slug" placeholder="Link ka proizvodu" name="slug" type="text" 
+                matInput [(ngModel)]="product.slug" placeholder="Link ka proizvodu" name="slug" type="text"
                 autocomplete="off" required>
         </mat-form-field>
 
@@ -208,7 +208,7 @@
 
         <!-- Vip -->
         <mat-checkbox [(ngModel)]="product.vip" color="primary" name="vip" >
-            VIP proizvod
+            Na naslovnoj strani
         </mat-checkbox>
 
         <br>

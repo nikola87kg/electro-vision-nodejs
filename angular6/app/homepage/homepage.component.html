@@ -63,7 +63,7 @@
                 <!-- headline -->
                 <h4 class="breaking-news">
                     <i class="fa fa-map-marker up-down mr5 ml5"></i>
-                    Aktuelno u ponudi
+                    Preporučujemo za Vas
                 </h4>
                 <!-- list -->
                 <div class="row">
@@ -78,7 +78,7 @@
                                 <div class="col-sm-12">
                                     <h5> {{prod.name}} </h5>
                                     <h6> Proizvođač: {{prod.brand.name}} </h6>
-                                    <h6> Grupa: {{prod.group.name}} </h6>
+                                    <h6> Potkategorija: {{prod.group.name}} </h6>
                                     <h6> Kategorija: {{prod.category.name}} </h6>
                                 </div>
                             </div>
@@ -93,10 +93,10 @@
         <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
             <!-- categories -->
             <ul class="list">
-                <li class="headline">Kategorije</li>
+                <li class="headline" (click)="goToCategory()">Kategorije</li>
                 <li class="category"
                     *ngFor="let cat of categoryList; let i = index"
-                    (click)="goToCategory(cat.slug)">
+                    (click)="goToCategory(cat._id)">
                     <span [ngClass]=" { 'small-text-category': windowSize === 'medium' }">
                         {{cat.name}}
                     </span>
