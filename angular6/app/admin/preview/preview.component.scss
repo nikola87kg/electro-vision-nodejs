@@ -1,11 +1,11 @@
-@import "angular6/app/partials/_variables.scss";
+@import "angular6/px-material-theme.scss";
 
 h1#dashboard-title {
     text-align: center;
     margin: 10px 20px;
-    color: $accent-color;
+    color: $px-material-accent;
     padding: 10px 20px;
-    border-bottom: 2px solid $accent-color;
+    border-bottom: 2px solid $px-material-accent;
 }
 
 .preview-panel {
@@ -26,10 +26,10 @@ table {
     }
     th {
         text-align: left;
-        color: $primary-color;
+        color: $px-material-primary;
         font-size: 16px;
         b {
-          background: $primary-color;
+          background: $px-material-primary;
           font-weight: normal;
           color: white;
           padding: 5px;

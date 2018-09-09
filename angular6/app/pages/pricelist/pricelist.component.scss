@@ -1,4 +1,4 @@
-@import "angular6/app/partials/_variables.scss";
+@import "angular6/px-material-theme.scss";
 
 .full-screen {
     width: calc(100% - 300px);
@@ -18,7 +18,7 @@
 }
 
 .mat-column-price {
-    color: $primary-color;
+    color: $px-material-accent;
     text-align: right;
 }
 

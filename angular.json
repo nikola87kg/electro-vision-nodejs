@@ -49,6 +49,7 @@
               {
                 "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
               },
+              "angular6/px-material-theme.scss",
               "angular6/styles.scss"
             ],
             "scripts": [

@@ -5,6 +5,20 @@
 <!-- Navigation Menu -->
 <px-navigation-menu></px-navigation-menu>
 
+<!-- Toolbar -->
+<mat-toolbar color="accent"
+    *ngIf="selectedItemName">
+    {{selectedItemName}}
+    <span class="toolbar-spacer"></span>
+    <button
+        *ngIf="currentLevel > 1"
+        class="back-button"
+        mat-stroked-button
+        (click)="OnLevelChange(-1);">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Vrati se nazad
+    </button>
+</mat-toolbar>
 
 <!-- Stepper -->
 <div class="step-buttons">
@@ -29,23 +43,6 @@
     </button>
 </div>
 
-<!-- Toolbar -->
-<mat-toolbar
-    *ngIf="selectedItemName">
-    {{selectedItemName}}
-    <!-- Back button -->
-    <button
-        *ngIf="currentLevel > 1"
-        class="back-button"
-        mat-raised-button
-        color="warn"
-        (click)="OnLevelChange(-1);">
-        <mat-icon>arrow_back_ios</mat-icon>
-        Vrati se nazad
-    </button>
-</mat-toolbar>
-
-<br>
 <!-- Category Dropdown -->
 <div class="no-content" *ngIf="currentList?.length < 1">
     <h6> Izvinjavamo se. Za izabranu kategoriju trenutno ne postoje proizvodi... </h6>

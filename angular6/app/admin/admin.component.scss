@@ -1,17 +1,17 @@
-@import "angular6/app/partials/_variables.scss";
+@import "angular6/px-material-theme.scss";
 @import "angular6/app/partials/_dialog.scss";
 
 /* Navigation */
 nav {
     position: fixed;
-    background: $primary-color;
+    background: $px-material-primary;
     height: 110vh;
     left: 0;
     top: 0;
     z-index: 100;
     margin: 0;
     padding: 10px 0;
-    border: 2px solid $primary-color;
+    border: 2px solid $px-material-primary;
     .admin-menu {
         color: white;
         margin: 10px 0;
@@ -46,11 +46,11 @@ nav {
         &.active {
             outline: none;
             background: white;
-            color: $primary-color;
+            color: $px-material-primary;
             font-weight: bold;
             &:hover {
                 background: rgb(165, 165, 165);
-                color: $primary-color;
+                color: $px-material-primary;
             }
         }
         i {
@@ -86,7 +86,7 @@ table.full-screen {
         img { height: 20px; }
     }
     b {
-        background: $primary-color;
+        background: $px-material-primary;
         font-weight: normal;
         color: white;
         padding: 5px;

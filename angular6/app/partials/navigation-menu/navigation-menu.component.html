@@ -4,13 +4,13 @@
             *ngIf="item.id * 170 + 100 < actualWidth"
             mat-button
             [routerLink]="item.link"
-            routerLinkActive="nav-active">
-            <mat-icon>{{item.icon}}</mat-icon>
+            routerLinkActive="nav-active" style="color: white">
+            <mat-icon >{{item.icon}}</mat-icon>
             {{item.name}}
         </button>
     </ng-container>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu" *ngIf="actualWidth <= 1100">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu" *ngIf="actualWidth <= 1100" style="color: white">
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu" class="menu">
@@ -19,7 +19,7 @@
                 *ngIf="item.id * 170 + 100 >= actualWidth"
                 mat-menu-item
                 [routerLink]="item.link"
-                routerLinkActive="nav-active">
+                routerLinkActive="nav-active" >
                 <mat-icon>{{item.icon}}</mat-icon>
                 <span>{{item.name}}</span>
             </button>

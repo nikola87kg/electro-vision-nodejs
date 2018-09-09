@@ -1,4 +1,4 @@
-@import "angular6/app/partials/_variables.scss";
+@import "angular6/px-material-theme.scss";
 
 .slider {
     position: relative;
@@ -62,8 +62,8 @@ carousel h3 {
 .sidebar {
     padding-left: 50px;
     ul.list {
-        $category-color: $accent-color;
-        $brand-color: $primary-color;
+        $category-color: $px-material-accent;
+        $brand-color: $px-material-primary;
         margin: 45px 20px;
         padding-right: 20px;
         li {
@@ -74,8 +74,8 @@ carousel h3 {
             text-align: left;
             &.headline {
                 padding: 7px 5px;
-                color: $primary-color;
-                border-bottom: 2px solid $primary-color;
+                color: $px-material-primary;
+                border-bottom: 2px solid $px-material-primary;
                 transform: scale(1.03);
                 transition: 0.1s;
                 &:hover {
@@ -106,10 +106,10 @@ carousel h3 {
     h4.breaking-news {
         padding: 10px;
         text-transform: uppercase;
-        color: $accent-color;
+        color: $px-material-accent;
         letter-spacing: 1px;
         text-align: left;
-        border-top: 2px solid $accent-color;
+        border-top: 2px solid $px-material-accent;
     }
     .up-down {
         animation: updown 1s linear infinite, blinker 1s linear infinite;
@@ -149,8 +149,8 @@ carousel h3 {
         }
         h5 {
             font-weight: bold;
-            border-bottom: 2px solid  $primary-color;
-            color: $primary-color;
+            border-bottom: 2px solid  $px-material-primary;
+            color: $px-material-primary;
             margin-top: 20px;
             font-size: 15px;
             padding-bottom: 5px;
@@ -170,7 +170,7 @@ carousel h3 {
 /* Animations */
 @keyframes blinker {
     50% {
-        color: $accent-color;
+        color: $px-material-accent;
     }
 }
 

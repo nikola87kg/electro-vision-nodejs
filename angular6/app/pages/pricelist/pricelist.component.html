@@ -1,56 +1,64 @@
 <!-- Navigation -->
 <px-navigation-menu></px-navigation-menu>
 
+<!-- Tolbar -->
+<mat-toolbar color="accent">
+    <mat-toolbar-row>
+        <span class="toolbar-title">Cenovnik</span>
+        <!-- <span class="toolbar-spacer"></span> -->
+        <!-- <mat-icon class="toolbar-icon">favorite</mat-icon>
+          <mat-icon class="toolbar-icon">delete</mat-icon> -->
+    </mat-toolbar-row>
+</mat-toolbar>
+
 <br>
 
 <!-- TABLE -->
 <div class="table-wrapper" *ngIf="pricelistList?.length > 0">
-        <table mat-table matSort [dataSource]="dataSource" class="full-screen"  >
-            <!-- Position Column Setup -->
-            <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef>
-                    Br.
-                </th>
-                <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
-            </ng-container>
+    <table mat-table matSort [dataSource]="dataSource" class="full-screen">
+        <!-- Position Column Setup -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>
+                Br.
+            </th>
+            <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
+        </ng-container>
 
 
-            <!-- Name Column Setup -->
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef  > Naziv </th>
-                <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
-            </ng-container>
+        <!-- Name Column Setup -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Naziv </th>
+            <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
+        </ng-container>
 
-            <!-- Description Column Setup -->
-            <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef> Opis </th>
-                <td mat-cell *matCellDef="let item">
-                    <span style="white-space: pre-wrap;">{{ item.description }} </span>
-                </td>
-            </ng-container>
+        <!-- Description Column Setup -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Opis </th>
+            <td mat-cell *matCellDef="let item">
+                <span style="white-space: pre-wrap;">{{ item.description }} </span>
+            </td>
+        </ng-container>
 
-            <!-- Price Column Setup -->
-            <ng-container matColumnDef="price">
-                    <th mat-header-cell *matHeaderCellDef  > Cena </th>
-                    <td mat-cell *matCellDef="let item"> {{ item.price }} </td>
-                </ng-container>
+        <!-- Price Column Setup -->
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Cena </th>
+            <td mat-cell *matCellDef="let item"> {{ item.price }} </td>
+        </ng-container>
 
-            <!-- Created At Column Steup -->
-            <ng-container matColumnDef="created">
-                <th mat-header-cell *matHeaderCellDef > Datum kreiranja </th>
-                <td mat-cell *matCellDef="let item">
-                    <span>{{ item.createdAt | date: 'dd. MM. yyyy' }} </span>
-                </td>
-            </ng-container>
+        <!-- Created At Column Steup -->
+        <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef> Datum kreiranja </th>
+            <td mat-cell *matCellDef="let item">
+                <span>{{ item.createdAt | date: 'dd. MM. yyyy' }} </span>
+            </td>
+        </ng-container>
 
-            <!-- rows -->
-            <tr mat-header-row *matHeaderRowDef="displayedColumns;"> </tr>
-            <tr mat-row
-                *matRowDef="let row; let i = index;columns: displayedColumns;"
-                (click)="openDialog(true, row, i)">
-            </tr>
-        </table>
-    </div>
+        <!-- rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;"> </tr>
+        <tr mat-row *matRowDef="let row; let i = index;columns: displayedColumns;" (click)="openDialog(true, row, i)">
+        </tr>
+    </table>
+</div>
 
 <!-- No content -->
 <div class="no-content" *ngIf="pricelistList?.length < 1">

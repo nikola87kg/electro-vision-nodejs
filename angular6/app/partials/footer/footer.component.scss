@@ -1,16 +1,9 @@
-@import "angular6/app/partials/_variables.scss";
+@import "angular6/px-material-theme.scss";
 
 footer {
   padding: 10px;
   text-align: center;
   font-size: 14px;
-  background: $primary-color;
+  background: $px-material-primary;
   color: white;
-  animation: footerBackground 4s linear infinite;
-}
-
-@keyframes footerBackground {
-  50% {
-    background: darken($primary-color, 10);
-  }
 }

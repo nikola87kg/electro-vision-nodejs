@@ -2,13 +2,18 @@
 <!-- Navigation -->
 <px-navigation-menu></px-navigation-menu>
 
+<!-- Tolbar -->
+<mat-toolbar color="accent">
+    <mat-toolbar-row>
+      <span class="toolbar-title">Galerija slika</span>
+      <!-- <span class="toolbar-spacer"></span> -->
+      <!-- <mat-icon class="toolbar-icon">favorite</mat-icon>
+      <mat-icon class="toolbar-icon">delete</mat-icon> -->
+    </mat-toolbar-row>
+  </mat-toolbar>
+
 <!-- Gallery -->
 <div class="gallery-wrapper">
-
-    <!-- Headline -->
-    <h2>Galerija slika</h2>
-    <br>
-    <!-- Images -->
     <div
         class="image-frame"
         *ngFor="let image of imagesArray; let i = index"
@@ -22,7 +27,7 @@
 <div class="gallery-modal" *ngIf="isGalleryModalOpen" (click)="OnCloseGallery()">
     <!-- Previous -->
     <div class="left">
-        <mat-icon  (click)="onPreviousImage($event)">chevron_left</mat-icon>
+        <mat-icon class="arrow" (click)="onPreviousImage($event)">chevron_left</mat-icon>
     </div>
     <!-- Image -->
     <div class="selected-image">
@@ -30,6 +35,6 @@
     </div>
     <!-- Next -->
     <div class="right">
-        <mat-icon (click)="onNextImage($event)">chevron_right</mat-icon>
+        <mat-icon class="arrow" (click)="onNextImage($event)">chevron_right</mat-icon>
     </div>
 </div>

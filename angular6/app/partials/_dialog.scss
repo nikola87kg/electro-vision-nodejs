@@ -1,4 +1,4 @@
-@import "angular6/app/partials/_variables.scss";
+@import "angular6/px-material-theme.scss";
 
 div.dialog-wrapper.fixed {
     position: fixed;
@@ -29,9 +29,9 @@ form.form-dialog {
 
 .dialog-header {
     padding: 10px;
-    background: $light-color;
-    border-bottom: 2px solid $primary-color;
-    color: $dark-color;
+    background: $px-material-light;
+    border-bottom: 2px solid $px-material-primary;
+    color: $px-material-dark;
     border-radius: 5px 5px 0 0;
     height: 50px;
     .dialog-header-title {
@@ -48,9 +48,9 @@ form.form-dialog {
 
 .dialog-footer {
     padding: 10px;
-    background: $light-color;
+    background: $px-material-light;
     height: 60px;
-    border-top: 2px solid $primary-color;
+    border-top: 2px solid $px-material-primary;
     border-radius: 0 0 5px 5px;
 }
 
@@ -63,10 +63,10 @@ mat-button-toggle-group {
     mat-button-toggle:hover {
         background: #f1f1f1;
     }
-    .delete-item { color: $accent-color; }
-    .cancel-item { color: $warn-color; }
-    .save-item   { color: $primary-color; }
-    .update-item { color: $primary-color; }
+    .delete-item { color: $px-material-accent; }
+    .cancel-item { color: $px-material-warn; }
+    .save-item   { color: $px-material-primary; }
+    .update-item { color: $px-material-primary; }
 }
 
 /* Image upload */

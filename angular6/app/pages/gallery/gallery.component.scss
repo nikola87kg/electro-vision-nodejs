@@ -1,20 +1,27 @@
-@import "angular6/app/partials/_variables.scss";
+@import "angular6/px-material-theme.scss";
 
-.gallery-wrapper {
-    padding: 20px 50px;
-}
 
 h2 {
     text-align: left;
     margin: 20px;
     padding-bottom: 5px;
-    border-bottom: 5px solid $accent-color;
+    border-bottom: 5px solid $px-material-accent;
+}
+
+.gallery-wrapper {
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 div.image-frame {
-    display: inline-block;
     border: 2px solid gray;
     box-shadow: 2px 2px 20px 2px gray;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
     width: 400px;
     max-width: 100%;
     margin: 20px;
@@ -26,7 +33,8 @@ div.image-frame {
 }
 
 img.gallery-image {
-    width: 100%;
+    max-width: 100%;
+    max-height: 200px;
     cursor: pointer;
     &:hover {
         filter: grayscale(0.5);
@@ -46,7 +54,7 @@ div.gallery-modal {
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.9);
-    padding: 0;
+    padding: 50px;
     margin: 0;
     > div {
         text-align: center;
@@ -70,7 +78,7 @@ div.gallery-modal {
     }
 }
 
-mat-icon {
+mat-icon.arrow {
     font-size: 60px;
     cursor: pointer;
     user-select: none;
@@ -81,3 +89,4 @@ mat-icon {
         color: rgb(228, 228, 228);
     }
 }
+

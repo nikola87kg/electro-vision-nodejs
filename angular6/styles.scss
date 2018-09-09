@@ -2,7 +2,7 @@
 
 $fa-font-path: "../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome.scss";
-@import "app/partials/_variables.scss";
+@import "px-material-theme.scss";
 
 /**** BASIC ELEMENTS ****/
 
@@ -47,6 +47,19 @@ select {
     height: 30px;
 }
 
+.toolbar-title {
+    padding: 0 50px;
+}
+
+.toolbar-icon {
+    padding: 0 14px;
+    font-size: 20px;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
 /***** COMMON CLASSES ****/
 
 .text-centered,
@@ -69,7 +82,7 @@ select {
 
 .no-content {
     padding: 20px;
-    color: $warn-color;
+    color: $px-material-warn;
 }
 
 .middle-dot {
@@ -142,3 +155,4 @@ select {
 
 
 // material themes: indigo-pink, deeppurple-amber, pink-bluegrey, purple-green
+

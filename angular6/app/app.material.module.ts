@@ -20,7 +20,8 @@ const materialModules = [
     MatCardModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatOptionModule
+    MatOptionModule,
+    MatToolbarModule
 ];
 
 @NgModule({
