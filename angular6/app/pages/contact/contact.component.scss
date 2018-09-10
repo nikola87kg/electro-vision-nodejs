@@ -1,37 +1,16 @@
 @import "angular6/px-material-theme.scss";
 
-/* Map */
-agm-map {
-    height: 300px;
+/* Info */
+.contact-table-wrapper {
+    padding: 20px 50px;
 }
 
-/* Info */
-.contact-info {
-    text-align: center;
-    h3 {
-        margin: 20px;
-        color: $px-material-primary;
-        padding: 10px;
-        border-bottom: 2px solid gray;
-        display: inline-block;
-        margin: 0 auto;
-        width: 450px;
-        max-width: 100%;
+table {
+    width: 100%;
+    tr {
+        border-bottom: 1px solid rgb(212, 212, 212);
     }
-    .inline-block {
-        text-align: left;
-        display: inline-block;
-        margin: 0 auto;
-    }
-    p {
-        margin: 5px 0;
-        span:first-child {
-            display: inline-block;
-            width: 100px;
-        }
-        span:last-child {
-            font-weight: bold;
-            color: $px-material-accent;
-        }
+    td {
+        padding: 15px 50px;
     }
 }

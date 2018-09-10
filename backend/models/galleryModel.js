@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var gallerySchema = new Schema({
     name:           {type: String, required: true, trim: true},
     description:    {type: String, trim: true, default: 'Ova slika nema opis'},
+    gallery:        {type: String, trim: true},
     imagePath:      {type: String },
     createdAt:      {type: Date, default: Date.now},
     updatedAt:      {type: Date, default: Date.now}

@@ -17,6 +17,7 @@ exports.createGallery = function(req, res, next) {
     var galleryNew = new Gallery({
         name: req.body.name,
         description: req.body.description,
+        gallery: req.body.gallery,
         imagePath: "./assets/uploads/ev.jpeg"
     });
     galleryNew.save()
@@ -54,6 +55,7 @@ exports.updateGallery = function(req, res, next) {
     var galleryUpdated = {
         name: req.body.name,
         description: req.body.description,
+        gallery: req.body.gallery,
         imagePath: imagePath
     };
     Gallery.findOneAndUpdate({ _id: req.params.id }, { $set: galleryUpdated})

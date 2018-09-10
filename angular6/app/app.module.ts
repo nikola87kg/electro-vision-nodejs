@@ -7,8 +7,6 @@ import { NgModule } from '@angular/core';
 
 /* 3rd party modules */
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { AgmCoreModule } from '@agm/core';
 
 /* App modules */
 import { AppMaterialModule } from './app.material.module';
@@ -39,11 +37,7 @@ import { PricelistComponent } from './pages/pricelist/pricelist.component';
         ReactiveFormsModule,
         HttpClientModule,
         CarouselModule,
-        Ng2SearchPipeModule,
         AppMaterialModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDa6KMmeN1YNFuyxnH4v2jDdLQLxuiHQ1s'
-        }),
         AppRoutingModule
     ],
     declarations: [

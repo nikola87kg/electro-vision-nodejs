@@ -71,11 +71,12 @@ export interface GalleryModel {
     _id: string;
     name: string;
     description: string;
+    gallery: string;
     imagePath: string;
     createdAt: Date;
 }
 
-export const GalleryColumns = [ 'position', 'image', 'name', 'description', 'created' ];
+export const GalleryColumns = [ 'position', 'image', 'name', 'description', 'gallery', 'created' ];
 
 /* Pricelist */
 

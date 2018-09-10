@@ -45,6 +45,12 @@
             </td>
         </ng-container>
 
+        <!-- Gallery Column Setup -->
+        <ng-container matColumnDef="gallery">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Galerija </th>
+            <td mat-cell *matCellDef="let item"> {{ item.gallery }} </td>
+        </ng-container>
+
         <!-- Created At Column Steup -->
         <ng-container matColumnDef="created">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum kreiranja </th>
@@ -95,6 +101,13 @@
                 type="text" autocomplete="off" required></textarea>
         </mat-form-field>
 
+        <!-- Gallery -->
+        <mat-form-field>
+            <input
+                matInput [(ngModel)]="gallery.gallery" placeholder="Naziv galerije" name="gallery" type="text"
+                autocomplete="off" required>
+        </mat-form-field>
+    
         <br>
         <br>
         <!-- dialog footer -->

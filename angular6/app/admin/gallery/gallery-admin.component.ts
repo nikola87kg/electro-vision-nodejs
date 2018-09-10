@@ -98,6 +98,7 @@ export class GalleryAdminComponent implements OnInit {
             _id: '',
             name: '',
             description: '',
+            gallery: '',
             imagePath: '',
             createdAt: null
         };
