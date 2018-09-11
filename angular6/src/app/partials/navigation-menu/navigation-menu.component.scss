@@ -5,15 +5,15 @@
     padding-left: 5%;
 }
 
-button {
+button.nav-button {
     color: white;
     font-size: 18px;
     padding: 5px 20px;
     &:hover {
-        color: #ff6d6d;
+        color: #ff8d8d;
     }
-    span {
-        color: gray;
+    &.nav-active {
+        color:  #ff5656;
     }
 }
 

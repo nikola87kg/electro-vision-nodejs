@@ -1,10 +1,11 @@
 <div class="navigation">
     <ng-container *ngFor="let item of navItems">
         <button
+            class="nav-button"
             *ngIf="item.id * 170 + 100 < actualWidth"
             mat-button
             [routerLink]="item.link"
-            routerLinkActive="nav-active" style="color: white">
+            routerLinkActive="nav-active">
             <mat-icon >{{item.icon}}</mat-icon>
             {{item.name}}
         </button>
