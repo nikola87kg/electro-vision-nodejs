@@ -4,9 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-/* 3rd party modules */
-import { NgUploaderModule } from 'ngx-uploader';
-
 /* App modules */
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminMaterialModule } from './admin.material.module';
@@ -27,7 +24,6 @@ import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    NgUploaderModule,
     AdminRoutingModule,
     AdminMaterialModule
   ],
