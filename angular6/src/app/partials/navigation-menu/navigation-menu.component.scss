@@ -1,0 +1,23 @@
+@import "src/px-material-theme.scss";
+
+.navigation {
+    background: rgb(43, 43, 43);
+    padding-left: 5%;
+}
+
+button {
+    color: white;
+    font-size: 18px;
+    padding: 5px 20px;
+    &:hover {
+        color: #ff6d6d;
+    }
+    span {
+        color: gray;
+    }
+}
+
+mat-icon {
+    margin-right: 5px;
+    font-size: 22px;
+}

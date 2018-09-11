@@ -1,0 +1,187 @@
+@import "src/px-material-theme.scss";
+
+.slider {
+    position: relative;
+}
+
+.header-icons {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    margin: 0 auto;
+    text-align: center;
+    color: #757575;
+    cursor: pointer;
+    background: rgba(163, 163, 163, 0.5);
+    width: 100%;
+    a {
+        margin: 0 10px;
+        padding: 10px;
+        background: transparent;
+        display: inline-block;
+        img {
+            width: auto;
+            height: 20px;
+            filter: grayscale(0.7);
+            &:hover {
+                transform: scale(1.1);
+                filter: grayscale(0);
+                transition: 0.1s ease-out;
+            }
+        }
+    }
+}
+
+/* Slider */
+.banner {
+    width: 100vw;
+    height: 300px;
+    &.first {
+        background: url("../../assets/baner/baner1.jpg") no-repeat center center
+            fixed;
+        background-size: cover;
+    }
+    &.second {
+        background: url("../../assets/baner/baner2.jpg") no-repeat center center
+            fixed;
+        background-size: cover;
+    }
+    &.third {
+        background: url("../../assets/baner/baner3.jpg") no-repeat center center
+            fixed;
+        background-size: cover;
+    }
+}
+
+carousel h3 {
+    color: #dddddd;
+    font-size: 40px;
+}
+
+/* Sidelist */
+.sidebar {
+    padding-left: 50px;
+    ul.list {
+        $category-color: $px-material-accent;
+        $brand-color: $px-material-primary;
+        margin: 45px 20px;
+        padding-right: 20px;
+        li {
+            padding: 2px 10px;
+            cursor: pointer;
+            color: gray;
+            vertical-align: middle;
+            text-align: left;
+            &.headline {
+                padding: 7px 5px;
+                color: $px-material-primary;
+                border-bottom: 2px solid $px-material-primary;
+                transform: scale(1.03);
+                transition: 0.1s;
+                &:hover {
+                    font-weight: bold;
+                }
+            }
+            &.category {
+                color: black;
+                padding: 7px 5px;
+                border-bottom: 1px solid lightgray;
+                &:hover {
+                    color: $category-color;
+                    border-bottom: 1px solid $category-color;
+                }
+                .small-text-category {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+/* Top Product */
+.top-product-wrapper {
+    margin: 50px 0;
+    padding: 25px 40px 40px 40px;
+    box-shadow: 1px 1px 20px 1px lightgray;
+    h4.breaking-news {
+        padding: 10px;
+        text-transform: uppercase;
+        color: $px-material-accent;
+        letter-spacing: 1px;
+        text-align: left;
+        border-top: 2px solid $px-material-accent;
+    }
+    .up-down {
+        animation: updown 1s linear infinite, blinker 1s linear infinite;
+    }
+}
+
+.top-product-box {
+    > div {
+        border: 1px solid lightgray;
+        cursor: pointer;
+        &:hover {
+            box-shadow: 1px 1px 20px 1px lightgray;
+            h5 {
+                animation: increase 0.2s linear forwards;
+            }
+        }
+    }
+    > div > div {
+        text-align: left;
+        &.image {
+            text-align: center;
+            overflow: hidden;
+            &:hover img {
+                transform: scale(1.03) ;
+                filter: grayscale(0.5);
+                transition: 0.3s ease-out;
+            }
+        }
+        img {
+            margin-top: 10px;
+            height: 100%;
+            max-width: 250px;
+            max-height: 250px;
+            margin-top: 10px;
+            max-width: 250px;
+            max-height: 130px;
+        }
+        h5 {
+            font-weight: bold;
+            border-bottom: 2px solid  $px-material-primary;
+            color: $px-material-primary;
+            margin-top: 20px;
+            font-size: 15px;
+            padding-bottom: 5px;
+        }
+        h6 {
+            font-size: 13px;
+        }
+        p {
+            font-size: 13px;
+            font-style: italic;
+            color: gray;
+        }
+    }
+}
+
+
+/* Animations */
+@keyframes blinker {
+    50% {
+        color: $px-material-accent;
+    }
+}
+
+@keyframes updown {
+    50% {
+        transform: translate(0, 3px);
+    }
+}
+
+@keyframes increase {
+    100% {
+        transform: scale(1.03);
+    }
+}

@@ -6,9 +6,11 @@
 
 # dependencies
 /node_modules
+angular6/node_modules
 
 # mongo
 /mongo-db
+angular6/mongo-db
 
 # IDE - VSCode
 .vscode/*

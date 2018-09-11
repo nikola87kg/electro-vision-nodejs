@@ -3,7 +3,6 @@ const env = process.env.NODE_ENV || "development";
 const config = require("./backend/config/server-config")[env];
 
 /* EXPRESS */
-const express = require("express");
 const app = require("./backend/express");
 
 /*  HTTP */
