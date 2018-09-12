@@ -14,7 +14,8 @@ import {
     MatPaginatorModule,
     MatPaginatorIntl,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatGridListModule
 } from '@angular/material';
 
 const adminMaterialModules = [
@@ -30,7 +31,8 @@ const adminMaterialModules = [
     MatSortModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatGridListModule
 ];
 
 @NgModule({

@@ -7,11 +7,34 @@ import { BrandsService } from '../_services/brands.service';
 import { CategoriesService } from '../_services/categories.service';
 import { ProductsService } from '../_services/products.service';
 import { GlobalService } from '../_services/global.service';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
     selector: 'px-homepage',
     templateUrl: './homepage.component.html',
-    styleUrls: ['./homepage.component.scss']
+    styleUrls: ['./homepage.component.scss'],
+    animations: [
+        trigger(
+            'enterAnimation', [
+                transition(':enter', [
+                    style({transform: 'translateX(100%)'}),
+                    animate('2s 2s', style({transform: 'translateX(0)'}))
+                ]),
+                transition(':leave', [
+                    style({transform: 'translateX(0)'}),
+                    animate('2s 2s', style({transform: 'translateX(-100%)'}))
+                ])
+            ],
+        ),
+        trigger(
+            'leaveAnimation', [
+                transition(':leave', [
+                    style({transform: 'translateX(0)'}),
+                    animate('2s 0s', style({transform: 'translateX(-100%)'}))
+                ])
+            ],
+        ),
+    ],
 })
 export class HomepageComponent implements OnInit {
     productList = [];
@@ -19,7 +42,8 @@ export class HomepageComponent implements OnInit {
     categoryList = [];
     navItemsVisible = false;
     windowSize;
-    currentSlider = 0;
+    currentSlider = 1;
+    firstSlideOn = true;
     banners = [
         {
             title: 'Ugradnja kamera',
@@ -54,7 +78,10 @@ export class HomepageComponent implements OnInit {
         );
         setInterval( () => {
             this.rollSlides();
-        }, 2000 );
+        }, 5000 );
+        setTimeout( () => {
+            this.firstSlideOn = false;
+        }, 2200 );
     }
 
     /* Carousel */

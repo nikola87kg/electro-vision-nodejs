@@ -1,34 +1,41 @@
 <div id="homepage">
 
     <!-- Slider Banner -->
-    <div id="slider-wrapper" class="row">
-        <div class="col-sm-12 slider">
-            <!-- Social icons -->
-            <div class="header-icons">
-                <a class="facebook" href="https://www.facebook.com" target="_blank">
-                    <img src="assets\icons\facebook.png" title="ElectroVision na Facebooku">
-                </a>
-                <a class="instagram"  href="https://instagram.com" target="_blank">
-                    <img src="assets\icons\instagram.png" title="ElectroVision na Instragramu">
-                </a>
-                <a class="youtube"  href="https://youtube.com" target="_blank">
-                    <img src="assets\icons\youtube.png" title="ElectroVision na Youtube">
-                </a>
-                <a class="kp"  href="https://www.kupujemprodajem.com/" target="_blank">
-                    <img src="assets\icons\kp.png" title="ElectroVision na KupujemProdajem">
-                </a>
-            </div>
-            <div class="px-carousel">
-                <ng-container *ngFor="let banner of banners; let i = index">
-                        <div class="banner" *ngIf="currentSlider === i"
-                        [style.backgroundImage]="'url('+ banner.imageUrl +')'">
-                            <h3>{{banner.title}}</h3>
-                            <p>{{banner.content}}</p>
-                        </div>
-                </ng-container>
-            </div>
+    <mat-grid-list cols="1" class="slider">
+        <!-- Social icons -->
+        <div class="header-icons">
+            <a class="facebook" href="https://www.facebook.com" target="_blank">
+                <img src="assets\icons\facebook.png" title="ElectroVision na Facebooku">
+            </a>
+            <a class="instagram"  href="https://instagram.com" target="_blank">
+                <img src="assets\icons\instagram.png" title="ElectroVision na Instragramu">
+            </a>
+            <a class="youtube"  href="https://youtube.com" target="_blank">
+                <img src="assets\icons\youtube.png" title="ElectroVision na Youtube">
+            </a>
+            <a class="kp"  href="https://www.kupujemprodajem.com/" target="_blank">
+                <img src="assets\icons\kp.png" title="ElectroVision na KupujemProdajem">
+            </a>
         </div>
-    </div>
+        <!-- Carousel -->
+        <div class="px-carousel" >
+            <ng-container> <!-- first banner -->
+                    <div class="banner"  [@leaveAnimation] *ngIf="firstSlideOn"
+                    style="position: absolute; background:url(./assets/baner/baner3.jpg) no-repeat center center/cover" >
+                        <h3>{{banners[0].title}}</h3>
+                        <p>{{banners[0].content}}</p>
+                    </div>
+            </ng-container> <!-- Rolling banners -->
+            <ng-container *ngFor="let banner of banners; let i = index">
+                    <div class="banner" [@enterAnimation] style="position: absolute;"
+                        *ngIf="currentSlider === i"
+                        [style.backgroundImage]="'url('+ banner.imageUrl +')'">
+                        <h3>{{banner.title}}</h3>
+                        <p>{{banner.content}}</p>
+                    </div>
+            </ng-container>
+        </div>
+    </mat-grid-list>
 
     <!-- Navigation Menu -->
     <px-navigation-menu></px-navigation-menu>
@@ -36,9 +43,9 @@
     <!-- Brand roller -->
     <px-brand-roller></px-brand-roller>
 
+   
     <!-- Main area -->
     <div class="main-section row" >
-
         <div class="col-lg-1 ">
         </div>
 
