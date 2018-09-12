@@ -19,31 +19,55 @@ export class HomepageComponent implements OnInit {
     categoryList = [];
     navItemsVisible = false;
     windowSize;
-    isLoaded = false;
+    currentSlider = 0;
+    banners = [
+        {
+            title: 'Ugradnja kamera',
+            content: 'Nudimo kamere vrhunskog kvaliteta.',
+            imageUrl: './assets/baner/baner1.jpg'
+        },
+        {
+            title: 'Ugradnja alarma',
+            content: 'Ugrađujemo moderne alarme.',
+            imageUrl: './assets/baner/baner2.jpg'
+        },
+        {
+            title: 'Video nadzor',
+            content: 'Najbolji video nadzor u gradu!',
+            imageUrl: './assets/baner/baner3.jpg'
+        }
+    ];
 
     constructor(
         private brandService: BrandsService,
         private categoryService: CategoriesService,
         private productService: ProductsService,
         public global: GlobalService,
-        private router: Router) {}
-
-    /* INIT */
-    onLoad() {
-        this.isLoaded = true;
-    }
+        private router: Router) { }
 
     ngOnInit() {
         this.getBrands();
         this.getCategories();
         this.getProducts();
-        setTimeout(() => {
-            this.onLoad();
-        }, 1);
         this.global.windowSize.subscribe(
             (result => this.windowSize = result)
         );
+        setInterval( () => {
+            this.rollSlides();
+        }, 2000 );
     }
+
+    /* Carousel */
+    rollSlides() {
+        const sliderIndex = this.currentSlider;
+        const bannersLength = this.banners.length;
+        if (sliderIndex < bannersLength - 1) {
+            this.currentSlider++;
+        } else {
+            this.currentSlider = 0;
+        }
+    }
+
 
     /* Get products + filter */
     getProducts() {
@@ -75,9 +99,9 @@ export class HomepageComponent implements OnInit {
     goToProduct(slug) {
         this.router.navigate(['/proizvod/' + slug]);
     }
-    goToCategory(id?) {
-        if (id) {
-            this.router.navigate(['/kategorije']);
+    goToCategory(slug?) {
+        if (slug) {
+            this.router.navigate(['/kategorije/' + slug]);
         } else {
             this.router.navigate(['/kategorije']);
         }

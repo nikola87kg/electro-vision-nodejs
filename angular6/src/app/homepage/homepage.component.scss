@@ -32,31 +32,43 @@
     }
 }
 
-/* Slider */
-.banner {
-    width: 100vw;
+
+.px-carousel {
     height: 300px;
-    &.first {
-        background: url("../../assets/baner/baner1.jpg") no-repeat center center
-            fixed;
+    position: relative;
+    .banner {
+        width: 100vw;
+        height: 300px;
         background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
     }
-    &.second {
-        background: url("../../assets/baner/baner2.jpg") no-repeat center center
-            fixed;
-        background-size: cover;
+     h3 {
+        color: rgb(235, 235, 235);
+        font-size: 32px;
+        position: absolute;
+        bottom: 50px;
+        left: 0;
+        right: 0;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        text-shadow: 1px 1px gray;
     }
-    &.third {
-        background: url("../../assets/baner/baner3.jpg") no-repeat center center
-            fixed;
-        background-size: cover;
+    p {
+        color: rgb(255, 246, 246);
+        font-size: 20px;
+        position: absolute;
+        bottom: 3px;
+        left: 0;
+        right: 0;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        text-shadow: 1px 1px gray;
     }
 }
 
-carousel h3 {
-    color: #dddddd;
-    font-size: 40px;
-}
 
 /* Sidelist */
 .sidebar {

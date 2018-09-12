@@ -31,7 +31,12 @@
 <div class="gallery-modal" *ngIf="isGalleryModalOpen" (click)="OnCloseGallery()">
     <!-- Previous -->
     <div class="left">
-        <mat-icon class="arrow" (click)="onPreviousImage($event)">chevron_left</mat-icon>
+        <mat-icon
+            class="arrow"
+            (click)="onPreviousImage($event)"
+            *ngIf="filteredArray.length > 1">
+                chevron_left
+            </mat-icon>
     </div>
     <!-- Image -->
     <div class="selected-image">
@@ -39,6 +44,11 @@
     </div>
     <!-- Next -->
     <div class="right">
-        <mat-icon class="arrow" (click)="onNextImage($event)">chevron_right</mat-icon>
+        <mat-icon
+            class="arrow"
+            (click)="onNextImage($event)"
+            *ngIf="filteredArray.length > 1">
+                chevron_right
+            </mat-icon>
     </div>
 </div>

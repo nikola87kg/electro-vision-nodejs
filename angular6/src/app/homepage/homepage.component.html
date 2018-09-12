@@ -5,43 +5,28 @@
         <div class="col-sm-12 slider">
             <!-- Social icons -->
             <div class="header-icons">
-                <a class="facebook">
+                <a class="facebook" href="https://www.facebook.com" target="_blank">
                     <img src="assets\icons\facebook.png" title="ElectroVision na Facebooku">
                 </a>
-                <a class="instagram">
+                <a class="instagram"  href="https://instagram.com" target="_blank">
                     <img src="assets\icons\instagram.png" title="ElectroVision na Instragramu">
                 </a>
-                <a class="youtube">
+                <a class="youtube"  href="https://youtube.com" target="_blank">
                     <img src="assets\icons\youtube.png" title="ElectroVision na Youtube">
                 </a>
-                <a class="kp">
+                <a class="kp"  href="https://www.kupujemprodajem.com/" target="_blank">
                     <img src="assets\icons\kp.png" title="ElectroVision na KupujemProdajem">
                 </a>
             </div>
-            <!-- Carousel -->
-            <carousel>
-                <slide>
-                    <div class="banner first"></div>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3>Ugradnja kamera</h3>
-                        <p>Nudimo kamere vrhunskog kvaliteta.</p>
-                    </div>
-                </slide>
-                <slide>
-                    <div class="banner second"></div>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3>Ugradnja alarma</h3>
-                        <p>Ugrađujemo moderne alarme.</p>
-                    </div>
-                </slide>
-                <slide>
-                    <div class="banner third"></div>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3>Video nadzor</h3>
-                        <p> Najbolji video nadzor u gradu! </p>
-                    </div>
-                </slide>
-            </carousel>
+            <div class="px-carousel">
+                <ng-container *ngFor="let banner of banners; let i = index">
+                        <div class="banner" *ngIf="currentSlider === i"
+                        [style.backgroundImage]="'url('+ banner.imageUrl +')'">
+                            <h3>{{banner.title}}</h3>
+                            <p>{{banner.content}}</p>
+                        </div>
+                </ng-container>
+            </div>
         </div>
     </div>
 
@@ -52,7 +37,7 @@
     <px-brand-roller></px-brand-roller>
 
     <!-- Main area -->
-    <div class="main-section row invisible-onload" [ngClass]="{'fade-in' : isLoaded}">
+    <div class="main-section row" >
 
         <div class="col-lg-1 ">
         </div>
@@ -93,7 +78,7 @@
         <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
             <!-- categories -->
             <ul class="list">
-                <li class="headline" (click)="goToCategory()">Kategorije</li>
+                <li class="headline" (click)="goToCategory(cat.slug)">Kategorije</li>
                 <li class="category"
                     *ngFor="let cat of categoryList; let i = index"
                     (click)="goToCategory(cat._id)">

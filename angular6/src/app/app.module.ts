@@ -5,9 +5,6 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
-/* 3rd party modules */
-import { CarouselModule } from 'ngx-bootstrap/carousel';
-
 /* App modules */
 import { AppMaterialModule } from './app.material.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +33,6 @@ import { PricelistComponent } from './pages/pricelist/pricelist.component';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        CarouselModule,
         AppMaterialModule,
         AppRoutingModule
     ],

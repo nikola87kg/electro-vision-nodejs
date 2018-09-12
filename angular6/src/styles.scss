@@ -134,12 +134,6 @@ select {
     display: block;
 }
 
-/* fade-in */
-
-.invisible-onload {
-    opacity: 0.3;
-}
-
 .fade-in {
     animation: fadein 1s forwards;
 }
