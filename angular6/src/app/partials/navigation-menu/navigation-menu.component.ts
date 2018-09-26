@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { GlobalService } from '../../_services/global.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'px-navigation-menu',
@@ -24,7 +25,10 @@ export class NavigationMenuComponent implements OnInit {
         this.actualWidth = event.target.innerWidth;
     }
 
-    constructor( public global: GlobalService ) {}
+    constructor(
+        public global: GlobalService,
+        private router: Router
+    ) {}
 
 
     ngOnInit() {
@@ -33,5 +37,10 @@ export class NavigationMenuComponent implements OnInit {
     /* Toggle Lists */
     toggleList() {
         this.navItemsVisible = !this.navItemsVisible;
+    }
+
+
+    openNewTab(link) {
+        window.open(link);
     }
 }

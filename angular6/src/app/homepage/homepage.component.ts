@@ -123,8 +123,12 @@ export class HomepageComponent implements OnInit {
     goToBrand(slug) {
         this.router.navigate(['/brend/' + slug]);
     }
-    goToProduct(slug) {
-        this.router.navigate(['/proizvod/' + slug]);
+    goToProduct(slug, newTab?) {
+        if (newTab) {
+             window.open('/proizvod/' + slug);
+        } else {
+            this.router.navigate(['/proizvod/' + slug]);
+        }
     }
     goToCategory(slug?) {
         if (slug) {

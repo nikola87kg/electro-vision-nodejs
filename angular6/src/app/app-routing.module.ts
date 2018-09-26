@@ -25,7 +25,7 @@ const routes: Routes = [
     { path: 'brend/:slug',          component: BrandPageComponent },
     { path: 'potkategorija/:slug',  component: GroupPageComponent },
     { path: 'kategorija/:slug',     component: CategoryPageComponent },
-    { path: 'kategorije',      component: ProductsAllComponent },
+    { path: 'kategorije',           component: ProductsAllComponent },
     { path: 'admin',                canActivate: [ AdminGuard ], loadChildren: './admin/admin.module#AdminModule' },
     { path: '',                     redirectTo: '/pocetna', pathMatch: 'full' },
     { path: '**',                   redirectTo: '/pocetna', }

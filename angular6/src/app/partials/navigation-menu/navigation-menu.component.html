@@ -7,6 +7,7 @@
             *ngIf="(item.id * 150 + 50 + 20) < actualWidth"
             mat-button
             [routerLink]="item.link"
+            (pxMiddleClick)="openNewTab(item.link)"
             routerLinkActive="nav-active">
             <mat-icon >{{item.icon}}</mat-icon>
             {{item.name}}

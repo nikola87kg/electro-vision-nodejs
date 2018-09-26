@@ -25,6 +25,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { AdminGuard } from './admin/admin.guard';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
+import { MiddleClickDirective } from './_directives/middle-click.directive';
 
     @NgModule({
     imports: [
@@ -50,7 +51,8 @@ import { PricelistComponent } from './pages/pricelist/pricelist.component';
         ProductsAllComponent,
         ContactComponent,
         GalleryComponent,
-        PricelistComponent
+        PricelistComponent,
+        MiddleClickDirective
     ],
     providers: [
         AdminGuard,
