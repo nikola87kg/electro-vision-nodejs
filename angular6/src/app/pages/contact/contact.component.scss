@@ -2,15 +2,24 @@
 
 /* Info */
 .contact-table-wrapper {
-    padding: 20px 50px;
+   padding: 20px 50px;
+   max-width: calc(100% - 100px);
+   box-sizing: border-box;
+   @media screen and (max-width: 1000px) {
+        padding: 20px ;
+        max-width: calc(100% - 40px);
+   }
 }
 
 table {
-    width: 100%;
     tr {
         border-bottom: 1px solid rgb(212, 212, 212);
     }
     td {
         padding: 15px 50px;
+        @media screen and (max-width: 1000px) {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
     }
 }

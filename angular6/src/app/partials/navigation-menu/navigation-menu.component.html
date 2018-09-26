@@ -1,8 +1,10 @@
-<div class="navigation">
+<div class="navigation" style="overflow: hidden;     white-space: nowrap;">
+
+    <!-- Menu items -->
     <ng-container *ngFor="let item of navItems">
         <button
             class="nav-button"
-            *ngIf="item.id * 170 + 100 < actualWidth"
+            *ngIf="(item.id * 150 + 50 + 20) < actualWidth"
             mat-button
             [routerLink]="item.link"
             routerLinkActive="nav-active">
@@ -11,13 +13,21 @@
         </button>
     </ng-container>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu" *ngIf="actualWidth <= 1100" style="color: white">
+    <!-- Submenu button -->
+    <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        class="menu"
+        *ngIf="actualWidth <= (navItems.length * 150 + 50 + 20)"
+        style="color: white">
         <mat-icon>menu</mat-icon>
     </button>
+
+    <!-- Submenu items -->
     <mat-menu #menu="matMenu" class="menu">
         <ng-container *ngFor="let item of navItems">
             <button
-                *ngIf="item.id * 170 + 100 >= actualWidth"
+                *ngIf="(item.id * 150 + 50 + 20) >= actualWidth"
                 mat-menu-item
                 [routerLink]="item.link"
                 routerLinkActive="nav-active" >

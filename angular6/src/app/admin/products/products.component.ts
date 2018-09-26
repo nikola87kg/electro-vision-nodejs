@@ -54,6 +54,7 @@ export class ProductsComponent implements OnInit {
     imagePreview;
     imageID;
     imageindex: number;
+    existingImage: string;
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -100,6 +101,7 @@ export class ProductsComponent implements OnInit {
         this.imageFile = null;
         this.imagePreview = null;
         this.imageID = this.productList[index]._id;
+        this.existingImage = this.productList[index].image;
         this.imageindex = index;
         this.isImageDialogOpen = true;
         this.dialogTitle = 'Dodavanje slike';
@@ -107,6 +109,8 @@ export class ProductsComponent implements OnInit {
 
     closeImageDialog() {
         this.isImageDialogOpen = false;
+        this.existingImage = null;
+        this.imagePreview = null;
     }
 
     clearForm() {

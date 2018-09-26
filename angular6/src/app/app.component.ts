@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,19 +7,14 @@ import { Router } from '@angular/router';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    title = 'px';
+    title = 'ElectroVision';
 
-
-    constructor(
-        private router: Router
-    ) {
-    }
+    constructor(private router: Router ) {}
 
     isAdminPanel = false;
 
-
     ngOnInit() {
-        this.router.events.subscribe(val => {
+        this.router.events.subscribe( evt => {
             const pathArray = window.location.pathname.split('/');
             const firstPath = pathArray[1];
             if (firstPath === 'admin') {

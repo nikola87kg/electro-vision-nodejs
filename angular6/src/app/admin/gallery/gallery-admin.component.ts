@@ -44,6 +44,7 @@ export class GalleryAdminComponent implements OnInit {
     imagePreview;
     imageID;
     imageindex: number;
+    existingImage: string;
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -85,12 +86,15 @@ export class GalleryAdminComponent implements OnInit {
         event.stopPropagation();
         this.isImageDialogOpen = true;
         this.imageID = this.galleryList[index]._id;
+        this.existingImage = this.galleryList[index].imagePath;
         this.imageindex = index;
         this.dialogTitle = 'Dodavanje slike';
     }
 
     closeImageDialog() {
         this.isImageDialogOpen = false;
+        this.existingImage = null;
+        this.imagePreview = null;
     }
 
     clearForm() {

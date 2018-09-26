@@ -148,10 +148,11 @@
         <br>
 
         <!-- Image Preview -->
-        <div class="image-preview" *ngIf="imagePreview && imagePreview !== ''">
-            <img [src]="imagePreview" (click)="filePicker.click()">
+        <div class="image-preview">
+            <img [src]="imagePreview" (click)="filePicker.click()" *ngIf="imagePreview">
+            <img [src]="existingImage" (click)="filePicker.click()" *ngIf="existingImage && !imagePreview">
         </div>
-
+        
         <!-- Image Upload -->
         <div>
             <button
