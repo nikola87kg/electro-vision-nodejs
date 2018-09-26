@@ -132,7 +132,7 @@ export class HomepageComponent implements OnInit {
     }
     goToCategory(slug?) {
         if (slug) {
-            this.router.navigate(['/kategorije/' + slug]);
+            this.router.navigate(['/kategorija/' + slug]);
         } else {
             this.router.navigate(['/kategorije']);
         }
