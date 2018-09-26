@@ -43,7 +43,7 @@
     <!-- Brand roller -->
     <px-brand-roller></px-brand-roller>
 
-   
+
     <!-- Main area -->
     <div class="main-section row" >
         <div class="col-lg-1 ">
@@ -60,7 +60,7 @@
                 <!-- list -->
                 <div class="row">
                     <ng-container *ngFor="let prod of productList | slice:0:3; let i = index ">
-                        <div 
+                        <div
                             class="col-sm-12 col-md-6 col-lg-6 col-xl-4 top-product-box"
                             *ngIf="prod.vip"
                             (click)="goToProduct(prod.slug)"

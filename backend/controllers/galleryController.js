@@ -18,7 +18,7 @@ exports.createGallery = function(req, res, next) {
         name: req.body.name,
         description: req.body.description,
         gallery: req.body.gallery,
-        imagePath: "./assets/uploads/ev.jpeg"
+        imagePath: "./assets/logo/EV.svg"
     });
     galleryNew.save()
         .then( gallery => {

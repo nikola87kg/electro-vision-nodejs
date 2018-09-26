@@ -22,7 +22,7 @@ exports.createProduct = function(req, res, next) {
         group: req.body.group,
         category: req.body.category,
         brand: req.body.brand,
-        image: "./assets/uploads/ev.jpeg"
+        image: "./assets/logo/EV.svg"
     });
     productNew.save()
         .then( product => {

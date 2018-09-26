@@ -6,10 +6,8 @@
 
     <!-- 1. LOGO  -->
     <a class="logo" routerLink="/">
-        <span *ngIf=" windowSize !== 'small' ">Electro</span>
-        <span *ngIf=" windowSize !== 'small' ">Vision</span>
-        <span *ngIf=" windowSize === 'small' ">E</span>
-        <span *ngIf=" windowSize === 'small' ">V</span>
+        <img *ngIf=" windowSize !== 'small'" src="./assets/logo/ElectroVision.svg" alt="ElectroVision logo">
+        <img *ngIf=" windowSize === 'small'"src="./assets/logo/EV.svg" alt="ElectroVision logo short">
     </a>
 
     <!-- 2. SEARCH -->

@@ -26,6 +26,9 @@ a.logo {
     margin-left: 20px;
     span:first-of-type { color: $px-material-dark; }
     span:last-of-type  { color: $px-material-accent; }
+    img {
+        height: 40px;
+    }
 }
 
 form.searchbox {

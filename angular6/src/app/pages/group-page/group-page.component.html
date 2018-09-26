@@ -20,7 +20,7 @@
                     <div
                         *ngFor="let product of productList; let i = index"
                         class="product-single"
-                        [ngStyle]="{'background': 'url(' + product.image + ') center/cover no-repeat '}"
+                        [ngStyle]="{'background': 'url(' + product.image + ') center/contain no-repeat '}"
                         (click)="goToProduct(product.slug)">
                         <h3 [innerHtml]="product.name"></h3>
                     </div>

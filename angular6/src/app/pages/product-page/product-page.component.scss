@@ -47,9 +47,12 @@
 }
 
 .product-image {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     img {
-        width: 300px;
-        max-width: 100%;
+        width: 100%;
         height: auto;
         border: 2px solid #fafafa;
         padding: 5px;

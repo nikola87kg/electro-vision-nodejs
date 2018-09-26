@@ -72,7 +72,7 @@
             <th mat-header-cell *matHeaderCellDef> Slika </th>
             <td mat-cell *matCellDef="let item, let i = index" (click)="openImageDialog($event, i)">
                 <img *ngIf="item.image" [src]="item.image" [alt]="item.image">
-                <img *ngIf="!item.image" src="./assets/uploads/ev.jpeg">
+                <img *ngIf="!item.image" src="./assets/logo/EV.svg">
             </td>
         </ng-container>
 
@@ -254,7 +254,6 @@
         <div class="image-preview" >
             <img [src]="imagePreview" (click)="filePicker.click()" *ngIf="imagePreview">
             <img [src]="existingImage" (click)="filePicker.click()" *ngIf="existingImage && !imagePreview">
-            {{product}}
         </div>
 
         <!-- Image Upload -->

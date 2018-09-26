@@ -19,7 +19,7 @@ exports.createGroup = function(req, res, next) {
         description: req.body.description,
         slug: req.body.slug,
         category: req.body.category,
-        image: "./assets/uploads/ev.jpeg"
+        image: "./assets/logo/EV.svg"
     });
     groupNew.save()
         .then( group => {

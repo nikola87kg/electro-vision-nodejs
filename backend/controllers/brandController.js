@@ -18,7 +18,7 @@ exports.createBrand = function(req, res, next) {
         name: req.body.name,
         description: req.body.description,
         slug: req.body.slug,
-        image: "./assets/uploads/ev.jpeg"
+        image: "./assets/logo/EV.svg"
     });
     brandNew.save()
         .then( brand => {

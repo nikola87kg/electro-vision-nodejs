@@ -149,7 +149,7 @@ mat-paginator {
 }
 
 .mat-column-image {
-    width: 100px;
+    width: 180px;
 }
 
 .mat-column-created {
@@ -157,15 +157,15 @@ mat-paginator {
 }
 
 .mat-column-category {
-    width: 250px;
+    max-width: 250px;
 }
 
 .mat-column-group {
-    width: 250px;
+    max-width: 250px;
 }
 
 .mat-column-brand {
-    width: 250px;
+    max-width: 250px;
 }
 
 .mat-column-vip {
