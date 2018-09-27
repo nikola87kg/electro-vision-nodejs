@@ -55,7 +55,7 @@ export class PricelistAdminComponent implements OnInit {
         if (editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = true;
-            this.dialogTitle = 'Ažuriranje slike';
+            this.dialogTitle = 'Ažuriranje stavke';
             this.pricelist = Object.assign({}, singlePricelist);
             if (index) {
                 this.currentIndex = index;
@@ -64,7 +64,7 @@ export class PricelistAdminComponent implements OnInit {
         if (!editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = false;
-            this.dialogTitle = 'Dodavanje slike';
+            this.dialogTitle = 'Dodavanje stavke';
             this.clearForm();
         }
     }
