@@ -9,7 +9,7 @@ var config = {
             user: 'Nikola',
             password: 'Fgo2XsVOFfNzw3id',
             url: 'electrovision-cluster-vludv.mongodb.net',
-            name: 'test',
+            name: 'development',
             options: 'retryWrites=true',
       },
       server: {
@@ -23,7 +23,7 @@ var config = {
             user: 'Nikola',
             password: 'Fgo2XsVOFfNzw3id',
             url: 'electrovision-cluster-vludv.mongodb.net',
-            name: 'electrovision-db',
+            name: 'production',
             options: 'retryWrites=true',
       },
       server: {
