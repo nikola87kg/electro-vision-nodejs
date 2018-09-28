@@ -1,5 +1,0 @@
-<px-header *ngIf="!isAdminPanel"></px-header>
-<div [ngClass]="isAdminPanel ? 'full-body-content' : 'shorten-body-content'">
-  <router-outlet></router-outlet>
-</div>
-<px-footer *ngIf="!isAdminPanel"></px-footer>
