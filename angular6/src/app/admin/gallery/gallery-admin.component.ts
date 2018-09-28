@@ -71,7 +71,7 @@ export class GalleryAdminComponent implements OnInit {
         if (!editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = false;
-            this.dialogTitle = 'Dodavanje slike';
+            this.dialogTitle = 'Dodavanje stavke';
             this.clearForm();
         }
     }
