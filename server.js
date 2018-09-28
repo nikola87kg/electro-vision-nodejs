@@ -10,7 +10,7 @@ const http = require("http");
 const server = http.createServer(app);
 
 server.listen(config.server.port, () => {
-    console.log("API running on localhost:" + config.server.port);
+    console.log("API running on " + config.server.host + ":" + config.server.port);
 });
 
 /* DATABASE */
@@ -18,6 +18,9 @@ var mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 
 const url =
-    "mongodb://" + config.db.host + ":" + config.db.port + "/" + config.db.name;
-const urlOptions = config.db.options;
-mongoose.connect(url, urlOptions);
+    "mongodb+srv://"
+    + config.db.user + ":"
+    + config.db.password + "@"
+    + config.db.url + "/"
+    + config.db.name;
+mongoose.connect(url);

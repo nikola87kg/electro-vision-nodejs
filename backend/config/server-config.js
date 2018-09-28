@@ -1,35 +1,34 @@
 
 const env_port = process.env.PORT || '3000';
+const env_host = process.env.HOST || 'localhost';
 
 var config = {
   development: {
       url: 'localhost:3000', //url to be used in link generation
       db: {
-          host:   '127.0.0.1',
-          port:   '27017',
-          name:     'electrovision_development',
-          options: {
-            poolSize: 5
-          }
+            user: 'Nikola',
+            password: 'Fgo2XsVOFfNzw3id',
+            url: 'electrovision-cluster-vludv.mongodb.net',
+            name: 'test',
+            options: 'retryWrites=true',
       },
       server: {
-          host: '127.0.0.1',
-          port: '3000'
+            host:  env_host,
+            port:  env_port
       }
   },
   production: {
       url: 'http://my.site.com', //url to be used in link generation
       db: {
-          host: '127.0.0.1',
-          port: '27017',
-          name:   'electrovision',
-          options: {
-            poolSize: 5
-          }
+            user: 'Nikola',
+            password: 'Fgo2XsVOFfNzw3id',
+            url: 'electrovision-cluster-vludv.mongodb.net',
+            name: 'electrovision-db',
+            options: 'retryWrites=true',
       },
       server: {
-          host:  '127.0.0.1',
-          port:  env_port
+            host:  env_host,
+            port:  env_port
       }
   }
   };
