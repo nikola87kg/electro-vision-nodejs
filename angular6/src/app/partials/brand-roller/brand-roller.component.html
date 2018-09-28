@@ -1,0 +1,12 @@
+<!-- Roller -->
+<div class="brand-roller">
+    <span *ngFor="let brand of brandList; let i = index" class="left-right">
+        <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
+    </span>
+    <span *ngFor="let brand of brandList; let i = index" class="left-right">
+        <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
+    </span>
+    <span *ngFor="let brand of brandList; let i = index" class="left-right">
+        <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
+    </span>
+</div>

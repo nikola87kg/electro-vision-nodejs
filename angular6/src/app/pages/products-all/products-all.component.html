@@ -1,0 +1,79 @@
+<!-- background -->
+<div class="product-background">
+</div>
+
+<!-- Navigation Menu -->
+<px-navigation-menu></px-navigation-menu>
+
+<!-- Toolbar -->
+<mat-toolbar color="accent"
+    *ngIf="selectedItemName">
+    <span class="toolbar-title">
+        {{selectedItemName}}
+    </span>
+    <span class="toolbar-spacer"></span>
+    <button
+        *ngIf="currentLevel > 1"
+        class="back-button"
+        mat-stroked-button
+        (click)="OnLevelChange(-1);">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Vrati se nazad
+    </button>
+</mat-toolbar>
+
+<!-- Stepper -->
+<div class="step-buttons">
+    <button
+        mat-raised-button
+        [color]=" currentLevel === 1 ? 'primary' : '' "
+        (click)="OnLevelChange(100);">
+        1. Kategorije
+    </button>
+    <button
+        mat-raised-button
+        [disabled]="currentLevel < 2 "
+        (click)="OnLevelChange(-1);"
+        [color]=" currentLevel === 2 ? 'primary' : '' ">
+        2. Potkategorije
+    </button>
+    <button
+        mat-raised-button
+        [disabled]="currentLevel < 3 "
+        [color]=" currentLevel === 3 ? 'primary' : '' ">
+        3. Proizvodi
+    </button>
+</div>
+
+<!-- Category Dropdown -->
+<div class="no-content" *ngIf="currentList?.length < 1">
+    <h6> Izvinjavamo se. Za izabranu kategoriju trenutno ne postoje proizvodi... </h6>
+</div>
+
+<mat-form-field *ngIf="currentLevel === 2 ">
+    <mat-select placeholder="Promeni kategoriju">
+        <mat-option  [value]="category._id"
+        *ngFor="let category of categoryList"
+        (click)="OnLevelChange(0, category)">
+            {{ category.name }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<!-- Cards -->
+<mat-card
+    (click)="OnLevelChange(1, item);"
+    *ngFor="let item of currentList">
+    <!-- Title -->
+    <mat-card-title>  {{ item.name }} </mat-card-title>
+    <!-- Image -->
+    <div class="image-wrapper">
+        <img mat-card-image [src]="item.image">
+    </div>
+    <br>
+    <!-- Button -->
+    <mat-card-actions>
+        <button mat-raised-button color="accent">Izaberi</button>
+    </mat-card-actions>
+</mat-card>
+

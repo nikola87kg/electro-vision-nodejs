@@ -1,0 +1,42 @@
+@import "src/px-material-theme.scss";
+
+.full-screen {
+    width: calc(100% - 300px);
+    margin: 20px 150px;
+    @media screen and (max-width: 1028px) {
+        width: calc(100% - 100px);
+        margin: 20px 50px;
+    }
+    @media screen and (max-width: 768px) {
+        width: calc(100% - 40px);
+        margin: 20px 20px;
+    }
+    @media screen and (max-width: 400px) {
+        width: calc(100% - 20px);
+        margin: 20px 10px;
+    }
+}
+
+.mat-column-price {
+    color: $px-material-accent;
+    text-align: right;
+}
+
+.mat-cell, .mat-header-cell {
+    font-size: 20px;
+    @media screen and (max-width: 1028px) {
+        width: calc(100% - 100px);
+        margin: 20px 50px;
+        font-size: 20px;
+    }
+    @media screen and (max-width: 768px) {
+        width: calc(100% - 40px);
+        margin: 20px 20px;
+        font-size: 16px;
+    }
+    @media screen and (max-width: 400px) {
+        width: calc(100% - 20px);
+        margin: 20px 10px;
+        font-size: 14px;
+    }
+}

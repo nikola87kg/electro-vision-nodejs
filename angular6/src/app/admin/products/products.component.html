@@ -1,0 +1,292 @@
+<!-- TOOLBAR  -->
+
+<mat-toolbar class="row">
+    <!-- Page title -->
+    <div class="col-sm-12 col-lg-6">
+        Lista proizvoda
+        <button class="add-button" mat-raised-button color="primary" (click)="openDialog(false)">
+            <mat-icon>add</mat-icon>
+            <span class="button-title">Dodaj proizvod</span>
+        </button>
+    </div>
+    <!-- Filter -->
+    <div class="col-sm-12 col-lg-6">
+        <form class="select-filter">
+            <!-- Category filter -->
+            <mat-form-field>
+                <mat-select #categoryFilter placeholder="Kategorije">
+                    <mat-option (click)="categoryFilter.value = '';
+                        getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                        Sve kategorije
+                    </mat-option>
+                    <mat-option *ngFor="let cat of categoryList" [value]="cat._id" (click)="groupFilter.value = '';
+                                getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                        {{cat.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- Group filter -->
+            <mat-form-field>
+                <mat-select #groupFilter placeholder="Grupe">
+                    <mat-option (click)="groupFilter.value = '';
+                        getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                        Sve grupe
+                    </mat-option>
+                    <mat-option *ngFor="let group of groupList" [value]="group._id" (click)="categoryFilter.value = '';
+                                getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                        {{group.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- Brand filter -->
+            <mat-form-field>
+                <mat-select #brandFilter placeholder="Brendovi">
+                    <mat-option (click)="brandFilter.value = '';
+                        getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                        Svi brendovi
+                    </mat-option>
+                    <mat-option
+                        *ngFor="let brand of brandList" [value]="brand._id"
+                        (click)=" getProducts(categoryFilter.value, groupFilter.value, brandFilter.value)">
+                        {{brand.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
+</mat-toolbar>
+
+<!-- TABLE -->
+<div class="table-wrapper">
+    <table mat-table matSort [dataSource]="dataSource" class="full-screen"  >
+        <!-- Position Column Setup -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>
+                <b>{{ productList?.length || 0 }}</b>
+            </th>
+            <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
+        </ng-container>
+
+        <!-- Image Column Setup -->
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Slika </th>
+            <td mat-cell *matCellDef="let item, let i = index" (click)="openImageDialog($event, i)">
+                <img *ngIf="item.image" [src]="item.image" [alt]="item.image">
+                <img *ngIf="!item.image" src="./assets/logo/EV.svg">
+            </td>
+        </ng-container>
+
+        <!-- Name Column Setup -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Naziv </th>
+            <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
+        </ng-container>
+
+        <!-- Slug Column Setup -->
+        <ng-container matColumnDef="slug">
+            <th mat-header-cell *matHeaderCellDef> Slug </th>
+            <td mat-cell *matCellDef="let item"> {{ item.slug }} </td>
+        </ng-container>
+
+        <!-- VIP Column Setup -->
+        <ng-container matColumnDef="vip">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Naslovna </th>
+            <td mat-cell *matCellDef="let item" [style.color]=" item.vip ? 'green' : 'red' ">
+                {{ item.vip ? ' ✔' : ' ✖' }}
+            </td>
+        </ng-container>
+
+        <!-- Description Column Setup -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Opis </th>
+            <td mat-cell *matCellDef="let item">
+                <span style="white-space: pre-wrap;">{{ item.description }} </span>
+            </td>
+        </ng-container>
+
+        <!-- Category Column Setup -->
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Kategorija </th>
+            <td mat-cell *matCellDef="let item"> {{ item.category.name }} </td>
+        </ng-container>
+
+        <!-- Group Column Setup -->
+        <ng-container matColumnDef="group" >
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Grupa </th>
+            <td mat-cell *matCellDef="let item"> {{ item.group.name }} </td>
+        </ng-container>
+
+        <!-- Brand Column Setup -->
+        <ng-container matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Brend </th>
+            <td mat-cell *matCellDef="let item"> {{ item.brand.name }} </td>
+        </ng-container>
+
+        <!-- Created At Column Steup -->
+        <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum kreiranja </th>
+            <td mat-cell *matCellDef="let item">
+                <span>{{ item.createdAt | date: 'dd. MM. yyyy' }} </span>
+            </td>
+        </ng-container>
+
+        <!-- rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;"> </tr>
+        <tr mat-row
+            *matRowDef="let row; let i = index;columns: displayedColumns;"
+            (click)="openDialog(true, row, i)">
+        </tr>
+    </table>
+</div>
+
+<mat-paginator
+    #paginator
+    [pageSize] = "10"
+    [pageSizeOptions] =  "[5, 10, 20, 50]"
+    [showFirstLastButtons] = " windowSize !== 'small' ">
+</mat-paginator>
+
+<!-- ADD/EDIT DIALOG -->
+<div class="fixed dialog-wrapper" *ngIf="isAddDialogOpen" (click)="isAddDialogOpen = false">
+
+    <form class="form-dialog" #products="ngForm" (click)="$event.stopPropagation()">
+        <!-- header -->
+        <div class="dialog-header">
+            <span class="dialog-header-title"> {{dialogTitle}} </span>
+            <button type="button" class="cancel-x btn btn-link" (click)="closeDialog($event)">
+                <i class="fa fa-times "></i>
+            </button>
+        </div>
+        <br>
+        <!-- Name -->
+        <mat-form-field>
+            <input
+                matInput [(ngModel)]="product.name" placeholder="Naziv proizvoda" name="name" type="text"
+                autocomplete="off" required>
+        </mat-form-field>
+
+        <!-- Slug -->
+        <mat-form-field>
+            <input
+                matInput [(ngModel)]="product.slug" placeholder="Link ka proizvodu" name="slug" type="text"
+                autocomplete="off" required>
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field>
+            <textarea
+                matInput [(ngModel)]="product.description" placeholder="Opis proizvoda" name="description"
+                type="text" autocomplete="off" required></textarea>
+        </mat-form-field>
+
+        <!-- Category -->
+        <mat-form-field>
+            <mat-select [(ngModel)]="product.category._id" name="category" placeholder="Kategorija" required>
+                <mat-option *ngFor="let cat of categoryList" [value]="cat._id">
+                    {{cat.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Group -->
+        <mat-form-field>
+            <mat-select [(ngModel)]="product.group._id" name="group" placeholder="Potkategorija" required>
+                <mat-option *ngFor="let group of groupList" [value]="group._id">
+                    {{group.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Brand -->
+        <mat-form-field>
+            <mat-select [(ngModel)]="product.brand._id" name="brand" placeholder="Brend" required>
+                <mat-option *ngFor="let brand of brandList" [value]="brand._id">
+                    {{brand.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Vip -->
+        <mat-checkbox [(ngModel)]="product.vip" color="primary" name="vip" >
+            Na naslovnoj strani
+        </mat-checkbox>
+
+        <br>
+        <br>
+        <!-- dialog footer -->
+        <div class="dialog-footer">
+            <mat-button-toggle-group #group="matButtonToggleGroup">
+                <mat-button-toggle class="delete-item"
+                    (click)="deleteProduct(product._id, $event)" *ngIf="isDialogEditing">
+                    Obriši
+                </mat-button-toggle>
+                <mat-button-toggle class="cancel-item" (click)="closeDialog($event)">
+                    Odustani
+                </mat-button-toggle>
+                <mat-button-toggle class="save-item" [disabled]="!products.form.valid"
+                    (click)="postProduct(product, $event)"
+                    *ngIf="!isDialogEditing">
+                    Sačuvaj
+                </mat-button-toggle>
+                <mat-button-toggle class="update-item" [disabled]="!products.form.valid"
+                    (click)="putProduct(product, $event)" *ngIf="isDialogEditing">
+                    Ažuriraj
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+    </form>
+</div>
+
+<!-- IMAGE DIALOG -->
+<div class="fixed dialog-wrapper" *ngIf="isImageDialogOpen">
+    <form class="form-dialog image-dialog" #image="ngForm">
+        <!-- header -->
+        <div class="dialog-header">
+            <span class="dialog-header-title"> Postavi sliku </span>
+            <!-- x -->
+            <button type="button" class="cancel-x btn btn-link" (click)="closeImageDialog()">
+                <i class="fa fa-times "></i>
+            </button>
+        </div>
+        <br>
+
+        <!-- Image Preview -->
+        <div class="image-preview" >
+            <img [src]="imagePreview" (click)="filePicker.click()" *ngIf="imagePreview">
+            <img [src]="existingImage" (click)="filePicker.click()" *ngIf="existingImage && !imagePreview">
+        </div>
+
+        <!-- Image Upload -->
+        <div>
+            <button
+                mat-raised-button
+                color="accent"
+                type="button"
+                (click)="filePicker.click()">
+                <span *ngIf="imageFile">
+                    {{ imageFile.name }}
+                    ({{ imageFile.size / 1000 | number:'1.0-0' }} kb)
+                </span>
+                <span *ngIf="!imageFile">Izaberi fotografiju</span>
+            </button>
+            <input
+                type="file"
+                #filePicker
+                (change)="onImagePicked($event)"
+                style="display: none">
+        </div>
+        <br>
+
+        <!-- dialog footer -->
+        <div class="dialog-footer">
+            <mat-button-toggle-group #group="matButtonToggleGroup">
+                <mat-button-toggle class="cancel-item" (click)="closeImageDialog()">
+                    Odustani
+                </mat-button-toggle>
+                <mat-button-toggle class="save-item" (click)="postImage()">
+                    Sačuvaj
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,23 @@
+@import "src/px-material-theme.scss";
+
+/* Info */
+.contact-table-wrapper {
+   padding: 20px;
+   box-sizing: border-box;
+   @media screen and (max-width: 1400px) {
+        max-width: calc(100% - 40px);
+   }
+}
+
+table {
+    tr {
+        border-bottom: 1px solid rgb(212, 212, 212);
+    }
+    td {
+        padding: 15px 50px;
+        @media screen and (max-width: 1400px) {
+            padding: 10px;
+            font-size: 14px;
+        }
+    }
+}
