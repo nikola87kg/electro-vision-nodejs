@@ -17,10 +17,5 @@ server.listen(config.server.port, () => {
 var mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 
-const url =
-    "mongodb+srv://"
-    + config.db.user + ":"
-    + config.db.password + "@"
-    + config.db.url + "/"
-    + config.db.name;
-mongoose.connect(url, { useNewUrlParser: true });
+const url ="mongodb+srv://Nikola:Fgo2XsVOFfNzw3id@electrovision-cluster-vludv.mongodb.net/production";
+mongoose.connect(url, { retryWrites=true, useNewUrlParser: true });
