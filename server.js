@@ -1,9 +1,9 @@
 /* CONFIG */
 const env = process.env.NODE_ENV || "development";
-const config = require("./backend/config/server-config")[env];
+const config = require("./config/server-config")[env];
 
 /* EXPRESS */
-const app = require("./backend/express");
+const app = require("./express");
 
 /*  HTTP */
 const http = require("http");
@@ -23,4 +23,4 @@ const url =
     + config.db.password + "@"
     + config.db.url + "/"
     + config.db.name;
-mongoose.connect(url);
+mongoose.connect(url, { useNewUrlParser: true });

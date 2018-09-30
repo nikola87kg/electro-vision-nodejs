@@ -1,7 +1,3 @@
-var fs = require("fs-extra"); // file system
-var ncp = require("ncp").ncp; // copy files
-const multer = require("multer"); // image uplaoder
-
 // Model
 var Product = require("../models/productModel");
 

@@ -12,9 +12,6 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const logger = require("morgan");
-app.use(logger("dev"));
-
 const errorHandler = require("errorhandler");
 app.use(errorHandler());
 

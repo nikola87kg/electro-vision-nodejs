@@ -1,7 +1,11 @@
-# ElectroVision
+# ElectroVision REST API
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
+NodeJS v8.11.4
+NPM v5.6.0
+Express v4.16.3
 
-## Development server
+## Server Info
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `node server.js` for running NodeJS app. 
+This app is part of the MEAN Stack application.
+Development --> Navigate to `http://localhost:3000/`
