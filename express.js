@@ -5,7 +5,7 @@ const app = express();
 /* FRONTEND DIST */
 const path = require("path");
 // app.use(express.static(path.join(__dirname, "dist", "electro-vision" )));
-app.use('/uploads', express.static(path.join(__dirname, "../uploads" )));
+app.use('*/uploads', express.static(path.join(__dirname, "uploads" )));
 
 /* MIDDLEWARE */
 const bodyParser = require("body-parser");

@@ -1,6 +1,5 @@
-/* CONFIG */
-const env = process.env.NODE_ENV || "development";
-const config = require("./config/server-config")[env];
+// /* CONFIG */
+const env = require('dotenv').config().parsed;
 
 /* EXPRESS */
 const app = require("./express");
@@ -9,13 +8,27 @@ const app = require("./express");
 const http = require("http");
 const server = http.createServer(app);
 
-server.listen(config.server.port, () => {
-    console.log("API running on " + config.server.host + ":" + config.server.port);
+const port = normalizePort(env.ENV_PORT || "3000");
+app.set("port", port);
+
+server.listen(port, () => {
+    console.log("API running on port: " + port);
 });
 
 /* DATABASE */
 var mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 
-const url ="mongodb+srv://Nikola:Fgo2XsVOFfNzw3id@electrovision-cluster-vludv.mongodb.net/production";
-mongoose.connect(url, { retryWrites=true, useNewUrlParser: true });
+const mongoose_url =
+    "mongodb+srv://"
+    + env.DB_USER
+    + ":"
+    + env.DB_PASS
+    + "@"
+    + env.DB_URL
+    + "/"
+    + env.DB_NAME;
+mongoose.connect(mongoose_url, {
+    retryWrites: true,
+    useNewUrlParser: true
+});
