@@ -8,7 +8,7 @@ const app = require("./express");
 const http = require("http");
 const server = http.createServer(app);
 
-const port = normalizePort(env.ENV_PORT || "3000");
+const port = env.ENV_PORT || "3000";
 app.set("port", port);
 
 server.listen(port, () => {
