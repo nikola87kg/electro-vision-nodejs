@@ -1,8 +1,6 @@
-/* Reference models */
-var Category = require('./categoryModel');
-
 /* Requires Mongoose Schema */
 var mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 
 /* Creates a schema */
@@ -23,6 +21,8 @@ groupSchema.pre('save', function(next){
   }
   next();
 });
+
+groupSchema.plugin(uniqueValidator);
 
 /* Creates a model */
 const groupModel = mongoose.model('Group', groupSchema);

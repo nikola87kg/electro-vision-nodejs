@@ -1,10 +1,6 @@
-/* Reference models */
-var Group = require('./groupModel');
-var Category = require('./categoryModel');
-var Brand = require('./brandModel');
-
 /* Requires Mongoose Schema */
 var mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 
 /* Creates a schema */
@@ -28,6 +24,8 @@ productSchema.pre('save', function(next){
   }
   next();
 });
+
+productSchema.plugin(uniqueValidator);
 
 /* Creates a model */
 var productModel = mongoose.model('Product', productSchema);

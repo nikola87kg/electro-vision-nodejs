@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 
 var categorySchema = new Schema({
@@ -17,6 +18,8 @@ categorySchema.pre('save', function(next){
   }
   next();
 });
+
+categorySchema.plugin(uniqueValidator);
 
 /* Creates a model */
 const CategoryModel = mongoose.model('Category', categorySchema);

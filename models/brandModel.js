@@ -1,5 +1,6 @@
 
 var mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 
 /* Creates a schema */
@@ -19,6 +20,8 @@ brandSchema.pre('save', function(next){
   }
   next();
 });
+
+brandSchema.plugin(uniqueValidator);
 
 /* Creates a model */
 const BrandModel = mongoose.model('Brand', brandSchema);
