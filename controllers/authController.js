@@ -2,7 +2,7 @@
 var User = require("../models/userModel");
 
 // dependencies
-var bcrypt = require("bcrypt");
+var bcrypt = require("bcryptjs");
 
 /* REGISTER NEW USER */
 exports.register = function(req, res, next) {
