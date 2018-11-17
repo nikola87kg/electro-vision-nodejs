@@ -4,16 +4,17 @@ var router = express.Router();
 
 // Middleware
 const extractFile = require("../middleware/fileUpload");
+const checkAuth = require("../middleware/checkAuth");
 
 // Controllers
 const GalleryController = require("../controllers/galleryController")
 
-router.post("/images/:id", extractFile, GalleryController.storeGalleryImage);
-router.post("/", GalleryController.createGallery);
+router.post("/images/:id", checkAuth, extractFile, GalleryController.storeGalleryImage);
+router.post("/", checkAuth, GalleryController.createGallery);
 
 router.get("/", GalleryController.getAllGalleries);
 
-router.put("/:id", GalleryController.updateGallery);
-router.delete("/:id", GalleryController.deleteGallery);
+router.put("/:id", checkAuth, GalleryController.updateGallery);
+router.delete("/:id", checkAuth, GalleryController.deleteGallery);
 
 module.exports = router;

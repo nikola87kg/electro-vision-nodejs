@@ -4,13 +4,14 @@ var router = express.Router();
 
 // Middleware
 const extractFile = require("../middleware/fileUpload");
+const checkAuth = require("../middleware/checkAuth");
 
 // Controllers
 const PricelistController = require("../controllers/pricelistController")
 
 router.get("/", PricelistController.getAllPricelists);
-router.post("/", PricelistController.createPricelist);
-router.put("/:id", PricelistController.updatePricelist);
-router.delete("/:id", PricelistController.deletePricelist);
+router.post("/", checkAuth, PricelistController.createPricelist);
+router.put("/:id", checkAuth, PricelistController.updatePricelist);
+router.delete("/:id", checkAuth, PricelistController.deletePricelist);
 
 module.exports = router;

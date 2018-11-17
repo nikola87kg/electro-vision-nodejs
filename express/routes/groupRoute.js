@@ -4,17 +4,18 @@ var router = express.Router();
 
 // Middleware
 const extractFile = require("../middleware/fileUpload");
+const checkAuth = require("../middleware/checkAuth");
 
 // Controllers
 const GroupController = require("../controllers/groupController")
 
-router.post("/images/:id", extractFile, GroupController.storeGroupImage);
-router.post("/", GroupController.createGroup);
+router.post("/images/:id", checkAuth, extractFile, GroupController.storeGroupImage);
+router.post("/", checkAuth, GroupController.createGroup);
 
 router.get("/:slug", GroupController.getOneGroup);
 router.get("/", GroupController.getAllGroups);
 
-router.put("/:id", GroupController.updateGroup);
-router.delete("/:id", GroupController.deleteGroup);
+router.put("/:id", checkAuth, GroupController.updateGroup);
+router.delete("/:id", checkAuth, GroupController.deleteGroup);
 
 module.exports = router;
