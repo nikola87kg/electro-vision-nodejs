@@ -7,18 +7,8 @@ var gallerySchema = new Schema({
     name:           {type: String, required: true, trim: true},
     description:    {type: String, trim: true, default: 'Ova slika nema opis'},
     gallery:        {type: String, trim: true},
-    imagePath:      {type: String },
-    createdAt:      {type: Date, default: Date.now},
-    updatedAt:      {type: Date, default: Date.now}
-});
-
-/* Pre Hook */
-gallerySchema.pre('save', function(next){
-  if (!this.createdAt) {
-      this.createdAt = new Date();
-  }
-  next();
-});
+    imagePath:      {type: String }
+}, {timestamps: true});
 
 /* Creates a model */
 const GalleryModel = mongoose.model('Gallery', gallerySchema);

@@ -5,21 +5,11 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 /* Creates a schema */
 var userSchema = new Schema({
-    username:       {type: String, required: true, index: true},
+    username:       {type: String, required: true, unique: true},
     admin:          {type: Boolean, default: true},
-    email:          {type: String, required: true},
-    password:       {type: String, required: true},
-    createdAt:      {type: Date, default: Date.now},
-    updatedAt:      {type: Date, default: Date.now}
-});
-
-/* Pre hook */
-userSchema.pre('save', function(next){
-  if (!this.createdAt) {
-      this.createdAt = new Date();
-  }
-  next();
-});
+    email:          {type: String, required: true, unique: true},
+    password:       {type: String, required: true}
+}, {timestamps: true});
 
 userSchema.plugin(uniqueValidator);
 
