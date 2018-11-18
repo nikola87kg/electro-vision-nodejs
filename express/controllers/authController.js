@@ -41,23 +41,27 @@ exports.login = async (req, res, next) => {
         const regUser = await User.findOne( {email: req.body.email} )
         if( !regUser ) {
             /* send response with error object */
-            res.status(401).json('User with this email does not exist');
-            console.error('Error! User with this email does not exist --> ', e);
+            res.status(401).json({error: 'username error'});
+            console.error('Error! User with this email does not exist');
         } else {
             const isPasswordCorrect = await bcrypt.compare(req.body.password, regUser.password);
             if(!isPasswordCorrect ) {
                 /* send response with error object */
-                res.status(401).json('Passwords do not match');
-                console.error('Error! Passwords do not match --> ', e);
+                res.status(401).json({error: 'password error'});
+                console.error('Error! Passwords do not match');
             } else {
+                if(!regUser.admin) {
+                    /* send response with error object */
+                    res.status(401).json({error: 'admin error'});
+                    console.error('Error! User is not admin');
+                }
                 /* create a token */
                 const token = await jwt.sign(
                     { email: regUser.email, userId: regUser._id  },
-                    'pixelarium_secret',
-                    {expiresIn: '1h'}
+                    'pixelarium_secret'
                 )
                 /* send response with token */
-                res.status(200).json({ token: token })
+                res.status(200).json({ token: token, expiresIn: 3600 })
 
             }
         }
