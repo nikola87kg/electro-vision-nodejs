@@ -91,7 +91,7 @@ exports.updateBrand = async (req, res, next) => {
             imagePath = url + "/uploads/" +  req.body.image;
         }
         /* Create a brand instance */
-        const brandUpdated = {
+        const updatedFields = {
             name: req.body.name,
             description: req.body.description,
             slug: req.body.slug,
@@ -100,7 +100,9 @@ exports.updateBrand = async (req, res, next) => {
         };
 
         /* Query to DB - PUT brand */
-        const updatedBrand = await Brand.findOneAndUpdate({ _id: req.params.id }, { $set: brandUpdated})
+        query = { _id: req.params.id }
+        await Brand.findOneAndUpdate(query, { $set: updatedFields})
+        const updatedBrand = await Brand.findOne({ _id: req.params.id })
 
         /* Send response with updated brand object */
         res.status(200).json( updatedBrand )

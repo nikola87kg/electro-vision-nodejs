@@ -90,7 +90,7 @@ exports.updateCategory = async (req, res, next) => {
             imagePath = url + "/uploads/" +  req.body.image;
         }
         /* Create a category instance */
-        const categoryUpdated = {
+        const updatedFields = {
             name: req.body.name,
             description: req.body.description,
             slug: req.body.slug,
@@ -98,7 +98,9 @@ exports.updateCategory = async (req, res, next) => {
         };
 
         /* Query to DB - PUT category */
-        const updatedCategory = await Category.findOneAndUpdate({ _id: req.params.id }, { $set: categoryUpdated})
+        query = { _id: req.params.id }
+        await Category.findOneAndUpdate(query, { $set: updatedFields})
+        const updatedCategory = await Category.findOne({ _id: req.params.id })
 
         /* Send response with updated category object */
         res.status(200).json( updatedCategory )

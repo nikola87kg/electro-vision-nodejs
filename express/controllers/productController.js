@@ -102,7 +102,7 @@ exports.updateProduct = async (req, res, next) => {
         }
 
         /* Create a product instance */
-        var productUpdated = {
+        var updatedFields = {
             name: req.body.name,
             vip: req.body.vip,
             slug: req.body.slug,
@@ -113,7 +113,9 @@ exports.updateProduct = async (req, res, next) => {
             image: imagePath
         };
         /* Query to DB - PUT product */
-        const updatedProduct = await Product.findOneAndUpdate({ _id: req.params.id }, { $set: productUpdated})
+        query = { _id: req.params.id }
+        await Product.findOneAndUpdate(query, { $set: updatedFields})
+        const updatedProduct = await Product.findOne({ _id: req.params.id })
 
         /* Send response with updated product object */
         res.status(200).json( updatedProduct )

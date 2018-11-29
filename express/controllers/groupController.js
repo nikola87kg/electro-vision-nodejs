@@ -92,7 +92,7 @@ exports.updateGroup = async (req, res, next) => {
         }
 
         /* Create a group instance */
-        const groupUpdated = {
+        const updatedFields = {
             name: req.body.name,
             description: req.body.description,
             category: req.body.category,
@@ -101,7 +101,9 @@ exports.updateGroup = async (req, res, next) => {
         };
 
         /* Query to DB - PUT group */
-        const updatedGroup = await Group.findOneAndUpdate({ _id: req.params.id }, { $set: groupUpdated})
+        query = { _id: req.params.id }
+        await Group.findOneAndUpdate(query, { $set: updatedFields})
+        const updatedGroup = await Group.findOne({ _id: req.params.id })
 
         /* Send response with updated group object */
         res.status(200).json( updatedGroup )
