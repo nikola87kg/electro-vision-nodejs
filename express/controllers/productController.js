@@ -79,7 +79,6 @@ exports.getOneProduct = async (req, res, next) => {
         if(singleProduct) {
 
             /* Query to DB - UPDATE counter */
-            console.log(singleProduct.name, '--> views:', singleProduct.counter)
             query = { _id: singleProduct._id }
             await Product.findOneAndUpdate(query, { $set: {counter: singleProduct.counter + 1}})
 
