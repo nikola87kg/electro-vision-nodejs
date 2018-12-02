@@ -16,12 +16,14 @@ exports.createProduct = async (req, res, next) => {
         /* Create product instance */
         var productNew = new Product({
             name: req.body.name,
+            catalog: req.body.catalog,
             vip: req.body.vip,
             description: req.body.description,
             slug: req.body.slug,
             group: req.body.group,
             category: req.body.category,
             brand: req.body.brand,
+            counter: 0,
             image: "./assets/logo/EV.svg"
         });
 
@@ -75,6 +77,12 @@ exports.getOneProduct = async (req, res, next) => {
                                             .populate("brand", ["_id", "name", "slug"])
 
         if(singleProduct) {
+
+            /* Query to DB - UPDATE counter */
+            console.log(singleProduct.name, '--> views:', singleProduct.counter)
+            query = { _id: singleProduct._id }
+            await Product.findOneAndUpdate(query, { $set: {counter: singleProduct.counter + 1}})
+
             /* Send response with single product object */
             res.status(200).json( singleProduct )
         } else {
@@ -104,6 +112,7 @@ exports.updateProduct = async (req, res, next) => {
         /* Create a product instance */
         var updatedFields = {
             name: req.body.name,
+            catalog: req.body.catalog,
             vip: req.body.vip,
             slug: req.body.slug,
             category: req.body.category,
