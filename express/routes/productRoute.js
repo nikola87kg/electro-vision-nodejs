@@ -4,12 +4,13 @@ var router = express.Router();
 
 // Middleware
 const extractFile = require("../middleware/fileUpload");
+const resize = require("../middleware/resize");
 const checkAuth = require("../middleware/checkAuth");
 
 // Controllers
 const ProductController = require("../controllers/productController")
 
-router.post("/images/:id", checkAuth, extractFile, ProductController.storeProductImage);
+router.post("/images/:id", checkAuth, extractFile, resize, ProductController.storeProductImage);
 router.post("/", checkAuth, ProductController.createProduct);
 
 router.get("/:slug", ProductController.getOneProduct);

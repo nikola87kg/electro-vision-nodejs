@@ -3,7 +3,6 @@ var express = require("express");
 var router = express.Router();
 
 // Middleware
-const extractFile = require("../middleware/fileUpload");
 const checkAuth = require("../middleware/checkAuth");
 
 // Controllers

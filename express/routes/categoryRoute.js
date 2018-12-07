@@ -4,13 +4,14 @@ var router = express.Router();
 
 // Middleware
 const extractFile = require("../middleware/fileUpload");
+const resize = require("../middleware/resize");
 const checkAuth = require("../middleware/checkAuth");
 
 // Controllers
 const CategoryController = require("../controllers/categoryController")
 
 
-router.post("/images/:id", checkAuth, extractFile, CategoryController.storeCategoryImage);
+router.post("/images/:id", checkAuth, extractFile, resize, CategoryController.storeCategoryImage);
 router.post("/", checkAuth, CategoryController.createCategory);
 
 router.get("/:slug", CategoryController.getOneCategory);

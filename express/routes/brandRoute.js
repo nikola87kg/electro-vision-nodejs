@@ -3,12 +3,13 @@ const router = express.Router();
 
 // Middleware
 const extractFile = require("../middleware/fileUpload");
+const resize = require("../middleware/resize");
 const checkAuth = require("../middleware/checkAuth");
 
 // Controllers
 const BrandController = require("../controllers/brandController")
 
-router.post("/images/:id", checkAuth, extractFile, BrandController.storeBrandImage);
+router.post("/images/:id", checkAuth, extractFile, resize, BrandController.storeBrandImage);
 router.post("/",  checkAuth, BrandController.createBrand);
 
 router.get("/:slug", BrandController.getOneBrand);
