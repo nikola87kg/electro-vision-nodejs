@@ -4,13 +4,13 @@ var router = express.Router();
 
 // Middleware
 const extractFile = require("../middleware/fileUpload");
-const resize = require("../middleware/resize");
+const resizeBig = require("../middleware/resize-big");
 const checkAuth = require("../middleware/checkAuth");
 
 // Controllers
 const GalleryController = require("../controllers/galleryController")
 
-router.post("/images/:id", checkAuth, extractFile, resize, GalleryController.storeGalleryImage);
+router.post("/images/:id", checkAuth, extractFile, resizeBig, GalleryController.storeGalleryImage);
 router.post("/", checkAuth, GalleryController.createGallery);
 
 router.get("/", GalleryController.getAllGalleries);
