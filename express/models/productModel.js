@@ -9,6 +9,7 @@ var productSchema = new Schema({
     catalog:        {type: String},
     vip:            {type: Boolean, default: false},
     description:    {type: String},
+    price:          {type: String},
     slug:           {type: String, required: true, trim: true},
     category:       {type: Schema.Types.ObjectId, ref: 'Category', required: true},
     group:          {type: Schema.Types.ObjectId, ref: 'Group', required: true},

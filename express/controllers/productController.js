@@ -23,6 +23,7 @@ exports.createProduct = async (req, res, next) => {
             group: req.body.group,
             category: req.body.category,
             brand: req.body.brand,
+            price: req.body.price,
             counter: 0,
             image: "./assets/logo/EV.svg"
         });
@@ -116,6 +117,7 @@ exports.updateProduct = async (req, res, next) => {
             slug: req.body.slug,
             category: req.body.category,
             brand: req.body.brand,
+            price: req.body.price,
             group: req.body.group,
             description: req.body.description,
             image: imagePath
