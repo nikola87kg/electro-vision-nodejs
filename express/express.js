@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const brandRoute = require("./routes/brandRoute");
 const categoryRoute = require("./routes/categoryRoute");
+const orderRoute = require("./routes/orderRoute");
 const groupRoute = require("./routes/groupRoute");
 const productRoute = require("./routes/productRoute");
 const galleryRoute = require("./routes/galleryRoute");
@@ -33,6 +34,7 @@ app.use("/api/brands",      brandRoute);
 app.use("/api/categories",  categoryRoute);
 app.use("/api/gallery",     galleryRoute);
 app.use("/api/groups",      groupRoute);
+app.use("/api/orders",      orderRoute);
 app.use("/api/pricelist",   pricelistRoute);
 app.use("/api/products",    productRoute);
 
