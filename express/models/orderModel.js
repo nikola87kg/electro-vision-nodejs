@@ -8,7 +8,8 @@ var orderSchema = new Schema({
     name:       {type: String, required: true},
     phone:      {type: String, default: false},
     email:      {type: String, required: true},
-    orderList:  {type: Array, required: true}
+    orderList:  {type: Array, required: true},
+    question:   {type: String, },
 }, {timestamps: true});
 
 orderSchema.plugin(uniqueValidator);
