@@ -48,7 +48,7 @@ exports.getAllProducts = async (req, res, next) => {
         let productList = await Product.find()
                                         .populate("group", ["_id", "name", "slug"])
                                         .populate("category", ["_id", "name", "slug"])
-                                        .populate("brand", ["_id", "name", "slug"])
+                                        .populate("brand", ["_id", "name", "slug", "image"])
 
         if( productList ) {
             /* Send response with product list object */
@@ -75,7 +75,7 @@ exports.getOneProduct = async (req, res, next) => {
         const singleProduct = await Product.findOne({ slug: req.params.slug })
                                             .populate("group", ["_id", "name", "slug"])
                                             .populate("category", ["_id", "name", "slug"])
-                                            .populate("brand", ["_id", "name", "slug"])
+                                            .populate("brand", ["_id", "name", "slug", "image"])
 
         if(singleProduct) {
 
