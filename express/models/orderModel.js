@@ -5,10 +5,11 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 /* Creates a schema */
 var orderSchema = new Schema({
-    name:       {type: String, required: true},
-    phone:      {type: String, default: false},
-    email:      {type: String, required: true},
     orderList:  {type: Array, required: true},
+    name:       {type: String, required: true},
+    phone:      {type: String},
+    email:      {type: String},
+    address:    {type: String},
     question:   {type: String, },
 }, {timestamps: true});
 

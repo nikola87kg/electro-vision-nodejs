@@ -9,6 +9,7 @@ exports.createOrder = async (req, res, next) => {
             name: req.body.name,
             phone: req.body.phone,
             email: req.body.email,
+            address: req.body.address,
             question: req.body.question,
             orderList: req.body.orderList
         });

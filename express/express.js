@@ -5,6 +5,7 @@ const categoryRoute = require("./routes/categoryRoute");
 const orderRoute = require("./routes/orderRoute");
 const groupRoute = require("./routes/groupRoute");
 const productRoute = require("./routes/productRoute");
+const slideRoute = require("./routes/slideRoute");
 const galleryRoute = require("./routes/galleryRoute");
 const pricelistRoute = require("./routes/pricelistRoute");
 const authRoute = require("./routes/authRoute");
@@ -37,6 +38,7 @@ app.use("/api/groups",      groupRoute);
 app.use("/api/orders",      orderRoute);
 app.use("/api/pricelist",   pricelistRoute);
 app.use("/api/products",    productRoute);
+app.use("/api/slides",      slideRoute);
 
 /* EXPORT EXPRESS APP */
 module.exports = app;
