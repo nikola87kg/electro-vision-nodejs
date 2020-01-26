@@ -4,7 +4,7 @@ var router = express.Router();
 
 // Middleware
 const extractFile = require("../middleware/fileUpload");
-const resize = require("../middleware/resize");
+const resize = require("../middleware/resize-big");
 const checkAuth = require("../middleware/checkAuth");
 
 // Controllers

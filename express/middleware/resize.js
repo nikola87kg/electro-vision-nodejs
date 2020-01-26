@@ -6,7 +6,7 @@ module.exports = async(req, res, next) => {
     newPath = path.join('uploads', req.file.originalname)
     if(req.file.size > 50000) {
         sharp( req.file.path)
-            .resize(400)
+            .resize(1500)
             .toFile(newPath, function(err) {
             });
     } else {

@@ -2,7 +2,7 @@
 const env = require('dotenv').config().parsed;
 
 /* LOAD EXPRESS APP */
-const app = require("./express/express.js");
+const app = require("./app.js");
 
 /* LOAD DATABASE */
 var mongoose = require("mongoose");
@@ -15,6 +15,7 @@ const mongoose_url =
     + "/" + env.DB_NAME;
 
 mongoose.connect(mongoose_url, { retryWrites: true, useNewUrlParser: true });
+
 
 /* RUN SERVER */
 const http = require("http");

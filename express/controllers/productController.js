@@ -45,10 +45,14 @@ exports.createProduct = async (req, res, next) => {
 exports.getAllProducts = async (req, res, next) => {
     try {
         /* Query to DB - GET product list */
-        let productList = await Product.find()
-                                        .populate("group", ["_id", "name", "slug"])
-                                        .populate("category", ["_id", "name", "slug"])
-                                        .populate("brand", ["_id", "name", "slug", "image"])
+        let productList = await Product.find({ $and: [
+            {'group' : { $ne: null}},
+            {'category' : { $ne: null}},
+            {'brand' : { $ne: null}},
+        ]})
+            .populate("group", ["_id", "name", "slug"])
+            .populate("category", ["_id", "name", "slug"])
+            .populate("brand", ["_id", "name", "slug", "image"])
 
         if( productList ) {
             /* Send response with product list object */
